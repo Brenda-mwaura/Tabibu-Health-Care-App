@@ -8,7 +8,7 @@ class SuggestedClinic extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(
-        left: 15.0,
+        left: 18.0,
         right: 18.0,
       ),
       padding: const EdgeInsets.only(

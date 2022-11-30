@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/configs/styles.dart';
+import 'package:tabibu/data/data_search.dart';
 import 'package:tabibu/widgets/suggested_clinic_widget.dart';
 // import 'package:tabibu/widgets/appbar_widget.dart';
 
@@ -16,6 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      drawer: Drawer(),
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
@@ -67,19 +69,34 @@ class _HomeScreenState extends State<HomeScreen> {
                                 _scaffoldKey.currentState!.openDrawer();
                               },
                             ),
-                            const Expanded(
+                            Expanded(
+                                child: InkWell(
+                              onTap: () {
+                                showSearch(
+                                    context: context, delegate: DataSearch());
+                              },
                               child: TextField(
-                                decoration: InputDecoration(
+                                autofocus: false,
+                                onTap: () {
+                                  showSearch(
+                                      context: context, delegate: DataSearch());
+                                },
+                                textInputAction: TextInputAction.search,
+                                decoration: const InputDecoration(
                                   hintText: "Search Clinic",
+                                  focusColor: Colors.white,
+                                  fillColor: Colors.white,
                                 ),
                               ),
-                            ),
+                            )),
                             IconButton(
                               icon: const Icon(
                                 Icons.search,
                                 color: Styles.primaryColor,
                               ),
                               onPressed: () {
+                                showSearch(
+                                    context: context, delegate: DataSearch());
                                 print("your menu action here");
                               },
                             ),

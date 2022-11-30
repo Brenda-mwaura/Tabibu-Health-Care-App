@@ -10,6 +10,12 @@ class ClinicScreen extends StatefulWidget {
 class _ClinicScreenState extends State<ClinicScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Text("Clinics...."),
+        ),
+      ),
+    );
   }
 }
