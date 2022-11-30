@@ -14,4 +14,12 @@ class Styles {
             : (Responsive.isTall(context) ? 22 : 20),
         fontWeight: FontWeight.bold);
   }
+
+  static TextStyle normalText(BuildContext context) {
+    return TextStyle(
+      color: Colors.black87.withOpacity(0.7),
+      fontWeight: FontWeight.normal,
+      fontSize: Responsive.isTablet(context) ? 22 : 17,
+    );
+  }
 }

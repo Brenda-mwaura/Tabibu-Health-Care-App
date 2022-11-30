@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tabibu/configs/styles.dart';
 
 class ClinicWidget extends StatelessWidget {
   const ClinicWidget({Key? key}) : super(key: key);
@@ -8,6 +9,18 @@ class ClinicWidget extends StatelessWidget {
     return GestureDetector(
         onTap: () {},
         child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 7,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -15,20 +28,28 @@ class ClinicWidget extends StatelessWidget {
               Container(
                 width: 100,
                 height: 120,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/afya.jpeg"),
-                      fit: BoxFit.fill),
-                ),
+                decoration: BoxDecoration(
+                    image: const DecorationImage(
+                        image: AssetImage("assets/images/afya.jpeg"),
+                        fit: BoxFit.fill),
+                    borderRadius: BorderRadius.circular(5)),
               ),
               const SizedBox(width: 20),
               Expanded(
                 child: Container(
+                  padding: const EdgeInsets.all(6),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text("Clinic Name"),
+                      const Text(
+                        "Equity afya Thika",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
+                      ),
                       const SizedBox(
                         height: 10,
                       ),

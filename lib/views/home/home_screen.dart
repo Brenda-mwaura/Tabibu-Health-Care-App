@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/data_search.dart';
+import 'package:tabibu/views/home/components/home_list_view.dart';
 import 'package:tabibu/widgets/suggested_clinic_widget.dart';
 // import 'package:tabibu/widgets/appbar_widget.dart';
 
@@ -120,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ListView(
               shrinkWrap: true,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Container(
@@ -178,12 +179,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 20,
-                  itemBuilder: (context, index) {
-                    return Text("$index");
-                  },
+                Container(
+                  margin: const EdgeInsets.only(
+                    left: 18.0,
+                    right: 18.0,
+                  ),
+                  child: HomePageListView(),
                 )
               ],
             ),

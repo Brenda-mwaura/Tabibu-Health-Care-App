@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tabibu/views/clinics_screen.dart';
-import 'package:tabibu/views/home_screen.dart';
+import 'package:tabibu/views/clinics/clinics_screen.dart';
+import 'package:tabibu/views/home/home_screen.dart';
 
 class RouteGenerator {
   static const String homePage = '/';
