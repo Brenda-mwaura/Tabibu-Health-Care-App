@@ -199,54 +199,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        //container shadow at top
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 1,
-              blurRadius: 7,
-              offset: const Offset(0, 0), // changes position of shadow
-            ),
-          ],
-        ),
-
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-          child: GNav(
-            onTabChange: (index) {
-              print(index);
-            },
-            backgroundColor: Colors.white,
-            iconSize: 24,
-            color: Colors.black87,
-            activeColor: Styles.primaryColor,
-            tabBackgroundColor: const Color.fromARGB(255, 245, 245, 255),
-            padding: const EdgeInsets.all(16),
-            gap: 8,
-            tabs: const [
-              GButton(
-                icon: Icons.home,
-                text: 'Home',
-              ),
-              GButton(
-                icon: Icons.map,
-                text: 'Clinics',
-              ),
-              GButton(
-                icon: Icons.calendar_month,
-                text: 'Schedule',
-              ),
-              GButton(
-                icon: Icons.person,
-                text: 'Profile',
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }
