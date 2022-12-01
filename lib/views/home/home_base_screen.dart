@@ -46,7 +46,7 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
           child: GNav(
             onTabChange: (index) {
-              print(index);
+              // print(index);
               setState(() {
                 _currentIndex = index;
               });
