@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/configs/styles.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -29,7 +30,7 @@ class AppDrawer extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    "testuser@gmail.com",
+                    "doe@gmail.com",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -40,7 +41,7 @@ class AppDrawer extends StatelessWidget {
                     height: 2,
                   ),
                   Text(
-                    "Text User",
+                    "John Doe",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -63,7 +64,7 @@ class AppDrawer extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(RouteGenerator.homeBasePage);
               },
             ),
             ListTile(
@@ -79,7 +80,7 @@ class AppDrawer extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(RouteGenerator.clinicPage);
               },
             ),
             ListTile(
@@ -95,7 +96,7 @@ class AppDrawer extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(RouteGenerator.mapPage);
               },
             ),
             ListTile(
@@ -109,7 +110,7 @@ class AppDrawer extends StatelessWidget {
                     fontSize: 18,
                   )),
               onTap: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(RouteGenerator.profilePage);
               },
             ),
             ListTile(
@@ -125,7 +126,7 @@ class AppDrawer extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(RouteGenerator.appointmentPage);
               },
             ),
             ListTile(

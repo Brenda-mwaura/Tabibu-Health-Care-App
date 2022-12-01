@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/data_search.dart';
+import 'package:tabibu/widgets/app_drawer.dart';
 
 class ProfileScreen extends StatefulWidget {
   ProfileScreen({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
       key: _scaffoldKey,
-      drawer: const Drawer(),
+      drawer: const AppDrawer(),
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,

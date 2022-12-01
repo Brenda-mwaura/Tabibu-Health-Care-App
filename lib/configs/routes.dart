@@ -7,7 +7,8 @@ import 'package:tabibu/views/home/home_base_screen.dart';
 import 'package:tabibu/views/home/home_screen.dart';
 
 class RouteGenerator {
-  static const String homePage = '/';
+  static const String homeBasePage = '/';
+  static const String homePage = "home/";
   static const String clinicPage = "clinics/";
   static const String profilePage = "profile/";
   static const String appointmentPage = "/appointment";
@@ -17,9 +18,13 @@ class RouteGenerator {
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case homePage:
+      case homeBasePage:
         return MaterialPageRoute(
           builder: (_) => HomeBaseScreen(),
+        );
+      case homePage:
+        return MaterialPageRoute(
+          builder: (_) => HomeScreen(),
         );
       case clinicPage:
         return MaterialPageRoute(
