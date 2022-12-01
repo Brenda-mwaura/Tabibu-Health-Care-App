@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/data_search.dart';
 import 'package:tabibu/views/home/components/home_list_view.dart';
+import 'package:tabibu/widgets/app_drawer.dart';
 
 class ClinicScreen extends StatefulWidget {
   ClinicScreen({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class _ClinicScreenState extends State<ClinicScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: const Drawer(),
+      drawer: const AppDrawer(),
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
