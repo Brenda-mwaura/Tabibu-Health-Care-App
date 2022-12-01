@@ -7,10 +7,6 @@ class SuggestedClinic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(
-        left: 18.0,
-        right: 18.0,
-      ),
       padding: const EdgeInsets.only(
         bottom: 15,
         left: 1,
@@ -34,9 +30,12 @@ class SuggestedClinic extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width,
             height: 200.0,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              image: const DecorationImage(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10.0),
+                topRight: Radius.circular(10.0),
+              ),
+              image: DecorationImage(
                 image: AssetImage("assets/images/afya.jpeg"),
                 fit: BoxFit.cover,
               ),
