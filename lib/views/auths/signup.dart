@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/services/validators.dart';
 import 'package:tabibu/views/auths/auth_base.dart';
@@ -197,6 +198,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             ),
             const SizedBox(height: 24),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed(RouteGenerator.loginPage);
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    "Already have an account? ",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 13,
+                      color: Color.fromARGB(255, 154, 154, 154),
+                    ),
+                  ),
+                  Text(
+                    "Login",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 14,
+                      color: Styles.primaryColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
           ],
         ),
       ),

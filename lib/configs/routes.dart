@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/views/appointment/appointment_screen.dart';
+import 'package:tabibu/views/auths/forgot_password_screen.dart';
 import 'package:tabibu/views/auths/login.dart';
 import 'package:tabibu/views/auths/profile_screen.dart';
 import 'package:tabibu/views/auths/signup.dart';
@@ -15,6 +16,7 @@ class RouteGenerator {
   static const String mapPage = "/map";
   static const String loginPage = "/";
   static const String signUpPage = "/signup";
+  static const String forgotPasswordPage = "forgotPassword";
 
   RouteGenerator._() {}
 
@@ -31,6 +33,10 @@ class RouteGenerator {
       case signUpPage:
         return MaterialPageRoute(
           builder: (_) => SignUpScreen(),
+        );
+      case forgotPasswordPage:
+        return MaterialPageRoute(
+          builder: (_) => PasswordResetPhoneScreen(),
         );
       case clinicPage:
         return MaterialPageRoute(
