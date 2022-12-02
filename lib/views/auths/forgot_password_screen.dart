@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/services/validators.dart';
 import 'package:tabibu/views/auths/auth_base.dart';
 import 'package:tabibu/widgets/buttons/auth_button.dart';
@@ -45,7 +46,10 @@ class _PasswordResetPhoneScreenState extends State<PasswordResetPhoneScreen> {
               height: 30,
             ),
             AuthButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed(RouteGenerator.forgotPasswordOtpPage);
+              },
               child: const Text(
                 "Send OTP",
                 style: TextStyle(
