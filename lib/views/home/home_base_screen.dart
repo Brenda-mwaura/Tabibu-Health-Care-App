@@ -55,7 +55,8 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
             iconSize: 24,
             color: Colors.black87,
             activeColor: Styles.primaryColor,
-            tabBackgroundColor: const Color.fromARGB(255, 245, 245, 255),
+            tabBackgroundColor: Color.fromARGB(255, 244, 246, 250),
+            // const Color.fromARGB(255, 245, 245, 255),
             padding: const EdgeInsets.all(16),
             gap: 8,
             tabs: const [
