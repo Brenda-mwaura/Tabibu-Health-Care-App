@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/data_search.dart';
+import 'package:tabibu/views/appointment/components/cancelled_appointment_tabview.dart';
+import 'package:tabibu/views/appointment/components/completed_appointment_tabview.dart';
+import 'package:tabibu/views/appointment/components/upcoming_appointment_tabview.dart';
 import 'package:tabibu/widgets/app_drawer.dart';
 
 class AppointmentScreen extends StatefulWidget {
@@ -13,7 +16,6 @@ class AppointmentScreen extends StatefulWidget {
 class _AppointmentScreenState extends State<AppointmentScreen>
     with SingleTickerProviderStateMixin {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  //use tab controller for upcoming,completed,and cancelled appointments
   int index = 0;
   late TabController _tabController;
 
@@ -104,6 +106,23 @@ class _AppointmentScreenState extends State<AppointmentScreen>
                       ),
                     )
                   ],
+                ),
+              ),
+              //implement tab bar view
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.only(
+                    left: 10,
+                    right: 10,
+                  ),
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      UpcomingAppointmentsTabView(),
+                      CompletedAppointmentsTabView(),
+                      CancelledAppointmentTabView(),
+                    ],
+                  ),
                 ),
               ),
             ],
