@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/services/validators.dart';
 import 'package:tabibu/views/auths/auth_base.dart';
 import 'package:tabibu/widgets/buttons/auth_button.dart';
@@ -76,7 +77,9 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
               height: 30,
             ),
             AuthButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(RouteGenerator.loginPage);
+              },
               child: const Text(
                 "Change Password",
                 style: TextStyle(

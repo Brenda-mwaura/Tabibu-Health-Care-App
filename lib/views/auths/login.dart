@@ -96,7 +96,9 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 20,
             ),
             AuthButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(RouteGenerator.homeBasePage);
+              },
               child: const Text(
                 "Sign In",
                 style: TextStyle(

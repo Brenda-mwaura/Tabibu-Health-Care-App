@@ -157,7 +157,9 @@ class AppDrawer extends StatelessWidget {
                   fontSize: 18,
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(RouteGenerator.loginPage);
+              },
             ),
           ],
         ),

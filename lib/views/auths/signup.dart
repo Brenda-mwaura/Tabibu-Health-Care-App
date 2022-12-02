@@ -187,7 +187,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
               height: 20,
             ),
             AuthButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed(RouteGenerator.activationOtpPage);
+              },
               child: const Text(
                 "Sign Up",
                 style: TextStyle(
