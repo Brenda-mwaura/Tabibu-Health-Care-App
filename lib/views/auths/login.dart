@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: Colors.grey,
               ),
               keyboardType: TextInputType.text,
-              // FormValidator for phone number
+              inputAction: TextInputAction.next,
               validator: (value) => FormValidators().phoneNumberValidator(
                 value!,
               ),
@@ -56,6 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
               title: "Password",
               controller: passwordTextEditingController,
               obsecure: _obsecure,
+              inputAction: TextInputAction.done,
               onVisibilityChange: () {
                 setState(() {
                   _obsecure = !_obsecure;
@@ -72,6 +73,23 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             const SizedBox(
               height: 16,
+            ),
+            InkWell(
+              onTap: () {
+                // Navigator.of(context)
+                //     .pushNamed(RouteGenerator.forgotPasswordPage);
+              },
+              child: const Text(
+                "Forgot Password?",
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Color.fromARGB(255, 20, 106, 218),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
             ),
           ],
         ),

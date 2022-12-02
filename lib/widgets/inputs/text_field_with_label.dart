@@ -11,7 +11,8 @@ class TextFieldWithLabel extends StatelessWidget {
   final Color? color;
   final TextEditingController controller;
   final Function? onChange;
-  final keyboardType;
+  final TextInputType? keyboardType;
+  final TextInputAction? inputAction;
 
   const TextFieldWithLabel({
     Key? key,
@@ -26,6 +27,7 @@ class TextFieldWithLabel extends StatelessWidget {
     this.color,
     this.onChange,
     this.keyboardType,
+    this.inputAction,
   }) : super(key: key);
 
   @override
@@ -48,7 +50,8 @@ class TextFieldWithLabel extends StatelessWidget {
           obscureText: obsecure,
           keyboardType: keyboardType,
           validator: validator,
-          textInputAction: TextInputAction.next,
+          textInputAction: inputAction,
+          // TextInputAction.next,
           decoration: InputDecoration(
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/views/appointment/appointment_screen.dart';
+import 'package:tabibu/views/auths/login.dart';
 import 'package:tabibu/views/auths/profile_screen.dart';
 import 'package:tabibu/views/clinics/clinics_screen.dart';
 import 'package:tabibu/views/clinics/map_screen.dart';
 import 'package:tabibu/views/home/home_base_screen.dart';
-import 'package:tabibu/views/home/home_screen.dart';
 
 class RouteGenerator {
-  static const String homeBasePage = '/';
-  static const String homePage = "home/";
+  static const String homeBasePage = '/home';
   static const String clinicPage = "clinics/";
   static const String profilePage = "profile/";
   static const String appointmentPage = "/appointment";
   static const String mapPage = "/map";
+  static const String loginPage = "/";
 
   RouteGenerator._() {}
 
@@ -22,9 +22,9 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => HomeBaseScreen(),
         );
-      case homePage:
+      case loginPage:
         return MaterialPageRoute(
-          builder: (_) => HomeScreen(),
+          builder: (_) => LoginScreen(),
         );
       case clinicPage:
         return MaterialPageRoute(
