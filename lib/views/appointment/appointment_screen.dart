@@ -89,6 +89,7 @@ class _AppointmentScreenState extends State<AppointmentScreen>
                               ),
                               labelColor: Colors.white,
                               unselectedLabelColor: Colors.grey,
+
                               tabs: const [
                                 Tab(
                                   text: "Upcoming",
@@ -111,7 +112,7 @@ class _AppointmentScreenState extends State<AppointmentScreen>
               //implement tab bar view
               Expanded(
                 child: Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                     left: 10,
                     right: 10,
                   ),

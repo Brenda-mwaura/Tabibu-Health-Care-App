@@ -31,7 +31,7 @@ class ScheduleButton extends StatelessWidget {
         text,
         style: TextStyle(
           color: textColor,
-          fontSize: 18.0,
+          fontSize: 16.0,
           fontWeight: FontWeight.w500,
         ),
       ),

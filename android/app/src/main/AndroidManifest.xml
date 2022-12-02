@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tabibu">
+   
+   <!-- google maps -->
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="tabibu"
         android:name="${applicationName}"
@@ -30,5 +33,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+    <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyA2aGRHJL6eJ8oADnJ-1s0YC8H1WCoGnp4"/>
     </application>
 </manifest>

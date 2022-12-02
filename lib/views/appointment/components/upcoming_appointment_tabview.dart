@@ -21,7 +21,7 @@ class UpcomingAppointmentsTabView extends StatelessWidget {
                 child: Text(
                   "Nearest visit",
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -35,7 +35,7 @@ class UpcomingAppointmentsTabView extends StatelessWidget {
                 child: Text(
                   "Future visits",
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
