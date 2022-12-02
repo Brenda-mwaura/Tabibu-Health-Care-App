@@ -40,7 +40,7 @@ class TextFieldWithLabel extends StatelessWidget {
           style: const TextStyle(
             fontWeight: FontWeight.w700,
             color: Color.fromARGB(255, 106, 106, 106),
-            fontSize: 15,
+            fontSize: 16,
           ),
         ),
         const SizedBox(height: 8),
@@ -51,7 +51,6 @@ class TextFieldWithLabel extends StatelessWidget {
           keyboardType: keyboardType,
           validator: validator,
           textInputAction: inputAction,
-          // TextInputAction.next,
           decoration: InputDecoration(
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),

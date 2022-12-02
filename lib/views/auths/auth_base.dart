@@ -73,7 +73,7 @@ class AuthBase extends StatelessWidget {
                 subtitle!,
                 style: const TextStyle(
                   fontWeight: FontWeight.w700,
-                  fontSize: 15,
+                  fontSize: 18,
                   color: Color.fromARGB(255, 154, 154, 154),
                 ),
               ),

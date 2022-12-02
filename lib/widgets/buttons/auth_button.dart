@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tabibu/configs/styles.dart';
 
 class AuthButton extends StatelessWidget {
   final Function onPressed;
@@ -14,7 +15,7 @@ class AuthButton extends StatelessWidget {
         onPressed: () {
           onPressed();
         },
-        fillColor: const Color.fromARGB(255, 60, 55, 255),
+        fillColor: Styles.primaryColor,
         elevation: 5,
         padding: const EdgeInsets.symmetric(
           vertical: 13,
