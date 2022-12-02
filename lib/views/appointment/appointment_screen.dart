@@ -10,8 +10,24 @@ class AppointmentScreen extends StatefulWidget {
   State<AppointmentScreen> createState() => _AppointmentScreenState();
 }
 
-class _AppointmentScreenState extends State<AppointmentScreen> {
+class _AppointmentScreenState extends State<AppointmentScreen>
+    with SingleTickerProviderStateMixin {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  //use tab controller for upcoming,completed,and cancelled appointments
+  int index = 0;
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(() {
+      setState(() {
+        index = _tabController.index;
+        print(_tabController.index);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,60 +75,30 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                   color: Colors.grey.withOpacity(0.5),
                                   width: 1.0),
                               color: Colors.white),
-                          child: Row(
-                            children: [
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.menu,
-                                  color: Styles.primaryColor,
-                                ),
-                                onPressed: () {
-                                  print("your menu action here");
-                                  _scaffoldKey.currentState!.openDrawer();
-                                },
+                          //implement tab bar
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: TabBar(
+                              controller: _tabController,
+                              // indicatorColor: Styles.primaryColor,
+                              indicator: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8.0),
+                                color: Styles.primaryColor,
                               ),
-                              Expanded(
-                                  child: InkWell(
-                                onTap: () {
-                                  showSearch(
-                                      context: context, delegate: DataSearch());
-                                },
-                                child: TextField(
-                                  autofocus: false,
-                                  onTap: () {
-                                    showSearch(
-                                        context: context,
-                                        delegate: DataSearch());
-                                  },
-                                  textInputAction: TextInputAction.search,
-                                  decoration: const InputDecoration(
-                                    hintText: "Search Clinic",
-                                    focusColor: Colors.white,
-                                    fillColor: Colors.white,
-                                  ),
+                              labelColor: Colors.white,
+                              unselectedLabelColor: Colors.grey,
+                              tabs: const [
+                                Tab(
+                                  text: "Upcoming",
                                 ),
-                              )),
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.search,
-                                  color: Styles.primaryColor,
+                                Tab(
+                                  text: "Completed",
                                 ),
-                                onPressed: () {
-                                  showSearch(
-                                      context: context, delegate: DataSearch());
-                                  print("your menu action here");
-                                },
-                              ),
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.notifications,
-                                  color: Styles.primaryColor,
+                                Tab(
+                                  text: "Cancelled",
                                 ),
-                                onPressed: () {
-                                  print("your menu action here");
-                                },
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
