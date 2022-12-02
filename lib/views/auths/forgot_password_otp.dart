@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/views/auths/auth_base.dart';
 import 'package:tabibu/widgets/buttons/auth_button.dart';
 import 'package:tabibu/widgets/inputs/otp_input.dart';
@@ -95,7 +96,10 @@ class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen> {
               height: 30,
             ),
             AuthButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed(RouteGenerator.passwordResetPage);
+              },
               child: const Text(
                 "Verify OTP",
                 style: TextStyle(

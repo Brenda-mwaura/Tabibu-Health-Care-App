@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return AuthBase(
       title: "Welcome Back",
       subtitle: "Sign in to continue,",
-      image: "assets/images/img.svg",
+      // image: "assets/images/img.svg",
       body: Form(
         key: loginFormKey,
         child: Column(
@@ -60,6 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
               controller: passwordTextEditingController,
               obsecure: _obsecure,
               inputAction: TextInputAction.done,
+              keyboardType: TextInputType.text,
               onVisibilityChange: () {
                 setState(() {
                   _obsecure = !_obsecure;

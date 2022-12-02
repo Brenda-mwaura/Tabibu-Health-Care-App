@@ -20,7 +20,8 @@ class OtpInputBox extends StatelessWidget {
         decoration: const InputDecoration(
           hintText: "0",
           hintStyle: TextStyle(
-            fontSize: 24,
+            fontSize: 20,
+            color: Colors.grey,
             fontWeight: FontWeight.w700,
           ),
           enabledBorder: OutlineInputBorder(

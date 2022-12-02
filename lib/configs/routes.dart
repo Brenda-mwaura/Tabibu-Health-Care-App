@@ -3,6 +3,7 @@ import 'package:tabibu/views/appointment/appointment_screen.dart';
 import 'package:tabibu/views/auths/forgot_password_otp.dart';
 import 'package:tabibu/views/auths/forgot_password_screen.dart';
 import 'package:tabibu/views/auths/login.dart';
+import 'package:tabibu/views/auths/password_reset_screen.dart';
 import 'package:tabibu/views/auths/profile_screen.dart';
 import 'package:tabibu/views/auths/signup.dart';
 import 'package:tabibu/views/clinics/clinics_screen.dart';
@@ -18,7 +19,8 @@ class RouteGenerator {
   static const String loginPage = "/";
   static const String signUpPage = "/signup";
   static const String forgotPasswordPage = "/forgotPassword";
-  static const String forgotPasswordOtpPage = "forgotPasswordOTP";
+  static const String forgotPasswordOtpPage = "/forgotPasswordOTP";
+  static const String passwordResetPage = "/passwordReset";
 
   RouteGenerator._() {}
 
@@ -43,6 +45,10 @@ class RouteGenerator {
       case forgotPasswordOtpPage:
         return MaterialPageRoute(
           builder: (_) => ForgotPasswordOTPScreen(),
+        );
+      case passwordResetPage:
+        return MaterialPageRoute(
+          builder: (_) => PasswordResetScreen(),
         );
       case clinicPage:
         return MaterialPageRoute(
