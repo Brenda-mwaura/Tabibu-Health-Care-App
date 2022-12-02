@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/services/validators.dart';
 import 'package:tabibu/views/auths/auth_base.dart';
@@ -107,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(height: 24),
             GestureDetector(
               onTap: () {
-                // Navigator.of(context).pushNamed(RouteGenerator.signUpPage);
+                Navigator.of(context).pushNamed(RouteGenerator.signUpPage);
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
