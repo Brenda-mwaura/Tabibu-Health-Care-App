@@ -29,6 +29,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return AuthBase(
       title: "Create an Account",
       subtitle: "Sign up to book an appointment,",
+      image: "assets/images/signup.svg",
       body: Form(
         key: signupFormKey,
         child: Column(

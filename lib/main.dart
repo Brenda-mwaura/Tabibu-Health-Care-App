@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Tabibu",
+      title: "Tabibu Health",
       onGenerateTitle: (context) => "Tabibu",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -46,37 +46,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
-// void main() {
-//   runApp(MyApp());
-// }
-
-// class MyApp extends StatefulWidget {
-//   MyApp({Key? key}) : super(key: key);
-
-//   @override
-//   State<MyApp> createState() => _MyAppState();
-// }
-
-// class _MyAppState extends State<MyApp> {
-//   MaterialColor priSwatch = MaterialColor(
-//     const Color.fromARGB(255, 226, 35, 26).value,
-//     const <int, Color>{
-//       50: Color.fromARGB(255, 226, 35, 26),
-//     },
-//   );
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Tabibu Health',
-//       onGenerateTitle: (context) => "Tabibu",
-//       debugShowCheckedModeBanner: false,
-//       theme: ThemeData(
-//         // background: rgba(226, 35, 26, 1);
-//         primarySwatch: priSwatch,
-//       ),
-//       initialRoute: "/",
-//       onGenerateRoute: RouteGenerator.generateRoute,
-//     );
-//   }
-// }

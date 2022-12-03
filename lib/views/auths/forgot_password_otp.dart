@@ -26,8 +26,8 @@ class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen> {
     return AuthBase(
       title: "Enter your verification code",
       subtitle:
-          "We have sent you a 6 digit code to your phone. You can check your inbox.",
-      // image: "assets/images/forgot_password.svg",
+          "Enter the verification code sent to your phone, or click the resend button below,",
+      image: "assets/images/otp.svg",
       body: Form(
         key: otpFormKey,
         child: Column(

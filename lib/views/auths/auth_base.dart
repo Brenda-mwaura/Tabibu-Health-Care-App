@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class AuthBase extends StatelessWidget {
   final Widget body;
@@ -11,9 +12,9 @@ class AuthBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
           padding: const EdgeInsets.only(
             top: 10,
             left: 15,
@@ -26,6 +27,7 @@ class AuthBase extends StatelessWidget {
               Stack(
                 children: [
                   Material(
+                    color: Colors.transparent,
                     child: Align(
                       alignment: Alignment.topLeft,
                       child: InkWell(
@@ -51,10 +53,10 @@ class AuthBase extends StatelessWidget {
               SizedBox(
                 height: 200,
                 width: double.infinity,
-                // child: SvgPicture.asset(
-                //   image!,
-                //   fit: BoxFit.contain,
-                // ),
+                child: SvgPicture.asset(
+                  image!,
+                  fit: BoxFit.contain,
+                ),
               ),
               const SizedBox(
                 height: 10,
@@ -73,7 +75,7 @@ class AuthBase extends StatelessWidget {
                 subtitle!,
                 style: const TextStyle(
                   fontWeight: FontWeight.w700,
-                  fontSize: 18,
+                  fontSize: 15,
                   color: Color.fromARGB(255, 154, 154, 154),
                 ),
               ),

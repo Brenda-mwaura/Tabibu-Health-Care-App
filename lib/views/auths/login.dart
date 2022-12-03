@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return AuthBase(
       title: "Welcome Back",
       subtitle: "Sign in to continue,",
-      // image: "assets/images/img.svg",
+      image: "assets/images/login.svg",
       body: Form(
         key: loginFormKey,
         child: Column(

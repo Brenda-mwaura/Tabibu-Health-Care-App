@@ -26,7 +26,7 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
     return AuthBase(
       title: "Create new password",
       subtitle: "Enter your new password",
-      // image: "assets/images/forgot_password.svg",
+      image: "assets/images/password_reset.svg",
       body: Form(
         key: passwordResetFormKey,
         child: Column(

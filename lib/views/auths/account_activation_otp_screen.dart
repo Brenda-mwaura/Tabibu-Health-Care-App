@@ -24,7 +24,7 @@ class _ActivationOTPScreenState extends State<ActivationOTPScreen> {
   Widget build(BuildContext context) {
     return AuthBase(
       title: "Enter OTP",
-      subtitle: "Enter the OTP sent to your phone",
+      subtitle: "Enter the OTP sent to your phone,",
       image: "assets/images/otp.svg",
       body: Form(
         key: otpFormKey,
