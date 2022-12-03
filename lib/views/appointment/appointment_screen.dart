@@ -89,7 +89,9 @@ class _AppointmentScreenState extends State<AppointmentScreen>
                               ),
                               labelColor: Colors.white,
                               unselectedLabelColor: Colors.grey,
-
+                              labelStyle: const TextStyle(
+                                fontSize: 16.0,
+                              ),
                               tabs: const [
                                 Tab(
                                   text: "Upcoming",

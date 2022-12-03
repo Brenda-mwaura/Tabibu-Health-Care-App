@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:tabibu/views/clinics/clinic_details.dart';
 
 class HomePageListView extends StatelessWidget {
   const HomePageListView({Key? key}) : super(key: key);
@@ -7,7 +8,15 @@ class HomePageListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        // Navigator.pushNamed(context, ClinicDetailsScreen.routeName);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ClinicDetailsScreen(),
+          ),
+        );
+      },
       child: Container(
         height: 120,
         padding: EdgeInsets.all(8),
