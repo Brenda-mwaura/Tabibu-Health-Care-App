@@ -5,8 +5,11 @@ class AboutClinicTabView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("About clinic"),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: const Center(
+        child: Text("About clinic"),
+      ),
     );
   }
 }

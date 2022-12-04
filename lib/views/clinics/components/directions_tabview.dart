@@ -19,22 +19,18 @@ class _DirectionsTabViewState extends State<DirectionsTabView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scrollable(
-      viewportBuilder: (context, position) {
-        return GoogleMap(
-          gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
-            Factory<OneSequenceGestureRecognizer>(
-              () => EagerGestureRecognizer(),
-            ),
-          },
-          initialCameraPosition: _KInitialPosition,
-          onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
-          },
-          mapType: MapType.normal,
-          myLocationEnabled: true,
-        );
+    return GoogleMap(
+      gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+        Factory<OneSequenceGestureRecognizer>(
+          () => EagerGestureRecognizer(),
+        ),
       },
+      initialCameraPosition: _KInitialPosition,
+      onMapCreated: (GoogleMapController controller) {
+        _controller.complete(controller);
+      },
+      mapType: MapType.normal,
+      myLocationEnabled: true,
     );
   }
 }
