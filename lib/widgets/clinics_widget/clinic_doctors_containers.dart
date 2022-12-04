@@ -19,7 +19,7 @@ class DoctorsContainer extends StatelessWidget {
           ),
         ],
       ),
-      padding: const EdgeInsets.only(top: 15),
+      padding: const EdgeInsets.only(top: 12),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -36,7 +36,7 @@ class DoctorsContainer extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 10,
+            height: 8,
           ),
           const Text(
             "Dr. Chris Frazier",
@@ -47,7 +47,7 @@ class DoctorsContainer extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 7,
+            height: 5,
           ),
           const Text(
             "Therapist",
@@ -58,7 +58,7 @@ class DoctorsContainer extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 15,
+            height: 12,
           ),
           GestureDetector(
             onTap: () {},

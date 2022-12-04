@@ -91,6 +91,7 @@ class _AppointmentScreenState extends State<AppointmentScreen>
                               unselectedLabelColor: Colors.grey,
                               labelStyle: const TextStyle(
                                 fontSize: 16.0,
+                                fontWeight: FontWeight.w700,
                               ),
                               tabs: const [
                                 Tab(

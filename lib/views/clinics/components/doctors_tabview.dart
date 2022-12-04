@@ -9,7 +9,7 @@ class DoctorsTabView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20.0),
+      margin: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Scrollable(
         viewportBuilder: (context, position) {
           return SingleChildScrollView(
