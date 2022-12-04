@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/configs/styles.dart';
+import 'package:tabibu/services/navigation_service.dart';
+import 'package:tabibu/views/auths/profile_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);

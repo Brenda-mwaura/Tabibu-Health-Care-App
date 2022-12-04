@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tabibu/configs/routes.dart';
+import 'package:tabibu/services/navigation_service.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,6 +44,7 @@ class _MyAppState extends State<MyApp> {
       ),
       initialRoute: "/",
       onGenerateRoute: RouteGenerator.generateRoute,
+      navigatorKey: Navigate.instance.navigationKey,
     );
   }
 }

@@ -4,6 +4,9 @@ import 'package:tabibu/data/data_search.dart';
 import 'package:tabibu/views/appointment/components/cancelled_appointment_tabview.dart';
 import 'package:tabibu/views/appointment/components/completed_appointment_tabview.dart';
 import 'package:tabibu/views/appointment/components/upcoming_appointment_tabview.dart';
+import 'package:tabibu/views/clinics/components/about_tabview.dart';
+import 'package:tabibu/views/clinics/components/directions_tabview.dart';
+import 'package:tabibu/views/clinics/components/doctors_tabview.dart';
 import 'package:tabibu/widgets/app_drawer.dart';
 import 'package:tabibu/widgets/buttons/auth_button.dart';
 import 'package:tabibu/widgets/clinics_widget/schedule_bottom_sheet.dart';
@@ -96,6 +99,7 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                   unselectedLabelColor: Colors.grey,
                                   labelStyle: const TextStyle(
                                     fontSize: 16.0,
+                                    fontWeight: FontWeight.w700,
                                   ),
                                   tabs: const [
                                     Tab(
@@ -117,14 +121,19 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                     ),
                   ),
                   // button at the bottom of the screen
-                  // Expanded(
-                  //   child: Container(
-                  //     margin: const EdgeInsets.symmetric(horizontal: 20.0),
-                  //     child:
-                  //         TabBarView(controller: _tabController, children: []),
-                  //   ),
-                  // )
-                  //button at the bottom of the screen
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: TabBarView(
+                        controller: _tabController,
+                        children: [
+                          AboutClinicTabView(),
+                          DirectionsTabView(),
+                          DoctorsTabView(),
+                        ],
+                      ),
+                    ),
+                  )
                 ],
               ),
               Positioned(
