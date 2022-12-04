@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/widgets/buttons/schedule_button.dart';
+import 'package:tabibu/widgets/clinics_widget/schedule_bottom_sheet.dart';
 
 class ScheduleContainer extends StatelessWidget {
   const ScheduleContainer({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class ScheduleContainer extends StatelessWidget {
         top: 10,
         right: 10,
       ),
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         bottom: 10,
       ),
       decoration: BoxDecoration(
@@ -163,9 +164,10 @@ class ScheduleContainer extends StatelessWidget {
                       width: 1,
                     ),
                   ),
-                  child: const ScheduleButton(
+                  child: ScheduleButton(
+                    onPressed: () {},
                     text: "Cancel",
-                    fillColor: Color.fromARGB(255, 244, 246, 250),
+                    fillColor: const Color.fromARGB(255, 244, 246, 250),
                     textColor: Colors.black,
                   ),
                 ),
@@ -175,28 +177,73 @@ class ScheduleContainer extends StatelessWidget {
               ),
               Expanded(
                 child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(
+                    decoration: BoxDecoration(
                       color: Colors.white,
-                      width: 1,
+                      borderRadius: BorderRadius.circular(8.0),
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 1,
+                      ),
                     ),
-                  ),
-                  child: const ScheduleButton(
-                    // onPressed: () {
-                    //   showModalBottomSheet(
-                    //       isScrollControlled: true,
-                    //       context: context,
-                    //       context: context,
-                    //       builder: (context) {});
-                    // },
-                    text: "Reschedule",
-                    fillColor: Styles.primaryColor,
-                    textColor: Colors.white,
-                    // onPressed: _rescheduleFnc,
-                  ),
-                ),
+                    child: RawMaterialButton(
+                      onPressed: () {
+                        showModalBottomSheet(
+                            isScrollControlled: true,
+                            context: context,
+                            backgroundColor: Colors.transparent,
+                            builder: (context) {
+                              return ScheduleBottomSheet(
+                                formWidget: Form(
+                                  child: Column(
+                                    children: [
+                                      GestureDetector(
+                                        onHorizontalDragDown: (details) {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Container(
+                                          margin: const EdgeInsets.only(top: 0),
+                                          height: 5,
+                                          width: 50,
+                                          decoration: BoxDecoration(
+                                            color: Styles.primaryColor,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            });
+                      },
+                      fillColor: Styles.primaryColor,
+                      elevation: 5,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 15,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Text(
+                        "Reschedule",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    )
+                    //  ScheduleButton(
+                    //   onPressed: () {
+                    //     scheduleBtnFnc(context);
+                    //   },
+                    //   text: "Reschedule",
+                    //   fillColor: Styles.primaryColor,
+                    //   textColor: Colors.white,
+                    //   // onPressed: _rescheduleFnc,
+                    // ),
+                    ),
               ),
             ],
           ),
@@ -204,7 +251,4 @@ class ScheduleContainer extends StatelessWidget {
       ),
     );
   }
-  showModalBottomSheet(isScrollControlled:true,context:context,backgroundColor:Colors.transparent,builder:(context){
-
-  });
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ScheduleBottomSheet extends StatelessWidget {
-  const ScheduleBottomSheet({Key? key}) : super(key: key);
+  final Widget formWidget;
+  const ScheduleBottomSheet({Key? key, required this.formWidget})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +37,11 @@ class ScheduleBottomSheet extends StatelessWidget {
               ),
             ),
             child: ListView(
-              children: const [
-                SizedBox(
+              children: [
+                const SizedBox(
                   height: 15.0,
                 ),
+                formWidget
               ],
             ),
           );

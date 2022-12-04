@@ -4,21 +4,19 @@ class ScheduleButton extends StatelessWidget {
   final String text;
   final Color fillColor;
   final Color textColor;
-  // final Function onPressed;
+  final Function onPressed;
   const ScheduleButton({
     Key? key,
     required this.text,
     required this.fillColor,
     required this.textColor,
-    // required this.onPressed,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
-      onPressed: () {
-        // onPressed();
-      },
+      onPressed: onPressed(),
       fillColor: fillColor,
       elevation: 5,
       padding: const EdgeInsets.symmetric(
