@@ -6,6 +6,7 @@ import 'package:tabibu/views/appointment/components/completed_appointment_tabvie
 import 'package:tabibu/views/appointment/components/upcoming_appointment_tabview.dart';
 import 'package:tabibu/widgets/app_drawer.dart';
 import 'package:tabibu/widgets/buttons/auth_button.dart';
+import 'package:tabibu/widgets/clinics_widget/schedule_bottom_sheet.dart';
 
 class ClinicDetailsScreen extends StatefulWidget {
   ClinicDetailsScreen({Key? key}) : super(key: key);
@@ -130,19 +131,74 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                 bottom: 8,
                 left: 0,
                 right: 0,
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: AuthButton(
-                    onPressed: () {},
-                    child: const Text(
-                      "Book Appointment",
-                      style: TextStyle(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                  child: Container(
+                      decoration: BoxDecoration(
                         color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w500,
+                        borderRadius: BorderRadius.circular(8.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 1,
+                            blurRadius: 7,
+                            offset: const Offset(
+                                0, 0), // changes position of shadow
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
+                      margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: RawMaterialButton(
+                        onPressed: () {
+                          showModalBottomSheet(
+                              isScrollControlled: true,
+                              context: context,
+                              backgroundColor: Colors.transparent,
+                              builder: (context) {
+                                return ScheduleBottomSheet(
+                                  formWidget: Form(
+                                    child: Column(
+                                      children: [
+                                        GestureDetector(
+                                          onHorizontalDragDown: (details) {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Container(
+                                            margin:
+                                                const EdgeInsets.only(top: 0),
+                                            height: 5,
+                                            width: 50,
+                                            decoration: BoxDecoration(
+                                              color: Styles.primaryColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              });
+                        },
+                        fillColor: Styles.primaryColor,
+                        elevation: 5,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 15,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Text(
+                          "Book Appointment",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      )),
                 ),
               ),
             ],

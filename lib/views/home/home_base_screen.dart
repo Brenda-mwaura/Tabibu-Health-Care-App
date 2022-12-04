@@ -29,7 +29,6 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
       key: _scaffoldState,
       body: _screens[_currentIndex],
       bottomNavigationBar: Container(
-        //container shadow at top
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -41,7 +40,6 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
             ),
           ],
         ),
-
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
           child: GNav(
