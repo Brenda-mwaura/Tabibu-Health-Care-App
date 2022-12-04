@@ -184,6 +184,13 @@ class ScheduleContainer extends StatelessWidget {
                     ),
                   ),
                   child: const ScheduleButton(
+                    // onPressed: () {
+                    //   showModalBottomSheet(
+                    //       isScrollControlled: true,
+                    //       context: context,
+                    //       context: context,
+                    //       builder: (context) {});
+                    // },
                     text: "Reschedule",
                     fillColor: Styles.primaryColor,
                     textColor: Colors.white,
@@ -197,4 +204,7 @@ class ScheduleContainer extends StatelessWidget {
       ),
     );
   }
+  showModalBottomSheet(isScrollControlled:true,context:context,backgroundColor:Colors.transparent,builder:(context){
+
+  });
 }
