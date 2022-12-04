@@ -16,7 +16,6 @@ class _MapScreenState extends State<MapScreen> {
   static final CameraPosition _KInitialPosition =
       CameraPosition(target: _KMapCenter, zoom: 15.0, tilt: 0, bearing: 0);
 
-  //create a json for the markers
   final Map clinics = {
     "results": [
       {
