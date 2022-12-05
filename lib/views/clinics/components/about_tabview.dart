@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tabibu/widgets/clinics_widget/expandable_description.dart';
 
 class AboutClinicTabView extends StatelessWidget {
   const AboutClinicTabView({Key? key}) : super(key: key);
@@ -57,10 +58,10 @@ class AboutClinicTabView extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  height:double.infinity,
+                  width: MediaQuery.of(context).size.width,
+                  // height: MediaQuery.of(context).size.height,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    // borderRadius: BorderRadius.only(),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.5),
@@ -70,12 +71,69 @@ class AboutClinicTabView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //clinic name and location below it
-                      Text(" ")
-                    ],
+                  child: Container(
+                    margin: const EdgeInsets.only(
+                      left: 10,
+                      right: 10,
+                      bottom: 30,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // clinic name
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text(
+                          'Afya Clinic Nairobi CBD',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        // location icon and then address
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            //location icon to be in a rounded grey container
+                            Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: const Icon(
+                                Icons.location_on,
+                                color: Colors.red,
+                              ),
+                            ),
+
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            const Text(
+                              'Makao Road, 67N',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
+                        // clinic description with a read more text that expands the description
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        ExpandableDescription(
+                          description:
+                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel tincidunt lacinia, nunc nisl aliquam nunc, eget aliquam nisl nisl sit amet lorem. Sed euismod, nunc vel tincidunt lacinia, nunc nisl aliquam nunc, eget aliquam nisl nisl sit amet lorem.',
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
