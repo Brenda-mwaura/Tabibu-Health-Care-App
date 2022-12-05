@@ -67,10 +67,11 @@ class ReviewsContainer extends StatelessWidget {
                     ),
                   ],
                 ),
-                Spacer(),
-                const Icon(
+                const Spacer(),
+                Icon(
                   Icons.star,
                   color: Colors.orange,
+                  size: MediaQuery.of(context).size.width * 0.05,
                 ),
                 const Text(
                   '4.5',

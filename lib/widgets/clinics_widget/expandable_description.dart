@@ -58,7 +58,7 @@ class _ExpandableDescriptionState extends State<ExpandableDescription> {
                     });
                   },
                   child: Text(
-                    flag ? "Read more..." : "Read less...",
+                    flag ? "Read more" : "Read less",
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,

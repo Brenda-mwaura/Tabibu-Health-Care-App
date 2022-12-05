@@ -62,7 +62,6 @@ class AboutClinicTabView extends StatelessWidget {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  // height: MediaQuery.of(context).size.height,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     boxShadow: [
@@ -83,7 +82,6 @@ class AboutClinicTabView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // clinic name
                         const SizedBox(
                           height: 10,
                         ),
@@ -94,13 +92,11 @@ class AboutClinicTabView extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        // location icon and then address
                         const SizedBox(
                           height: 10,
                         ),
                         Row(
                           children: [
-                            //location icon to be in a rounded grey container
                             Container(
                               height: 30,
                               width: 30,
@@ -113,7 +109,6 @@ class AboutClinicTabView extends StatelessWidget {
                                 color: Colors.red,
                               ),
                             ),
-
                             const SizedBox(
                               width: 5,
                             ),
@@ -127,7 +122,6 @@ class AboutClinicTabView extends StatelessWidget {
                             ),
                           ],
                         ),
-                        // clinic description title
                         const SizedBox(
                           height: 10,
                         ),
@@ -145,13 +139,53 @@ class AboutClinicTabView extends StatelessWidget {
                           description:
                               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel tincidunt lacinia, nunc nisl aliquam nunc, eget aliquam nisl nisl sit amet lorem. Sed euismod, nunc vel tincidunt lacinia, nunc nisl aliquam nunc, eget aliquam nisl nisl sit amet lorem.',
                         ),
+                        // preview images
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text(
+                          'Preview',
+                          style: TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.178,
+                          width: double.infinity,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 5,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                margin: const EdgeInsets.only(
+                                  right: 10,
+                                ),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.178,
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  image: const DecorationImage(
+                                    image:
+                                        AssetImage('assets/images/afya.jpeg'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
                         const SizedBox(
                           height: 10,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
+                            Text(
                               'Reviews',
                               style: TextStyle(
                                 fontSize: 19,
@@ -159,11 +193,12 @@ class AboutClinicTabView extends StatelessWidget {
                               ),
                             ),
                             SizedBox(width: 8),
-                            const Icon(
+                            Icon(
                               Icons.star,
                               color: Colors.orange,
+                              size: MediaQuery.of(context).size.width * 0.05,
                             ),
-                            const Text(
+                            Text(
                               '4.5',
                               style: TextStyle(
                                 fontSize: 19,
@@ -171,7 +206,7 @@ class AboutClinicTabView extends StatelessWidget {
                               ),
                             ),
                             SizedBox(width: 3),
-                            const Text(
+                            Text(
                               '(12)',
                               style: TextStyle(
                                 color: Colors.grey,
@@ -180,7 +215,7 @@ class AboutClinicTabView extends StatelessWidget {
                               ),
                             ),
                             Spacer(),
-                            const Text(
+                            Text(
                               'See all',
                               style: TextStyle(
                                 fontSize: 19,
@@ -200,6 +235,7 @@ class AboutClinicTabView extends StatelessWidget {
                             top: 10,
                           ),
                           child: SizedBox(
+                            width: double.infinity,
                             height: MediaQuery.of(context).size.height * 0.19,
                             child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
