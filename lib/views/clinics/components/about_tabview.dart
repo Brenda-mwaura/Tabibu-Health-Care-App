@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/widgets/clinics_widget/expandable_description.dart';
 
 class AboutClinicTabView extends StatelessWidget {
@@ -124,13 +125,71 @@ class AboutClinicTabView extends StatelessWidget {
                             ),
                           ],
                         ),
-                        // clinic description with a read more text that expands the description
+                        // clinic description title
                         const SizedBox(
                           height: 10,
+                        ),
+                        const Text(
+                          'Description',
+                          style: TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
                         ),
                         ExpandableDescription(
                           description:
                               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel tincidunt lacinia, nunc nisl aliquam nunc, eget aliquam nisl nisl sit amet lorem. Sed euismod, nunc vel tincidunt lacinia, nunc nisl aliquam nunc, eget aliquam nisl nisl sit amet lorem.',
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'Reviews',
+                              style: TextStyle(
+                                fontSize: 19,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(width: 8),
+                            const Icon(
+                              Icons.star,
+                              color: Colors.orange,
+                            ),
+                            const Text(
+                              '4.5',
+                              style: TextStyle(
+                                fontSize: 19,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            SizedBox(width: 3),
+                            const Text(
+                              '(12)',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 19,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Spacer(),
+                            const Text(
+                              'See all',
+                              style: TextStyle(
+                                fontSize: 19,
+                                fontWeight: FontWeight.w500,
+                                color: Styles.primaryColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
                         ),
                       ],
                     ),
