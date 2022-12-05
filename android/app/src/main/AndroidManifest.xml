@@ -8,9 +8,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
    <application
-        android:label="tabibu"
+        android:label="Tabibu"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -41,3 +41,4 @@
                android:value="AIzaSyA2aGRHJL6eJ8oADnJ-1s0YC8H1WCoGnp4"/>
     </application>
 </manifest>
+

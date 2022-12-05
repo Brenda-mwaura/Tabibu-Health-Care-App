@@ -11,9 +11,11 @@ import 'package:tabibu/views/clinics/clinics_screen.dart';
 import 'package:tabibu/views/clinics/map_screen.dart';
 import 'package:tabibu/views/home/home_base_screen.dart';
 import 'package:tabibu/views/welcome/splash_screen.dart';
+import 'package:tabibu/views/welcome/welcome_screen.dart';
 
 class RouteGenerator {
   static const String homeBasePage = '/home';
+  static const String welcomePage = "/welcome";
   static const String clinicPage = "clinics/";
   static const String profilePage = "profile/";
   static const String appointmentPage = "/appointment";
@@ -37,6 +39,10 @@ class RouteGenerator {
       case homeBasePage:
         return MaterialPageRoute(
           builder: (_) => HomeBaseScreen(),
+        );
+      case welcomePage:
+        return MaterialPageRoute(
+          builder: (_) => WelcomeScreen(),
         );
       case loginPage:
         return MaterialPageRoute(

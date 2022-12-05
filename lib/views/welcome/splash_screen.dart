@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void goNext() {
     Timer(Duration(seconds: 3), () async {
-      Navigator.of(context).pushNamed(RouteGenerator.loginPage);
+      Navigator.of(context).pushNamed(RouteGenerator.welcomePage);
     });
   }
 }
