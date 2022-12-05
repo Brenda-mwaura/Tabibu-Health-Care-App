@@ -6,7 +6,11 @@ class ReviewsContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8),
+      margin: const EdgeInsets.only(
+        left: 5.0,
+        right: 5,
+      ),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),
@@ -26,8 +30,8 @@ class ReviewsContainer extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  height: 40,
-                  width: 40,
+                  height: 45,
+                  width: 45,
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.circular(50),
@@ -40,21 +44,20 @@ class ReviewsContainer extends StatelessWidget {
                 const SizedBox(
                   width: 5,
                 ),
-                // name and date below
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
+                  children: const [
+                    Text(
                       'John Doe',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 5,
                     ),
-                    const Text(
+                    Text(
                       '12th May 2021',
                       style: TextStyle(
                         fontSize: 14,
@@ -64,7 +67,6 @@ class ReviewsContainer extends StatelessWidget {
                     ),
                   ],
                 ),
-
                 Spacer(),
                 const Icon(
                   Icons.star,
@@ -84,10 +86,10 @@ class ReviewsContainer extends StatelessWidget {
             height: 10,
           ),
           const Text(
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel tincidunt lacinia, nunc nisl aliquam nunc, eget aliquam nisl nisl sit amet lorem. Sed euismod, nunc vel tincidunt lacinia, nunc nisl aliquam nunc, eget aliquam nisl nisl sit amet lorem.',
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel tincidunt lacinia, nunc nisl aliquam nisl, eu aliquam nisl nisl sit amet nisl. Sed euismod, nunc vel tincidunt lacinia, nunc nisl aliquam nisl, eu aliquam nisl nisl sit amet nisl.',
             style: TextStyle(
                 fontSize: 16, fontWeight: FontWeight.w500, color: Colors.grey),
-            maxLines: 2,
+            maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),
         ],

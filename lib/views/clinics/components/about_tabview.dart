@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/widgets/clinics_widget/expandable_description.dart';
+import 'package:tabibu/widgets/clinics_widget/reviews_container.dart';
 
 class AboutClinicTabView extends StatelessWidget {
   const AboutClinicTabView({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class AboutClinicTabView extends StatelessWidget {
           return SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
                   height: 8,
@@ -190,6 +192,27 @@ class AboutClinicTabView extends StatelessWidget {
                         ),
                         const SizedBox(
                           height: 10,
+                        ),
+                        Container(
+                          color: Colors.grey[200],
+                          padding: const EdgeInsets.only(
+                            bottom: 10,
+                            top: 10,
+                          ),
+                          child: SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.19,
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 10,
+                                itemBuilder: (context, index) {
+                                  print('$index');
+                                  return SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.8,
+                                    child: ReviewsContainer(),
+                                  );
+                                }),
+                          ),
                         ),
                       ],
                     ),
