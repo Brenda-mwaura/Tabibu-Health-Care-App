@@ -185,28 +185,28 @@ class AboutClinicTabView extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
+                            const Text(
                               'Reviews',
                               style: TextStyle(
                                 fontSize: 19,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Icon(
                               Icons.star,
                               color: Colors.orange,
                               size: MediaQuery.of(context).size.width * 0.05,
                             ),
-                            Text(
+                            const Text(
                               '4.5',
                               style: TextStyle(
                                 fontSize: 19,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            SizedBox(width: 3),
-                            Text(
+                            const SizedBox(width: 3),
+                            const Text(
                               '(12)',
                               style: TextStyle(
                                 color: Colors.grey,
@@ -214,8 +214,8 @@ class AboutClinicTabView extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            Spacer(),
-                            Text(
+                            const Spacer(),
+                            const Text(
                               'See all',
                               style: TextStyle(
                                 fontSize: 19,

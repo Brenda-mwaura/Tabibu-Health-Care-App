@@ -10,6 +10,7 @@ import 'package:tabibu/views/auths/signup.dart';
 import 'package:tabibu/views/clinics/clinics_screen.dart';
 import 'package:tabibu/views/clinics/map_screen.dart';
 import 'package:tabibu/views/home/home_base_screen.dart';
+import 'package:tabibu/views/welcome/splash_screen.dart';
 
 class RouteGenerator {
   static const String homeBasePage = '/home';
@@ -17,17 +18,22 @@ class RouteGenerator {
   static const String profilePage = "profile/";
   static const String appointmentPage = "/appointment";
   static const String mapPage = "/map";
-  static const String loginPage = "/";
+  static const String loginPage = "/login";
   static const String signUpPage = "/signup";
   static const String forgotPasswordPage = "/forgotPassword";
   static const String forgotPasswordOtpPage = "/forgotPasswordOTP";
   static const String passwordResetPage = "/passwordReset";
   static const String activationOtpPage = "/activate";
+  static const String splashPage = "/";
 
   RouteGenerator._() {}
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case splashPage:
+        return MaterialPageRoute(
+          builder: (_) => SplashScreen(),
+        );
       case homeBasePage:
         return MaterialPageRoute(
           builder: (_) => HomeBaseScreen(),
