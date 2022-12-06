@@ -148,8 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
               width: double.infinity,
               child: RawMaterialButton(
                 onPressed: () {},
-                fillColor: Color.fromARGB(255, 239, 239, 239),
-                focusColor: Color.fromARGB(255, 20, 106, 218),
+                fillColor: Styles.primaryColor,
                 elevation: 0,
                 padding: const EdgeInsets.symmetric(
                   vertical: 13,
@@ -157,6 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
+                focusColor: Color.fromARGB(255, 20, 106, 218),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
