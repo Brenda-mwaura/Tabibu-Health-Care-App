@@ -58,7 +58,10 @@ class TextFieldWithLabel extends StatelessWidget {
             fillColor: const Color.fromARGB(255, 245, 170, 51),
             focusedBorder: OutlineInputBorder(
               borderSide: const BorderSide(
-                  color: Color.fromARGB(255, 20, 106, 218), width: 2.0),
+                color: Colors.grey,
+                // Color.fromARGB(255, 20, 106, 218),
+                width: 2.0,
+              ),
               borderRadius: BorderRadius.circular(5),
             ),
             hintText: hintText,
