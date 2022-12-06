@@ -3,6 +3,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/data_search.dart';
+import 'package:tabibu/views/clinics/clinic_details.dart';
 import 'package:tabibu/views/home/components/home_list_view.dart';
 import 'package:tabibu/widgets/app_drawer.dart';
 import 'package:tabibu/widgets/suggested_clinic_widget.dart';
@@ -147,7 +148,17 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             const SizedBox(height: 10),
-                            const SuggestedClinic(),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ClinicDetailsScreen(),
+                                  ),
+                                );
+                              },
+                              child: const SuggestedClinic(),
+                            ),
                             const SizedBox(
                               height: 10,
                             ),

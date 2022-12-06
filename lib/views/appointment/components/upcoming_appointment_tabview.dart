@@ -49,7 +49,7 @@ class UpcomingAppointmentsTabView extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: 6,
                 itemBuilder: (context, index) {
-                  return ScheduleContainer();
+                  return const ScheduleContainer();
                 },
               ),
             ],

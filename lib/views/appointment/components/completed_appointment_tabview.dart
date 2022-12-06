@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:tabibu/widgets/clinics_widget/appoinment_container.dart';
 
 class CompletedAppointmentsTabView extends StatelessWidget {
   const CompletedAppointmentsTabView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Completed Appointments"),
+    return Scrollable(
+      viewportBuilder: (context, position) {
+        return SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 5,
+              ),
+              ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 6,
+                itemBuilder: (context, index) {
+                  return const AppointmentContainer(
+                    status: "Completed",
+                    statusColor: Colors.green,
+                  );
+                },
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }
