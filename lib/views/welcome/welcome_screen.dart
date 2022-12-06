@@ -12,8 +12,9 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  PageController _controller = PageController();
+  final PageController _controller = PageController();
   bool _isLastPage = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,98 +36,94 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 }
               },
               children: [
-                Container(
-                  child: Column(
-                    children: [
-                      Expanded(
-                        // flex: 3,
-                        child: SizedBox(
-                          height: 200,
-                          width: double.infinity,
-                          child: SvgPicture.asset(
-                            "assets/images/doc.svg",
-                            fit: BoxFit.contain,
-                          ),
+                Column(
+                  children: [
+                    Expanded(
+                      // flex: 3,
+                      child: SizedBox(
+                        // height: 200,
+                        width: double.infinity,
+                        child: SvgPicture.asset(
+                          "assets/images/doc.svg",
+                          fit: BoxFit.contain,
                         ),
                       ),
-                      Expanded(
-                        //   flex: 2,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text(
-                                'Welcome to Tabibu',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                    ),
+                    Expanded(
+                      //   flex: 2,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text(
+                              'Welcome to Tabibu',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
                               ),
-                              SizedBox(
-                                height: 10,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'Tabibu is a platform that connects you to a doctor in a few minutes',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.grey,
                               ),
-                              Text(
-                                'Tabibu is a platform that connects you to a doctor in a few minutes',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 // Page 2
-                Container(
-                  child: Column(
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: SizedBox(
-                          height: 200,
-                          width: double.infinity,
-                          child: SvgPicture.asset(
-                            "assets/images/doctors.svg",
-                            fit: BoxFit.contain,
-                          ),
+                Column(
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: SizedBox(
+                        height: 200,
+                        width: double.infinity,
+                        child: SvgPicture.asset(
+                          "assets/images/locate.svg",
+                          fit: BoxFit.contain,
                         ),
                       ),
-                      Expanded(
-                        flex: 2,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Welcome to Tabibu',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Welcome to Tabibu',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
                               ),
-                              SizedBox(
-                                height: 10,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'Tabibu is a platform that connects you to a doctor in a few minutes',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.grey,
                               ),
-                              Text(
-                                'Tabibu is a platform that connects you to a doctor in a few minutes',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 // Page 3
                 Container(
