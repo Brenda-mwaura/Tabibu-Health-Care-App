@@ -101,12 +101,11 @@ class _MapScreenState extends State<MapScreen> {
               snippet: clinic["location"],
             ),
             draggable: true,
-            // create marker
-            icon: pinLocationIcon,
-            // pinLocationIcon,
-            // BitmapDescriptor.defaultMarkerWithHue(
-            //   BitmapDescriptor.hueViolet,
-            // ),
+
+            // icon: pinLocationIcon,
+            icon: BitmapDescriptor.defaultMarkerWithHue(
+              BitmapDescriptor.hueViolet,
+            ),
           ),
         )
         .toSet();
@@ -116,6 +115,11 @@ class _MapScreenState extends State<MapScreen> {
   // void _onMapCreated(GoogleMapController controller) {
   //   _controller.complete(controller);
   // }
+  // mylocation button
+  void _myLocation() async {
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(_KInitialPosition));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,12 +127,13 @@ class _MapScreenState extends State<MapScreen> {
       body: SafeArea(
         child: GoogleMap(
           initialCameraPosition: _KInitialPosition,
+          myLocationEnabled: true,
+          myLocationButtonEnabled: true,
           onMapCreated: (GoogleMapController controller) {
             _controller.complete(controller);
           },
           markers: _createMarker(),
           mapType: MapType.normal,
-          myLocationEnabled: true,
         ),
       ),
     );
