@@ -23,6 +23,7 @@ class _ActivationOTPScreenState extends State<ActivationOTPScreen> {
   @override
   Widget build(BuildContext context) {
     return AuthBase(
+      showBackIcon: true,
       title: "Enter OTP",
       subtitle: "Enter the OTP sent to your phone,",
       image: "assets/images/otp.svg",

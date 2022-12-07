@@ -24,6 +24,7 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
   @override
   Widget build(BuildContext context) {
     return AuthBase(
+      showBackIcon: true,
       title: "Create new password",
       subtitle: "Enter your new password",
       image: "assets/images/password_reset.svg",

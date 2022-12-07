@@ -21,6 +21,7 @@ class _PasswordResetPhoneScreenState extends State<PasswordResetPhoneScreen> {
   @override
   Widget build(BuildContext context) {
     return AuthBase(
+      showBackIcon: true,
       title: "Forgot Password?",
       subtitle: "Please enter the phone number associated with the account,",
       image: "assets/images/forgot_password.svg",

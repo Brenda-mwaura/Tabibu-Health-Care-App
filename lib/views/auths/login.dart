@@ -29,6 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return AuthBase(
+      showBackIcon: false,
       title: "Welcome Back",
       subtitle: "Sign in to continue,",
       image: "assets/images/login.svg",

@@ -27,6 +27,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return AuthBase(
+      showBackIcon: true,
       title: "Create an Account",
       subtitle: "Sign up to book an appointment,",
       image: "assets/images/signup.svg",

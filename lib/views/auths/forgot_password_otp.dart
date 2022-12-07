@@ -24,6 +24,7 @@ class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen> {
   @override
   Widget build(BuildContext context) {
     return AuthBase(
+      showBackIcon: true,
       title: "Enter your verification code",
       subtitle:
           "Enter the verification code sent to your phone, or click the resend button below,",
