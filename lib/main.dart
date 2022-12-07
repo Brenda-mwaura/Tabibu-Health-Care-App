@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:tabibu/configs/routes.dart';
-import 'package:tabibu/providers/permissions.dart';
+import 'package:tabibu/providers/geolocation_provider.dart.dart';
 import 'package:tabibu/services/navigation_service.dart';
 
 void main() {
@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: permissionProvider),
+        ChangeNotifierProvider.value(value: geolocationProvider),
       ],
       child: MaterialApp(
         title: "Tabibu Health",

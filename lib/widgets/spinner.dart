@@ -6,7 +6,6 @@ class AppSpinner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // make a circular progress indicator
     return const Center(
       child: CircularProgressIndicator(
         color: Styles.primaryColor,
