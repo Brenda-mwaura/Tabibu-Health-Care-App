@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:tabibu/configs/routes.dart';
+import 'package:tabibu/providers/permissions.dart';
 import 'package:tabibu/services/navigation_service.dart';
 
 void main() {
@@ -31,20 +33,25 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Tabibu Health",
-      onGenerateTitle: (context) => "Tabibu",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.light,
-        focusColor: Colors.black,
-        scaffoldBackgroundColor: Colors.grey[100],
-        primarySwatch: Colors.red,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: permissionProvider),
+      ],
+      child: MaterialApp(
+        title: "Tabibu Health",
+        onGenerateTitle: (context) => "Tabibu",
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          brightness: Brightness.light,
+          focusColor: Colors.black,
+          scaffoldBackgroundColor: Colors.grey[100],
+          primarySwatch: Colors.red,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        initialRoute: "/",
+        onGenerateRoute: RouteGenerator.generateRoute,
+        navigatorKey: Navigate.instance.navigationKey,
       ),
-      initialRoute: "/",
-      onGenerateRoute: RouteGenerator.generateRoute,
-      navigatorKey: Navigate.instance.navigationKey,
     );
   }
 }

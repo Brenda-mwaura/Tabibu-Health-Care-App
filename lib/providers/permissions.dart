@@ -3,7 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:location/location.dart' as location_package;
 
-class AppPermissionProvider with ChangeNotifier {
+class PermissionProvider with ChangeNotifier {
   PermissionStatus _locationStatus = PermissionStatus.denied;
   LatLng? _locationCenter;
   final location_package.Location _location = location_package.Location();
@@ -46,3 +46,5 @@ class AppPermissionProvider with ChangeNotifier {
     }
   }
 }
+
+PermissionProvider permissionProvider = PermissionProvider();
