@@ -48,7 +48,7 @@ class _MapScreenState extends State<MapScreen> {
 
   Future<void> _setClinicMarker() async {
     final Uint8List markerIcon =
-        await getBytesFromAsset('assets/images/marker.png', 100);
+        await getBytesFromAsset('assets/images/marker.png', 90);
     pinLocationIcon = BitmapDescriptor.fromBytes(markerIcon);
   }
 
@@ -56,6 +56,8 @@ class _MapScreenState extends State<MapScreen> {
     "Annex clinic": {"lat": -1.2921, "long": 36.8219},
     "Mama Lucy": {"lat": -1.2921, "long": 36.8249},
     "Google Plex": {"lat": 37.4219999, "long": -122.0872462},
+    "St Joseph Clinic": {"lat": -0.4923, "long": 36.3476},
+    "St Mary's Clinic": {"lat": -0.4953, "long": 36.3283}
   };
   CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();

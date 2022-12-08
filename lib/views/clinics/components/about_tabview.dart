@@ -20,22 +20,57 @@ class AboutClinicTabView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Stack(
                   children: [
                     Container(
                       height: 200,
-                      width: double.infinity,
+                      width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
-                        ),
+                        borderRadius: BorderRadius.circular(10),
                         image: const DecorationImage(
                           image: AssetImage('assets/images/afya.jpeg'),
                           fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: 35,
+                                width: 35,
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.8),
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: const Icon(
+                                  Icons.call,
+                                  color: Styles.primaryColor,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 18,
+                              ),
+                              Container(
+                                height: 35,
+                                width: 35,
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.8),
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: const Icon(
+                                  Icons.mail,
+                                  color: Styles.primaryColor,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

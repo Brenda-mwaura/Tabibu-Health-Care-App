@@ -4,6 +4,7 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/configs/styles.dart';
+import 'package:tabibu/utils/size_utils.dart';
 
 class WelcomeScreen extends StatefulWidget {
   WelcomeScreen({Key? key}) : super(key: key);
@@ -22,73 +23,52 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     super.dispose();
   }
 
-  final List<PageViewModel> pages = [
-    PageViewModel(
-      title: "Welcome to Tabibu",
-      body:
-          "Tabibu is a platform that helps you locate the nearest clinic and book appointments at the comfort of your home",
-      image: Center(
-        child: SvgPicture.asset('assets/images/doctors.svg'),
-      ),
-      decoration: const PageDecoration(
-        titleTextStyle: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-        ),
-        bodyTextStyle: TextStyle(
-          fontSize: 16,
-          color: Colors.grey,
-          fontWeight: FontWeight.w400,
-        ),
-      ),
-    ),
-    //page 2
-    PageViewModel(
-      title: "Book an appointment",
-      body:
-          "Book an appointment at your preferred clinic and get an instant confirmation",
-      image: Center(
-        child: SvgPicture.asset('assets/images/medical_research.svg'),
-      ),
-      decoration: const PageDecoration(
-        titleTextStyle: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-        ),
-        bodyTextStyle: TextStyle(
-          fontSize: 16,
-          color: Colors.grey,
-        ),
-      ),
-    ),
-    //page 3
-    PageViewModel(
-      title: "Quality Healthcare",
-      body:
-          "Get quality healthcare from the best doctors in the country with no hassle",
-      image: Center(
-        child: SvgPicture.asset('assets/images/doc.svg'),
-      ),
-      decoration: const PageDecoration(
-        titleTextStyle: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-        ),
-        bodyTextStyle: TextStyle(
-          fontSize: 16,
-          color: Colors.grey,
-        ),
-      ),
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.fromLTRB(12, 80, 12, 12),
         child: IntroductionScreen(
-          pages: pages,
+          pages: [
+            PageViewModel(
+              title: "Welcome to Tabibu",
+              body:
+                  "Tabibu is a platform that helps you locate the nearest clinic and book appointments at the comfort of your home",
+              image: Center(
+                child: SvgPicture.asset('assets/images/doctors.svg'),
+              ),
+              decoration: PageDecoration(
+                titleTextStyle: Styles.heading1(context),
+                bodyTextStyle: Styles.bodyText1(context),
+              ),
+            ),
+            //page 2
+            PageViewModel(
+              title: "Book an appointment",
+              body:
+                  "Book an appointment at your preferred clinic and get an instant confirmation",
+              image: Center(
+                child: SvgPicture.asset('assets/images/medical_research.svg'),
+              ),
+              decoration: PageDecoration(
+                titleTextStyle: Styles.heading1(context),
+                bodyTextStyle: Styles.bodyText1(context),
+              ),
+            ),
+            //page 3
+            PageViewModel(
+              title: "Quality Healthcare",
+              body:
+                  "Get quality healthcare from the best doctors in the country with no hassle",
+              image: Center(
+                child: SvgPicture.asset('assets/images/doc.svg'),
+              ),
+              decoration: PageDecoration(
+                titleTextStyle: Styles.heading1(context),
+                bodyTextStyle: Styles.bodyText1(context),
+              ),
+            ),
+          ],
           dotsDecorator: const DotsDecorator(
             size: Size(15, 15),
             color: Colors.grey,
@@ -96,19 +76,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             activeColor: Colors.red,
           ),
           showDoneButton: true,
-          done: const Text(
+          done: Text(
             'Done',
-            style: TextStyle(fontSize: 20),
+            style: Styles.welcomeText(context),
           ),
           showSkipButton: true,
-          skip: const Text(
+          skip: Text(
             'Skip',
-            style: TextStyle(fontSize: 20),
+            style: Styles.welcomeText(context),
           ),
           showNextButton: true,
-          next: const Icon(
+          next: Icon(
             Icons.arrow_forward,
-            size: 25,
+            size: Responsive.isTablet(context) ? 30 : 25,
           ),
           onDone: () => onDone(context),
           curve: Curves.bounceOut,
