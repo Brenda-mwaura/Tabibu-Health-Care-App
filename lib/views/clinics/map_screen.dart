@@ -2,6 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:tabibu/providers/geolocation_provider.dart.dart';
+import 'package:tabibu/widgets/app_drawer.dart';
+import 'package:tabibu/widgets/spinner.dart';
 
 class MapScreen extends StatefulWidget {
   MapScreen({Key? key}) : super(key: key);
@@ -12,69 +16,21 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   final Completer<GoogleMapController> _controller = Completer();
-  static final LatLng _KMapCenter = LatLng(-1.2921, 36.8219);
-  static final CameraPosition _KInitialPosition =
-      CameraPosition(target: _KMapCenter, zoom: 15.0, tilt: 0, bearing: 0);
+  LatLng _KMapCenter = LatLng(-1.2921, 36.8219);
 
-  final Map clinics = {
-    "results": [
-      {
-        "id": 1,
-        "clinic_name": "Mama Lucy Hospital",
-        "location": "Nairobi",
-        "lat": -1.2921,
-        "lng": 36.8219,
-        "phone": "+254 712 345 678",
-        "email": "mamalucy@gmail.com",
-        "open": true
-      },
-      {
-        "id": 2,
-        "clinic_name": "Jomo Kenyatta Hospital",
-        "location": "Kiambu",
-        "lat": -1.2835,
-        "lng": 36.8236,
-        "phone": "+254 712 345 678",
-        "email": "jomo@gmail.com",
-        "open": false
-      },
-      {
-        "id": 3,
-        "clinic_name": "Moi Teaching and Referral Hospital",
-        "location": "Nairobi",
-        "lat": -1.2933,
-        "lng": 36.8243,
-        "phone": "+254 712 345 678",
-        "email": "moi@gmail.com",
-        "open": false
-      },
-      {
-        "id": 4,
-        "clinic_name": "Aga Khan Hospital",
-        "location": "Nairobi",
-        "lat": -1.1921,
-        "lng": 36.4219,
-        "phone": "+254 712 345 678",
-        "email": "aga@gmail.com",
-        "open": true
-      },
-      {
-        "id": 5,
-        "clinic_name": "Kenya Medical Training College",
-        "location": "Nairobi",
-        "lat": -1.2521,
-        "lng": 36.7219,
-        "phone": "+254 712 345 678",
-        "email": "kmtc@gmail.com",
-        "open": false
-      }
-    ],
-  };
   BitmapDescriptor pinLocationIcon = BitmapDescriptor.defaultMarker;
   @override
   void initState() {
     _setClinicMarker();
     super.initState();
+    _refresh();
+  }
+
+  void _refresh() async {
+    var locationService =
+        Provider.of<GeolocationProvider>(context, listen: false);
+    await locationService.getLocation();
+    _KMapCenter = LatLng(locationService.latitude!, locationService.longitude!);
   }
 
   void _setClinicMarker() async {
@@ -86,54 +42,72 @@ class _MapScreenState extends State<MapScreen> {
         'assets/images/marker.png');
   }
 
-  // create a marker with the image of the clinic
-  Set<Marker> _createMarker() {
-    return clinics["results"]
-        .map<Marker>(
-          (clinic) =>
-              //create a marker with the image from asset/images/clinic.png
+  // // create a marker with the image of the clinic
+  // Set<Marker> _createMarker() {
+  //   return clinics["results"]
+  //       .map<Marker>(
+  //         (clinic) =>
+  //             //create a marker with the image from asset/images/clinic.png
 
-              Marker(
-            markerId: MarkerId(clinic["id"].toString()),
-            position: LatLng(clinic["lat"], clinic["lng"]),
-            infoWindow: InfoWindow(
-              title: clinic["clinic_name"],
-              snippet: clinic["location"],
-            ),
-            draggable: true,
+  //             Marker(
+  //           markerId: MarkerId(clinic["id"].toString()),
+  //           position: LatLng(clinic["lat"], clinic["lng"]),
+  //           infoWindow: InfoWindow(
+  //             title: clinic["clinic_name"],
+  //             snippet: clinic["location"],
+  //           ),
+  //           draggable: true,
 
-            // icon: pinLocationIcon,
-            icon: BitmapDescriptor.defaultMarkerWithHue(
-              BitmapDescriptor.hueViolet,
-            ),
-          ),
-        )
-        .toSet();
-  }
+  //           // icon: pinLocationIcon,
+  //           icon: BitmapDescriptor.defaultMarkerWithHue(
+  //             BitmapDescriptor.hueViolet,
+  //           ),
+  //         ),
+  //       )
+  //       .toSet();
+  // }
 
   // // onMap created
   // void _onMapCreated(GoogleMapController controller) {
   //   _controller.complete(controller);
   // }
   // mylocation button
-  void _myLocation() async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_KInitialPosition));
-  }
+  // void _myLocation() async {
+  //   final GoogleMapController controller = await _controller.future;
+  //   controller.animateCamera(CameraUpdate.newCameraPosition(_KInitialPosition));
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: GoogleMap(
-          initialCameraPosition: _KInitialPosition,
-          myLocationEnabled: true,
-          myLocationButtonEnabled: true,
-          onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
+        child: Consumer<GeolocationProvider>(
+          builder: (context, value, child) {
+            if (value.onGeolocationLoading == true) {
+              return AppSpinner();
+            } else if (value.onGeolocationLoading == false) {
+              return GoogleMap(
+                initialCameraPosition: CameraPosition(
+                    target: _KMapCenter,
+                    // LatLng(value.latitude!, value.longitude!),
+                    zoom: 15.0,
+                    tilt: 0,
+                    bearing: 0),
+                myLocationEnabled: true,
+                myLocationButtonEnabled: true,
+                mapToolbarEnabled: true,
+                onMapCreated: (GoogleMapController controller) {
+                  _controller.complete(controller);
+                },
+                // markers: _createMarker(),
+                mapType: MapType.normal,
+              );
+            } else {
+              return const Center(
+                child: Text("We can't reach your location"),
+              );
+            }
           },
-          markers: _createMarker(),
-          mapType: MapType.normal,
         ),
       ),
     );
