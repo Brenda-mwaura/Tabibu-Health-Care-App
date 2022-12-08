@@ -1,11 +1,14 @@
 import 'dart:async';
 
+import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:tabibu/providers/geolocation_provider.dart.dart';
 import 'package:tabibu/widgets/app_drawer.dart';
 import 'package:tabibu/widgets/spinner.dart';
+import 'dart:ui' as ui;
 
 class MapScreen extends StatefulWidget {
   MapScreen({Key? key}) : super(key: key);
@@ -21,93 +24,100 @@ class _MapScreenState extends State<MapScreen> {
   BitmapDescriptor pinLocationIcon = BitmapDescriptor.defaultMarker;
   @override
   void initState() {
+    _refresh();
     _setClinicMarker();
     super.initState();
-    _refresh();
   }
 
-  void _refresh() async {
+  Future<void> _refresh() async {
     var locationService =
         Provider.of<GeolocationProvider>(context, listen: false);
     await locationService.getLocation();
     _KMapCenter = LatLng(locationService.latitude!, locationService.longitude!);
   }
 
-  void _setClinicMarker() async {
-    pinLocationIcon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(
-          // devicePixelRatio: 2.5,
-          size: Size(20, 20),
-        ),
-        'assets/images/marker.png');
+  Future<Uint8List> getBytesFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
   }
 
-  // // create a marker with the image of the clinic
-  // Set<Marker> _createMarker() {
-  //   return clinics["results"]
-  //       .map<Marker>(
-  //         (clinic) =>
-  //             //create a marker with the image from asset/images/clinic.png
+  Future<void> _setClinicMarker() async {
+    final Uint8List markerIcon =
+        await getBytesFromAsset('assets/images/marker.png', 100);
+    pinLocationIcon = BitmapDescriptor.fromBytes(markerIcon);
+  }
 
-  //             Marker(
-  //           markerId: MarkerId(clinic["id"].toString()),
-  //           position: LatLng(clinic["lat"], clinic["lng"]),
-  //           infoWindow: InfoWindow(
-  //             title: clinic["clinic_name"],
-  //             snippet: clinic["location"],
-  //           ),
-  //           draggable: true,
+  final Map _clinics = {
+    "Annex clinic": {"lat": -1.2921, "long": 36.8219},
+    "Mama Lucy": {"lat": -1.2921, "long": 36.8249},
+    "Google Plex": {"lat": 37.4219999, "long": -122.0872462},
+  };
+  CustomInfoWindowController _customInfoWindowController =
+      CustomInfoWindowController();
 
-  //           // icon: pinLocationIcon,
-  //           icon: BitmapDescriptor.defaultMarkerWithHue(
-  //             BitmapDescriptor.hueViolet,
-  //           ),
-  //         ),
-  //       )
-  //       .toSet();
-  // }
-
-  // // onMap created
-  // void _onMapCreated(GoogleMapController controller) {
-  //   _controller.complete(controller);
-  // }
-  // mylocation button
-  // void _myLocation() async {
-  //   final GoogleMapController controller = await _controller.future;
-  //   controller.animateCamera(CameraUpdate.newCameraPosition(_KInitialPosition));
-  // }
+  Set<Marker> _createMarker() {
+    return _clinics.entries
+        .map(
+          (e) => Marker(
+              markerId: MarkerId(e.key),
+              position: LatLng(e.value["lat"], e.value["long"]),
+              icon: pinLocationIcon,
+              infoWindow: InfoWindow(
+                title: e.key,
+                snippet: "Tap to view clinic details",
+              ),
+              onTap: () {
+                print("Hello...");
+                CustomInfoWindow(
+                  controller: _customInfoWindowController,
+                  height: 100,
+                  width: 200,
+                  offset: 35,
+                );
+              }),
+        )
+        .toSet();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Consumer<GeolocationProvider>(
-          builder: (context, value, child) {
-            if (value.onGeolocationLoading == true) {
-              return AppSpinner();
-            } else if (value.onGeolocationLoading == false) {
-              return GoogleMap(
-                initialCameraPosition: CameraPosition(
-                    target: _KMapCenter,
-                    // LatLng(value.latitude!, value.longitude!),
-                    zoom: 15.0,
-                    tilt: 0,
-                    bearing: 0),
-                myLocationEnabled: true,
-                myLocationButtonEnabled: true,
-                mapToolbarEnabled: true,
-                onMapCreated: (GoogleMapController controller) {
-                  _controller.complete(controller);
-                },
-                // markers: _createMarker(),
-                mapType: MapType.normal,
-              );
-            } else {
-              return const Center(
-                child: Text("We can't reach your location"),
-              );
-            }
-          },
+        child: RefreshIndicator(
+          onRefresh: _refresh,
+          child: Consumer<GeolocationProvider>(
+            builder: (context, value, child) {
+              if (value.onGeolocationLoading == true) {
+                return AppSpinner();
+              } else if (value.onGeolocationLoading == false) {
+                return GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                      target: _KMapCenter, zoom: 15.0, tilt: 0, bearing: 0),
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: true,
+                  mapToolbarEnabled: true,
+                  compassEnabled: true,
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller.complete(controller);
+                    _customInfoWindowController.googleMapController =
+                        controller;
+                  },
+                  markers: _createMarker(),
+                  mapType: MapType.normal,
+                  onTap: (position) {},
+                );
+              } else {
+                return const Center(
+                  child: Text("We can't reach your location"),
+                );
+              }
+            },
+          ),
         ),
       ),
     );
