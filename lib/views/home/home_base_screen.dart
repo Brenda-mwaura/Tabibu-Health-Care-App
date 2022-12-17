@@ -63,7 +63,7 @@ class _HomeBaseScreenState extends State<HomeBaseScreen> {
               ),
               GButton(
                 icon: Icons.map,
-                text: 'Clinics',
+                text: 'Maps',
               ),
               GButton(
                 icon: Icons.calendar_month,

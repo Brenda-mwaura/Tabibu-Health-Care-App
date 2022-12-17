@@ -71,7 +71,7 @@ class GeolocationProvider with ChangeNotifier {
     // print(place);
     _address = //if place sublocality is null
         place.subLocality == null
-            ? '${place.locality}, ${place.country}'
+            ? '${place.locality}'
             : '${place.locality}, ${place.subLocality}';
     // print("Current locality::: $_address");
     notifyListeners();
