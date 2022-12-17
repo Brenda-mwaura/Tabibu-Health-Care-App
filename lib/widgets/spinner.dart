@@ -9,7 +9,7 @@ class AppSpinner extends StatelessWidget {
     return const Center(
       child: CircularProgressIndicator(
         color: Styles.primaryColor,
-        strokeWidth: 2.0,
+        strokeWidth: 3.0,
       ),
     );
   }
