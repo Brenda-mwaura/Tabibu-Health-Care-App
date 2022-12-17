@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/configs/styles.dart';
+import 'package:tabibu/widgets/inputs/image_picker_bottom_sheet.dart';
 import 'package:tabibu/widgets/spinner.dart';
 
 class ProfileTabView extends StatelessWidget {
