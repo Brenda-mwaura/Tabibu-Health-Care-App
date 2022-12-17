@@ -4,8 +4,6 @@
 
 - Welcome Screen
 - Responsiveness
-- Complete Screen
-- Cancelled Screen
 - Profile Screen
 - location button on Google maps
 - Spinner
@@ -14,6 +12,5 @@
 - Reschedule appointment form
 - Appointment booking
 - open/ closed clinics indicator
-- map markers
-- Google Sign in button
+
 - `flutter pub run flutter_launcher_icons`
