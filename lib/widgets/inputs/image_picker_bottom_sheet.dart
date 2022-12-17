@@ -33,8 +33,8 @@ class ImagePickerBottomSheet extends StatelessWidget {
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
               ),
             ),
             child: ListView(
@@ -62,31 +62,14 @@ class ImagePickerBottomSheet extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Column(
-                      //center
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         IconButton(
-                          onPressed: () async {},
-                          icon: const Icon(
-                            Icons.photo,
-                            size: 34,
-                            color: Styles.primaryColor,
-                          ),
-                        ),
-                        const Text(
-                          "Gallery",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        IconButton(
-                          onPressed: () async {},
+                          onPressed: () async {
+                            final _capturedImage = await _imagePicker.pickImage(
+                              source: ImageSource.camera,
+                              imageQuality: 100,
+                            );
+                          },
                           icon: const Icon(
                             Icons.camera_alt,
                             size: 34,
@@ -95,6 +78,33 @@ class ImagePickerBottomSheet extends StatelessWidget {
                         ),
                         const Text(
                           "Camera",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          onPressed: () async {
+                            final _pickedImageFile =
+                                await _imagePicker.pickImage(
+                              source: ImageSource.gallery,
+                              imageQuality: 100,
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.photo,
+                            size: 34,
+                            color: Styles.primaryColor,
+                          ),
+                        ),
+                        const Text(
+                          "Gallery",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
