@@ -45,7 +45,7 @@ class ImagePickerBottomSheet extends StatelessWidget {
                     const Text(
                       "Profile photo",
                       style: TextStyle(
-                        fontSize: 22,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -80,7 +80,8 @@ class ImagePickerBottomSheet extends StatelessWidget {
                           "Camera",
                           style: TextStyle(
                             fontSize: 16,
-                            fontWeight: FontWeight.w400,
+                            color: Color.fromARGB(221, 69, 69, 69),
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],
@@ -107,7 +108,8 @@ class ImagePickerBottomSheet extends StatelessWidget {
                           "Gallery",
                           style: TextStyle(
                             fontSize: 16,
-                            fontWeight: FontWeight.w400,
+                            color: Color.fromARGB(221, 69, 69, 69),
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],

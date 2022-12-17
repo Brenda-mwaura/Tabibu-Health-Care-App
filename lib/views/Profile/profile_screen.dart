@@ -120,7 +120,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                   ),
                   child: TabBarView(
                     controller: _tabController,
-                    children: const [
+                    children: [
                       ProfileTabView(),
                       ProfileEditTabView(),
                       NotificationTabView(),
