@@ -20,12 +20,12 @@ class Styles {
 
   static TextStyle heading2(BuildContext context) {
     return TextStyle(
-      color: Colors.black,
+      color: Colors.white,
       fontSize: Responsive.isTablet(context)
-          ? 25
+          ? 28
           : Responsive.isMobileLarge(context)
-              ? 22
-              : 19,
+              ? 24
+              : 24,
       fontWeight: FontWeight.w700,
     );
   }

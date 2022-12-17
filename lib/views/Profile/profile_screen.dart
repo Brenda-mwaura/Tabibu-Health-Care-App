@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/data_search.dart';
+import 'package:tabibu/views/Profile/components/notifications_tab_view.dart';
+import 'package:tabibu/views/Profile/components/profile_edit_tabview.dart';
+import 'package:tabibu/views/Profile/components/profile_tab_view.dart';
 import 'package:tabibu/widgets/app_drawer.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -64,22 +67,6 @@ class _ProfileScreenState extends State<ProfileScreen>
                       ),
                     ),
                     Positioned(
-                      top: 50,
-                      left: 20,
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(50),
-                          image: const DecorationImage(
-                            image: AssetImage('assets/images/profile.png'),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
                       top: 65.0,
                       left: 0.0,
                       right: 0.0,
@@ -108,6 +95,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                               ),
                               tabs: const [
                                 Tab(
+                                  text: "Profile",
+                                ),
+                                Tab(
                                   text: "Edit",
                                 ),
                                 Tab(
@@ -130,7 +120,11 @@ class _ProfileScreenState extends State<ProfileScreen>
                   ),
                   child: TabBarView(
                     controller: _tabController,
-                    children: [],
+                    children: const [
+                      ProfileTabView(),
+                      ProfileEditTabView(),
+                      NotificationTabView(),
+                    ],
                   ),
                 ),
               )

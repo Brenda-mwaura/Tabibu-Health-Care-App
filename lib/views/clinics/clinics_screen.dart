@@ -147,7 +147,7 @@ class _ClinicScreenState extends State<ClinicScreen> {
                     },
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

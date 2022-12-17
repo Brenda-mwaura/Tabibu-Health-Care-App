@@ -72,13 +72,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ),
                                   child: Center(
-                                    child: value.address != null
-                                        ? Text(
-                                            "${value.address}",
-                                            style: Styles.heading2(context),
-                                          )
-                                        : const Text(""),
-                                  ),
+                                      child: Text(
+                                    "Dashboard",
+                                    style: Styles.heading2(context),
+                                  )),
                                 ),
                                 Positioned(
                                   top: 65.0,
