@@ -69,7 +69,10 @@ class GeolocationProvider with ChangeNotifier {
         await placemarkFromCoordinates(latitude, longitude);
     Placemark place = placemarks[0];
     // print(place);
-    _address = '${place.locality}, ${place.subLocality}';
+    _address = //if place sublocality is null
+        place.subLocality == null
+            ? '${place.locality}, ${place.country}'
+            : '${place.locality}, ${place.subLocality}';
     // print("Current locality::: $_address");
     notifyListeners();
   }

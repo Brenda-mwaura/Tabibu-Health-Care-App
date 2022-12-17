@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/providers/geolocation_provider.dart.dart';
 import 'package:tabibu/widgets/inputs/image_picker_bottom_sheet.dart';
+import 'package:tabibu/widgets/profile_display_text.dart';
 import 'package:tabibu/widgets/spinner.dart';
 
 class ProfileTabView extends StatefulWidget {
@@ -88,255 +89,70 @@ class _ProfileTabViewState extends State<ProfileTabView> {
                     ),
                   ],
                 ),
-                // bio,full_name,email, phone, DOB
                 const SizedBox(
                   height: 20,
                 ),
-
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.person,
-                            color: Styles.primaryColor,
-                            size: 26,
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text(
-                                "Name",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 1,
-                              ),
-                              Text(
-                                "John Doe",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color.fromARGB(221, 69, 69, 69),
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                      const ProfileText(
+                        icon: Icons.person,
+                        displayTitle: "Name",
+                        text: "John Doe",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.info,
-                            color: Styles.primaryColor,
-                            size: 26,
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Text(
-                                  "About",
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 1,
-                                ),
-                                Text(
-                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Color.fromARGB(221, 69, 69, 69),
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                      const ProfileText(
+                        icon: Icons.info,
+                        displayTitle: "About",
+                        text:
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.email,
-                            color: Styles.primaryColor,
-                            size: 26,
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Text(
-                                  "Email",
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 1,
-                                ),
-                                Text(
-                                  "johndoe@gmail.com",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Color.fromARGB(221, 69, 69, 69),
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                      const ProfileText(
+                        icon: Icons.email,
+                        displayTitle: "Email",
+                        text: "johndoe@gmail.com",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.phone,
-                            color: Styles.primaryColor,
-                            size: 26,
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text(
-                                "Phone",
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 1,
-                              ),
-                              Text(
-                                "+234 123 456 789",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color.fromARGB(221, 69, 69, 69),
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                      const ProfileText(
+                        icon: Icons.phone,
+                        displayTitle: "Phone",
+                        text: "+234 123 456 789",
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.calendar_month,
-                            color: Styles.primaryColor,
-                            size: 26,
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text(
-                                //accronym for date of birth
-                                "DOB",
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 1,
-                              ),
-                              Text(
-                                "01-01-2000",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color.fromARGB(221, 69, 69, 69),
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                      const ProfileText(
+                        icon: Icons.calendar_month,
+                        displayTitle: "DOB",
+                        text: "01-01-2000",
                       ),
-                      //location
                       const SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.location_on,
-                            color: Styles.primaryColor,
-                            size: 26,
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text(
-                                "Location",
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 1,
-                              ),
-                              Text(
-                                "Lagos, Nigeria",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color.fromARGB(221, 69, 69, 69),
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                      Consumer<GeolocationProvider>(
+                        builder: (context, locationService, child) {
+                          return ProfileText(
+                            icon: Icons.location_on,
+                            displayTitle: "Location",
+                            text: locationService.address,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          );
+                        },
                       ),
                     ],
                   ),
