@@ -92,7 +92,6 @@ class _ProfileScreenState extends State<ProfileScreen>
                                   color: Colors.grey.withOpacity(0.5),
                                   width: 1.0),
                               color: Colors.white),
-                          //implement tab bar
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: TabBar(
@@ -108,7 +107,6 @@ class _ProfileScreenState extends State<ProfileScreen>
                                 fontWeight: FontWeight.w700,
                               ),
                               tabs: const [
-                                // tabs for profile --> Notifications, Edit,Settings,logout, and
                                 Tab(
                                   text: "Edit",
                                 ),
@@ -124,7 +122,18 @@ class _ProfileScreenState extends State<ProfileScreen>
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.only(
+                    left: 10,
+                    right: 10,
+                  ),
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [],
+                  ),
+                ),
+              )
             ],
           ),
         ),

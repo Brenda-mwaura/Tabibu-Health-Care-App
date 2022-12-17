@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/views/appointment/appointment_screen.dart';
-import 'package:tabibu/views/auths/profile_screen.dart';
+import 'package:tabibu/views/Profile/profile_screen.dart';
 import 'package:tabibu/views/clinics/clinics_screen.dart';
 import 'package:tabibu/views/clinics/map_screen.dart';
 import 'package:tabibu/views/home/home_screen.dart';

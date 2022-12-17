@@ -5,7 +5,7 @@ import 'package:tabibu/views/auths/forgot_password_otp.dart';
 import 'package:tabibu/views/auths/forgot_password_screen.dart';
 import 'package:tabibu/views/auths/login.dart';
 import 'package:tabibu/views/auths/password_reset_screen.dart';
-import 'package:tabibu/views/auths/profile_screen.dart';
+import 'package:tabibu/views/Profile/profile_screen.dart';
 import 'package:tabibu/views/auths/signup.dart';
 import 'package:tabibu/views/clinics/clinics_screen.dart';
 import 'package:tabibu/views/clinics/map_screen.dart';
