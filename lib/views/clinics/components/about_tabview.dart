@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/configs/styles.dart';
+import 'package:tabibu/views/clinics/clinic_reviews_screen.dart';
 import 'package:tabibu/widgets/clinics_widget/expandable_description.dart';
 import 'package:tabibu/widgets/clinics_widget/reviews_container.dart';
 
@@ -250,12 +251,22 @@ class AboutClinicTabView extends StatelessWidget {
                               ),
                             ),
                             const Spacer(),
-                            const Text(
-                              'See all',
-                              style: TextStyle(
-                                fontSize: 19,
-                                fontWeight: FontWeight.w500,
-                                color: Styles.primaryColor,
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ClinicReviewsScreen(),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                'See all',
+                                style: TextStyle(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w500,
+                                  color: Styles.primaryColor,
+                                ),
                               ),
                             ),
                           ],

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/data_search.dart';
 import 'package:tabibu/widgets/app_drawer.dart';
+import 'package:tabibu/widgets/clinics_widget/reviews2_container.dart';
+import 'package:tabibu/widgets/clinics_widget/reviews_container.dart';
 
 class ClinicReviewsScreen extends StatefulWidget {
   ClinicReviewsScreen({Key? key}) : super(key: key);
@@ -45,7 +47,7 @@ class _ClinicReviewsScreenState extends State<ClinicReviewsScreen> {
                         ),
                         child: Center(
                           child: Text(
-                            "Reviews",
+                            "Equity Afya Mombasa",
                             style: Styles.heading2(context),
                           ),
                         ),
@@ -91,7 +93,7 @@ class _ClinicReviewsScreenState extends State<ClinicReviewsScreen> {
                                     },
                                     textInputAction: TextInputAction.search,
                                     decoration: const InputDecoration(
-                                      hintText: "Search Clinic",
+                                      hintText: "Search Review",
                                       focusColor: Colors.white,
                                       fillColor: Colors.white,
                                     ),
@@ -111,7 +113,7 @@ class _ClinicReviewsScreenState extends State<ClinicReviewsScreen> {
                                 ),
                                 IconButton(
                                   icon: const Icon(
-                                    Icons.notifications,
+                                    Icons.filter_1_outlined,
                                     color: Styles.primaryColor,
                                   ),
                                   onPressed: () {
@@ -124,6 +126,31 @@ class _ClinicReviewsScreenState extends State<ClinicReviewsScreen> {
                         ),
                       )
                     ],
+                  ),
+                ),
+                //
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.only(
+                      left: 10,
+                      right: 10,
+                    ),
+                    child: Scrollable(viewportBuilder: (context, position) {
+                      return SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: 20,
+                              itemBuilder: (context, index) {
+                                return Reviews2Container();
+                              },
+                            )
+                          ],
+                        ),
+                      );
+                    }),
                   ),
                 ),
               ],
