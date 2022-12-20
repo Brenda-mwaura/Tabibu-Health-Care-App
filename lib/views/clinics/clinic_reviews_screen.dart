@@ -12,8 +12,23 @@ class ClinicReviewsScreen extends StatefulWidget {
   State<ClinicReviewsScreen> createState() => _ClinicReviewsScreenState();
 }
 
-class _ClinicReviewsScreenState extends State<ClinicReviewsScreen> {
+class _ClinicReviewsScreenState extends State<ClinicReviewsScreen>
+    with SingleTickerProviderStateMixin {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  int index = 0;
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 6, vsync: this);
+    _tabController.addListener(() {
+      setState(() {
+        index = _tabController.index;
+        print(_tabController.index);
+      });
+    });
+  }
 
   Future<void> _refresh() async {}
 
@@ -65,62 +80,65 @@ class _ClinicReviewsScreenState extends State<ClinicReviewsScreen> {
                                     color: Colors.grey.withOpacity(0.5),
                                     width: 1.0),
                                 color: Colors.white),
-                            child: Row(
-                              children: [
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.menu,
-                                    color: Styles.primaryColor,
+                            child: Padding(
+                              padding: EdgeInsets.all(5.0),
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    icon: const Icon(
+                                      Icons.menu,
+                                      color: Styles.primaryColor,
+                                    ),
+                                    onPressed: () {
+                                      print("your menu action here");
+                                      _scaffoldKey.currentState!.openDrawer();
+                                    },
                                   ),
-                                  onPressed: () {
-                                    print("your menu action here");
-                                    _scaffoldKey.currentState!.openDrawer();
-                                  },
-                                ),
-                                Expanded(
-                                    child: InkWell(
-                                  onTap: () {
-                                    showSearch(
-                                        context: context,
-                                        delegate: DataSearch());
-                                  },
-                                  child: TextField(
-                                    autofocus: false,
+                                  Expanded(
+                                      child: InkWell(
                                     onTap: () {
                                       showSearch(
                                           context: context,
                                           delegate: DataSearch());
                                     },
-                                    textInputAction: TextInputAction.search,
-                                    decoration: const InputDecoration(
-                                      hintText: "Search Review",
-                                      focusColor: Colors.white,
-                                      fillColor: Colors.white,
+                                    child: TextField(
+                                      autofocus: false,
+                                      onTap: () {
+                                        showSearch(
+                                            context: context,
+                                            delegate: DataSearch());
+                                      },
+                                      textInputAction: TextInputAction.search,
+                                      decoration: const InputDecoration(
+                                        hintText: "Search review",
+                                        focusColor: Colors.white,
+                                        fillColor: Colors.white,
+                                      ),
                                     ),
+                                  )),
+                                  IconButton(
+                                    icon: const Icon(
+                                      Icons.search,
+                                      color: Styles.primaryColor,
+                                    ),
+                                    onPressed: () {
+                                      showSearch(
+                                          context: context,
+                                          delegate: DataSearch());
+                                      print("your menu action here");
+                                    },
                                   ),
-                                )),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.search,
-                                    color: Styles.primaryColor,
+                                  IconButton(
+                                    icon: const Icon(
+                                      Icons.filter_alt_off,
+                                      color: Styles.primaryColor,
+                                    ),
+                                    onPressed: () {
+                                      print("your menu action here");
+                                    },
                                   ),
-                                  onPressed: () {
-                                    showSearch(
-                                        context: context,
-                                        delegate: DataSearch());
-                                    print("your menu action here");
-                                  },
-                                ),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.filter_1_outlined,
-                                    color: Styles.primaryColor,
-                                  ),
-                                  onPressed: () {
-                                    print("your menu action here");
-                                  },
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -139,6 +157,7 @@ class _ClinicReviewsScreenState extends State<ClinicReviewsScreen> {
                       return SingleChildScrollView(
                         child: Column(
                           children: [
+                            SizedBox(height: 10),
                             ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,

@@ -91,7 +91,7 @@ class AppDrawer extends StatelessWidget {
                 color: Colors.black,
               ),
               title: const Text(
-                "Map",
+                "Maps",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 18,
@@ -121,7 +121,7 @@ class AppDrawer extends StatelessWidget {
                 color: Colors.black,
               ),
               title: const Text(
-                "Schedules",
+                "Schedule",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 18,

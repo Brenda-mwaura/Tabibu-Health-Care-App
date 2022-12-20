@@ -33,8 +33,6 @@ class _ProfileScreenState extends State<ProfileScreen>
 
   @override
   Widget build(BuildContext context) {
-    GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-
     return Scaffold(
       key: _scaffoldKey,
       drawer: const AppDrawer(),

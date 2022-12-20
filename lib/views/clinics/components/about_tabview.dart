@@ -164,7 +164,7 @@ class AboutClinicTabView extends StatelessWidget {
                         const Text(
                           'Description',
                           style: TextStyle(
-                            fontSize: 19,
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -182,7 +182,7 @@ class AboutClinicTabView extends StatelessWidget {
                         const Text(
                           'Preview',
                           style: TextStyle(
-                            fontSize: 19,
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -224,7 +224,7 @@ class AboutClinicTabView extends StatelessWidget {
                             const Text(
                               'Reviews',
                               style: TextStyle(
-                                fontSize: 19,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -237,7 +237,7 @@ class AboutClinicTabView extends StatelessWidget {
                             const Text(
                               '4.5',
                               style: TextStyle(
-                                fontSize: 19,
+                                fontSize: 18,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -246,7 +246,7 @@ class AboutClinicTabView extends StatelessWidget {
                               '(12)',
                               style: TextStyle(
                                 color: Colors.grey,
-                                fontSize: 19,
+                                fontSize: 18,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -263,7 +263,7 @@ class AboutClinicTabView extends StatelessWidget {
                               child: Text(
                                 'See all',
                                 style: TextStyle(
-                                  fontSize: 19,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.w500,
                                   color: Styles.primaryColor,
                                 ),

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "545492022755",
+    "project_id": "tabibu-health-care",
+    "storage_bucket": "tabibu-health-care.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:545492022755:android:594f6973a72b876c8a9cd6",
+        "android_client_info": {
+          "package_name": "com.example.tabibu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "545492022755-8i7tutf2jm8c8o11bt9r1ibsu94tao5f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQBpJg2mHBJZwikM5ZXG-y72SdwjlCuY0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "545492022755-8i7tutf2jm8c8o11bt9r1ibsu94tao5f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

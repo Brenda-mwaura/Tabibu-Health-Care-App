@@ -60,7 +60,7 @@ class ReviewsContainer extends StatelessWidget {
                     Text(
                       '12th May 2021',
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: Colors.grey,
                       ),

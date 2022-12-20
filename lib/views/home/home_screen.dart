@@ -172,10 +172,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         const Align(
                                           alignment: Alignment.centerLeft,
                                           child: Text(
-                                            "Nearby Clinic",
+                                            "Nearby clinic",
                                             style: TextStyle(
                                               color: Colors.black,
-                                              fontSize: 20.0,
+                                              fontSize: 18.0,
                                               fontWeight: FontWeight.w700,
                                             ),
                                           ),
@@ -199,10 +199,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Row(
                                           children: [
                                             const Text(
-                                              "Other Nearby facilities",
+                                              "Other nearby facilities",
                                               style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 20.0,
+                                                fontSize: 18.0,
                                                 fontWeight: FontWeight.w700,
                                               ),
                                             ),

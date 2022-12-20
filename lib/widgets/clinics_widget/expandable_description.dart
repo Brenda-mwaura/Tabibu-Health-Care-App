@@ -33,7 +33,7 @@ class _ExpandableDescriptionState extends State<ExpandableDescription> {
           ? Text(
               widget.description,
               style: const TextStyle(
-                fontSize: 14,
+                fontSize: 16,
                 color: Colors.black,
               ),
             )

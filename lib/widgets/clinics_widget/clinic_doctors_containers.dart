@@ -53,7 +53,7 @@ class DoctorsContainer extends StatelessWidget {
             "Therapist",
             style: TextStyle(
               color: Colors.grey,
-              fontSize: 15.0,
+              fontSize: 16.0,
               fontWeight: FontWeight.w500,
             ),
           ),
