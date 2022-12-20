@@ -3,9 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/providers/geolocation_provider.dart.dart';
+import 'package:tabibu/providers/google_signin_provider.dart';
 import 'package:tabibu/services/navigation_service.dart';
 
-void main() {
+// initialize firebase
+import 'package:firebase_core/firebase_core.dart';
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
     [
@@ -13,6 +17,7 @@ void main() {
       DeviceOrientation.portraitDown,
     ],
   );
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -36,6 +41,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: geolocationProvider),
+        ChangeNotifierProvider.value(value: googleSignInProvider),
       ],
       child: MaterialApp(
         title: "Tabibu Health",

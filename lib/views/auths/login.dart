@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/configs/styles.dart';
+import 'package:tabibu/providers/google_signin_provider.dart';
 import 'package:tabibu/services/validators.dart';
 import 'package:tabibu/views/auths/auth_base.dart';
 import 'package:tabibu/widgets/buttons/auth_button.dart';
@@ -24,6 +26,13 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
+  }
+
+  Future<void> _refresh() async {
+    var googleSignInService =
+        Provider.of<GoogleSignInProvider>(context, listen: false);
+
+    await googleSignInProvider.googleLogin();
   }
 
   @override
@@ -148,49 +157,54 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
-              child: RawMaterialButton(
-                onPressed: () {},
-                fillColor: Colors.grey.withOpacity(0.3),
-                elevation: 0,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 13,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                focusColor: Styles.primaryColor,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 20,
-                      width: 20,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: AssetImage(
-                              "assets/images/google_signin.png",
-                            ),
-                            fit: BoxFit.cover),
+              child: Consumer<GoogleSignInProvider>(
+                  builder: (context, value, child) {
+                return RawMaterialButton(
+                  onPressed: () {
+                    value.googleLogin();
+                  },
+                  fillColor: Colors.grey.withOpacity(0.3),
+                  elevation: 0,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 13,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  focusColor: Styles.primaryColor,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 20,
+                        width: 20,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: AssetImage(
+                                "assets/images/google_signin.png",
+                              ),
+                              fit: BoxFit.cover),
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    const Text(
-                      "Sign in with Google",
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 72, 72, 72),
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                      const SizedBox(
+                        width: 8,
                       ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                  ],
-                ),
-              ),
+                      const Text(
+                        "Sign in with Google",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 72, 72, 72),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                    ],
+                  ),
+                );
+              }),
             ),
             const SizedBox(
               height: 30,
