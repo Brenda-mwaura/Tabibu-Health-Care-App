@@ -6,6 +6,21 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tabibu/configs/styles.dart';
 
 class GoogleSignInProvider extends ChangeNotifier {
+  bool _loadingLogin = false;
+  bool get loadingLogin => _loadingLogin;
+
+  set loadingLogin(bool value) {
+    _loadingLogin = value;
+    notifyListeners();
+  }
+
+  final _googleSignIn = GoogleSignIn();
+
+  GoogleSignInAccount? _user;
+  GoogleSignInAccount? get user => _user;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   void _loginToast() {
     Fluttertoast.showToast(
       msg: "Login Successful",
@@ -29,21 +44,6 @@ class GoogleSignInProvider extends ChangeNotifier {
       fontSize: 16.0,
     );
   }
-
-  bool _loadingLogin = false;
-  bool get loadingLogin => _loadingLogin;
-
-  set loadingLogin(bool value) {
-    _loadingLogin = value;
-    notifyListeners();
-  }
-
-  final _googleSignIn = GoogleSignIn();
-
-  GoogleSignInAccount? _user;
-  GoogleSignInAccount? get user => _user;
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future googleLogin() async {
     _loadingLogin = true;
