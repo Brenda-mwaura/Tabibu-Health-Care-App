@@ -7,6 +7,7 @@ import 'package:tabibu/api/api.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/models/login_model.dart';
 import 'package:tabibu/data/db.dart';
+import 'package:tabibu/data/models/sign_up_model.dart';
 
 class AuthProvider extends ChangeNotifier {
   Login get allLoginDetails => db.loginAllDetailsBox!.getAt(0)!;
@@ -57,7 +58,7 @@ class AuthProvider extends ChangeNotifier {
         notifyListeners();
         _loginToast();
         _loadingLogin = false;
-        return payload;
+        return loginDetails;
       } else {
         _loginToastError();
         _loadingLogin = false;
@@ -114,7 +115,13 @@ class AuthProvider extends ChangeNotifier {
         .then((response) {
       var payload = json.decode(response.body);
       if (response.statusCode == 200) {
+        SignUp signUpDetails = SignUp.fromJson(payload);
+
         notifyListeners();
+        _signUpToast();
+
+        _loadingSignUp = false;
+        return signUpDetails;
       } else {
         _signUpErrorToast(payload);
         _loadingSignUp = false;

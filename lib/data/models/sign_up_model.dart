@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:hive/hive.dart';
+part 'sign_up_model.g.dart';
 
 SignUp signUpFromJson(String str) => SignUp.fromJson(json.decode(str));
 
