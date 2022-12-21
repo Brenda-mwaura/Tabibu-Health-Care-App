@@ -48,7 +48,7 @@ class Api {
     return response;
   }
 
-  static Future<http.Response> accountActivationOTP(String? token) async {
+  static Future<http.Response> activationOtp(String? token) async {
     String? phone = authProvider.allSignUpdetails.user!.phone;
     var response = await client.post(
       Uri.parse("${baseUrl}activate/"),

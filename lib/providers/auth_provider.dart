@@ -138,6 +138,58 @@ class AuthProvider extends ChangeNotifier {
       print("error occured during account creation $error");
     });
   }
+
+  bool _otpLoading = false;
+  bool get otpLoading => _otpLoading;
+
+  set otpLoading(bool value) {
+    _otpLoading = value;
+    notifyListeners();
+  }
+
+  void _otpSuccessToast() {
+    Fluttertoast.showToast(
+      msg: "Account successfully verified",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 4,
+      backgroundColor: Styles.primaryColor,
+      textColor: Colors.white,
+      fontSize: 18.0,
+    );
+  }
+
+  void _otpErrorToast(msg) {
+    Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 4,
+      backgroundColor: Styles.primaryColor,
+      textColor: Colors.white,
+      fontSize: 18.0,
+    );
+  }
+
+  Future otp(String? token) {
+    _otpLoading = true;
+    return Api.activationOtp(token).then((response) {
+      var payload = json.decode(response.body);
+      if (response.statusCode == 200) {
+        notifyListeners();
+        _otpSuccessToast();
+        _otpLoading = false;
+        return payload;
+      } else {
+        _otpSuccessToast();
+        _otpLoading = false;
+      }
+    }).catchError((error) {
+      _otpErrorToast("Account verification failed!");
+      _otpLoading = false;
+      print("error occured during account verification $error");
+    });
+  }
 }
 
 AuthProvider authProvider = AuthProvider();
