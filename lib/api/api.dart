@@ -23,12 +23,12 @@ class Api {
     return response;
   }
 
-  static Future<http.Response> patientSignIn(
-    String phone,
-    String email,
-    String fullName,
-    String password,
-    String passwordConfirmation,
+  static Future<http.Response> patientSignUp(
+    String? phone,
+    String? email,
+    String? fullName,
+    String? password,
+    String? passwordConfirmation,
   ) async {
     var response = await client.post(
       Uri.parse("${baseUrl}register/"),

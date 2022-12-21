@@ -68,6 +68,63 @@ class AuthProvider extends ChangeNotifier {
       print("error occured during user login $error");
     });
   }
+
+  bool _loadingSignUp = false;
+  bool get loadingSignUp => _loadingSignUp;
+
+  set loadingSignUp(bool value) {
+    _loadingSignUp = value;
+    notifyListeners();
+  }
+
+  void _signUpToast() {
+    Fluttertoast.showToast(
+      msg: "Sign up successful, Enter the OTP sent to your phone.",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 3,
+      backgroundColor: Styles.primaryColor,
+      textColor: Colors.white,
+      fontSize: 18.0,
+    );
+  }
+
+  void _signUpErrorToast(msg) {
+    Fluttertoast.showToast(
+      msg: msg.toString(),
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 4,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 18.0,
+    );
+  }
+
+  Future signUp(
+    String? phone,
+    String? email,
+    String? fullName,
+    String? password,
+    String? passwordConfirmation,
+  ) {
+    _loadingSignUp = true;
+    return Api.patientSignUp(
+            phone, email, fullName, password, passwordConfirmation)
+        .then((response) {
+      var payload = json.decode(response.body);
+      if (response.statusCode == 200) {
+        notifyListeners();
+      } else {
+        _signUpErrorToast(payload);
+        _loadingSignUp = false;
+      }
+    }).catchError((error) {
+      _signUpErrorToast("Account sign up failed!");
+      _loadingSignUp = false;
+      print("error occured during account creation $error");
+    });
+  }
 }
 
 AuthProvider authProvider = AuthProvider();
