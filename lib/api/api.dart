@@ -64,4 +64,18 @@ class Api {
     );
     return response;
   }
+
+  static Future<http.Response> passwordResetPhoneNumber(
+      String? phoneNumber) async {
+    var response = await client.post(
+      Uri.parse("${baseUrl}password-reset/"),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
+      body: jsonEncode({
+        "phone": phoneNumber,
+      }),
+    );
+    return response;
+  }
 }
