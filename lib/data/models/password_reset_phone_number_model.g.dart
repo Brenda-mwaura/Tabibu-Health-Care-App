@@ -1,29 +1,30 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'otp_check_model.dart';
+part of 'password_reset_phone_number_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class TokenCheckAdapter extends TypeAdapter<TokenCheck> {
+class PasswordResetPhoneNumberAdapter
+    extends TypeAdapter<PasswordResetPhoneNumber> {
   @override
   final int typeId = 4;
 
   @override
-  TokenCheck read(BinaryReader reader) {
+  PasswordResetPhoneNumber read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return TokenCheck(
+    return PasswordResetPhoneNumber(
       data: fields[0] as Data?,
       message: fields[1] as String?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, TokenCheck obj) {
+  void write(BinaryWriter writer, PasswordResetPhoneNumber obj) {
     writer
       ..writeByte(2)
       ..writeByte(0)
@@ -38,7 +39,7 @@ class TokenCheckAdapter extends TypeAdapter<TokenCheck> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TokenCheckAdapter &&
+      other is PasswordResetPhoneNumberAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

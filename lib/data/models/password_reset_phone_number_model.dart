@@ -1,16 +1,17 @@
 import 'dart:convert';
 
 import 'package:hive/hive.dart';
-part 'otp_check_model.g.dart';
+part 'password_reset_phone_number_model.g.dart';
 
-TokenCheck tokenCheckFromJson(String str) =>
-    TokenCheck.fromJson(json.decode(str));
+PasswordResetPhoneNumber passwordResetPhoneNumberFromJson(String str) =>
+    PasswordResetPhoneNumber.fromJson(json.decode(str));
 
-String tokenCheckToJson(TokenCheck data) => json.encode(data.toJson());
+String passwordResetPhoneNumberToJson(PasswordResetPhoneNumber data) =>
+    json.encode(data.toJson());
 
 @HiveType(typeId: 4)
-class TokenCheck {
-  TokenCheck({
+class PasswordResetPhoneNumber {
+  PasswordResetPhoneNumber({
     this.data,
     this.message,
   });
@@ -20,7 +21,8 @@ class TokenCheck {
   @HiveField(1)
   String? message;
 
-  factory TokenCheck.fromJson(Map<String, dynamic> json) => TokenCheck(
+  factory PasswordResetPhoneNumber.fromJson(Map<String, dynamic> json) =>
+      PasswordResetPhoneNumber(
         data: Data.fromJson(json["data"]),
         message: json["message"],
       );

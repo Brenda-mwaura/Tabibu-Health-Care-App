@@ -7,6 +7,7 @@ import 'package:tabibu/api/api.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/models/login_model.dart';
 import 'package:tabibu/data/db.dart';
+import 'package:tabibu/data/models/password_reset_phone_number_model.dart';
 import 'package:tabibu/data/models/sign_up_model.dart';
 
 class AuthProvider extends ChangeNotifier {
@@ -225,10 +226,19 @@ class AuthProvider extends ChangeNotifier {
 
   Future passwordResetPhoneNumber(String? phoneNumber) {
     _passwordResetPhoneLoading = true;
-    return Api.passwordResetPhoneNumber(phoneNumber).then((response) {
+    return Api.passwordResetPhoneNumber(phoneNumber).then((response) async {
       var payload = json.decode(response.body);
       if (response.statusCode == 200) {
-        print(payload);
+        PasswordResetPhoneNumber passwordResetDetails =
+            PasswordResetPhoneNumber.fromJson(payload);
+
+        await db.loginAllDetailsBox!.clear();
+        await db.signUpAllDetailsBox!.clear();
+        await db.passwordResetPhoneNumberAllDetails!.clear();
+        await db.passwordResetPhoneNumberAllDetails!.add(passwordResetDetails);
+
+        print(
+            "Phone Number:::${db.passwordResetPhoneNumberAllDetails!.getAt(0)!.data!.phone}");
         notifyListeners();
         _passwordResetPhoneNumberSuccessToast();
         _passwordResetPhoneLoading = false;
