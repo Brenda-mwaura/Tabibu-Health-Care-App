@@ -190,6 +190,58 @@ class AuthProvider extends ChangeNotifier {
       print("error occured during account verification $error");
     });
   }
+
+  bool _passwordResetPhoneLoading = false;
+  bool get passwordResetPhoneLoading => _passwordResetPhoneLoading;
+
+  set passwordResetPhoneLoading(bool value) {
+    _passwordResetPhoneLoading = value;
+    notifyListeners();
+  }
+
+  void _passwordResetPhoneNumberSuccessToast(msg) {
+    Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 4,
+      backgroundColor: Styles.primaryColor,
+      textColor: Colors.white,
+      fontSize: 18.0,
+    );
+  }
+
+  void _passwordResetPhoneNumberErrorToast(msg) {
+    Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 4,
+      backgroundColor: Styles.primaryColor,
+      textColor: Colors.white,
+      fontSize: 18.0,
+    );
+  }
+
+  Future passwordResetPhoneNumber(String? phoneNumber) {
+    _passwordResetPhoneLoading = true;
+    return Api.passwordResetPhoneNumber(phoneNumber).then((response) {
+      var payload = json.decode(response.body);
+      if (response.statusCode == 200) {
+        notifyListeners();
+        _passwordResetPhoneNumberSuccessToast(payload);
+        _passwordResetPhoneLoading = false;
+        return payload;
+      } else {
+        _passwordResetPhoneNumberSuccessToast(payload);
+        _passwordResetPhoneLoading = false;
+      }
+    }).catchError((error) {
+      _passwordResetPhoneNumberErrorToast(error);
+      _passwordResetPhoneLoading = false;
+      print("error occured while requesting otp $error");
+    });
+  }
 }
 
 AuthProvider authProvider = AuthProvider();
