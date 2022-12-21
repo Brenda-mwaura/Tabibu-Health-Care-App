@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/configs/routes.dart';
+import 'package:tabibu/providers/auth_provider.dart';
 import 'package:tabibu/services/validators.dart';
 import 'package:tabibu/views/auths/auth_base.dart';
 import 'package:tabibu/widgets/buttons/auth_button.dart';
@@ -17,6 +18,21 @@ class _PasswordResetPhoneScreenState extends State<PasswordResetPhoneScreen> {
   GlobalKey<FormState> passwordResetPhoneKey = GlobalKey<FormState>();
   TextEditingController phoneNumberTextEditingController =
       TextEditingController();
+
+  Future _passwordResetPhoneNumberFnc() async {
+    if (passwordResetPhoneKey.currentState!.validate()) {
+      await authProvider
+          .passwordResetPhoneNumber(phoneNumberTextEditingController.text)
+          .then((value) {
+        if (value != null) {
+          Navigator.of(context).pushNamed(
+            RouteGenerator.forgotPasswordOtpPage,
+          );
+          phoneNumberTextEditingController.text = "";
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +63,7 @@ class _PasswordResetPhoneScreenState extends State<PasswordResetPhoneScreen> {
               height: 30,
             ),
             AuthButton(
-              onPressed: () {
-                Navigator.of(context)
-                    .pushNamed(RouteGenerator.forgotPasswordOtpPage);
-              },
+              onPressed: _passwordResetPhoneNumberFnc,
               child: const Text(
                 "Send OTP",
                 style: TextStyle(
