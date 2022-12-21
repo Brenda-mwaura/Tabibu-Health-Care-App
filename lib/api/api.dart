@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:tabibu/app_config.dart';
+import 'package:tabibu/providers/auth_provider.dart';
 
 class Api {
   static var baseUrl = AppConfig.appUrl;
@@ -44,6 +45,23 @@ class Api {
       }),
     );
 
+    return response;
+  }
+
+  static Future<http.Response> accountActivationOTP(String? token) async {
+    String? phone = authProvider.allSignUpdetails.user!.phone;
+    var response = await client.post(
+      Uri.parse("${baseUrl}activate/"),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
+      body: jsonEncode(
+        {
+          "phone": phone,
+          "token": token,
+        },
+      ),
+    );
     return response;
   }
 }
