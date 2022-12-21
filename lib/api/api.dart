@@ -78,4 +78,18 @@ class Api {
     );
     return response;
   }
+
+  static Future<http.Response> passwordResetTokenCheck(String? token) async {
+    var response = await client.post(
+      Uri.parse("${baseUrl}password-reset-token-check/"),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
+      body: jsonEncode({
+        // "phone": phone,
+        "token": token,
+      }),
+    );
+    return response;
+  }
 }
