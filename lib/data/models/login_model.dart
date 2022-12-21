@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:hive/hive.dart';
 part 'login_model.g.dart';
 
@@ -25,7 +24,7 @@ class Login {
   factory Login.fromJson(Map<String, dynamic> json) => Login(
         refresh: json["refresh"],
         access: json["access"],
-        user: LoggedInUser.fromJson(json["LoggedInUser"]),
+        user: LoggedInUser.fromJson(json["user"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -47,7 +46,6 @@ class LoggedInUser {
     this.updatedAt,
     this.timestamp,
   });
-
   @HiveField(0)
   int? id;
   @HiveField(1)

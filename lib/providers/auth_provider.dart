@@ -5,8 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tabibu/api/api.dart';
 import 'package:tabibu/configs/styles.dart';
+import 'package:tabibu/data/models/login_model.dart';
+import 'package:tabibu/data/db.dart';
 
 class AuthProvider extends ChangeNotifier {
+  Login get allLoginDetails => db.loginAllDetailsBox!.getAt(0)!;
+
+  bool _loadingLogin = false;
+  bool get loadingLogin => _loadingLogin;
+
+  set loadingLogin(bool value) {
+    _loadingLogin = value;
+    notifyListeners();
+  }
+
   void _loginToast() {
     Fluttertoast.showToast(
       msg: "Login Success",
@@ -31,20 +43,17 @@ class AuthProvider extends ChangeNotifier {
     );
   }
 
-  bool _loadingLogin = false;
-  bool get loadingLogin => _loadingLogin;
-
-  set loadingLogin(bool value) {
-    _loadingLogin = value;
-    notifyListeners();
-  }
-
   Future login(String phone, String password) async {
     _loadingLogin = true;
-    return Api.login(phone, password).then((response) {
+    return Api.login(phone, password).then((response) async {
       print("Status::: ${response.statusCode}");
       if (response.statusCode == 200) {
         var payload = json.decode(response.body);
+        Login loginDetails = Login.fromJson(payload);
+
+        await db.loginAllDetailsBox!.clear();
+        await db.loginAllDetailsBox!.add(loginDetails);
+
         notifyListeners();
         _loginToast();
         _loadingLogin = false;

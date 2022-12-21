@@ -3,7 +3,7 @@ import 'dart:async';
 import "package:flutter/material.dart";
 import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/configs/styles.dart';
-import 'package:tabibu/data/models/db.dart';
+import 'package:tabibu/data/db.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key? key}) : super(key: key);
@@ -36,7 +36,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void goNext() {
     Timer(Duration(seconds: 3), () async {
-      Navigator.of(context).pushNamed(RouteGenerator.welcomePage);
+      if (db.loginAllDetailsBox!.length > 0) {
+        Navigator.of(context).pushNamed(RouteGenerator.homeBasePage);
+      } else {
+        Navigator.of(context).pushNamed(RouteGenerator.loginPage);
+      }
     });
   }
 }

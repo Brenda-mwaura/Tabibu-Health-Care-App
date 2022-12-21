@@ -11,10 +11,13 @@ class DataBase {
   }
 
   _loginAdapters() async {
-    // Hive.registerAdapter()
+    Hive.registerAdapter(LoggedInUserAdapter());
+    Hive.registerAdapter(LoginAdapter());
   }
+
   init() async {
     await Hive.initFlutter();
+    await _loginAdapters();
     await _initBoxes();
   }
 }

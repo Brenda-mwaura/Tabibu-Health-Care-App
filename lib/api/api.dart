@@ -20,7 +20,30 @@ class Api {
       }),
     );
 
-    print("Response.... $response");
+    return response;
+  }
+
+  static Future<http.Response> patientSignIn(
+    String phone,
+    String email,
+    String fullName,
+    String password,
+    String passwordConfirmation,
+  ) async {
+    var response = await client.post(
+      Uri.parse("${baseUrl}register/"),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
+      body: jsonEncode({
+        "phone": phone,
+        "email": email,
+        "full_name": fullName,
+        "password": password,
+        "password_confirmation": passwordConfirmation,
+      }),
+    );
+
     return response;
   }
 }
