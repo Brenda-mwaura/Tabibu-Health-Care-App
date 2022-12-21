@@ -21,7 +21,10 @@ class DataBase {
     Hive.registerAdapter(LoginAdapter());
   }
 
-  _signUpAdapters() async {}
+  _signUpAdapters() async {
+    Hive.registerAdapter(SignUpAdapter());
+    Hive.registerAdapter(SignUpUserAdapter());
+  }
 
   init() async {
     await Hive.initFlutter();

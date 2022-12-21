@@ -25,7 +25,7 @@ class AuthProvider extends ChangeNotifier {
       msg: "Login Success",
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 3,
+      timeInSecForIosWeb: 4,
       backgroundColor: Styles.primaryColor,
       textColor: Colors.white,
       fontSize: 18.0,
@@ -37,7 +37,7 @@ class AuthProvider extends ChangeNotifier {
       msg: "Incorrect phone or password",
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
+      timeInSecForIosWeb: 4,
       backgroundColor: Styles.primaryColor,
       textColor: Colors.white,
       fontSize: 16.0,
@@ -70,6 +70,8 @@ class AuthProvider extends ChangeNotifier {
     });
   }
 
+  SignUp get allSignUpdetails => db.signUpAllDetailsBox!.getAt(0)!;
+
   bool _loadingSignUp = false;
   bool get loadingSignUp => _loadingSignUp;
 
@@ -83,7 +85,7 @@ class AuthProvider extends ChangeNotifier {
       msg: "Sign up successful, Enter the OTP sent to your phone.",
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 3,
+      timeInSecForIosWeb: 4,
       backgroundColor: Styles.primaryColor,
       textColor: Colors.white,
       fontSize: 18.0,
@@ -112,17 +114,21 @@ class AuthProvider extends ChangeNotifier {
     _loadingSignUp = true;
     return Api.patientSignUp(
             phone, email, fullName, password, passwordConfirmation)
-        .then((response) {
+        .then((response) async {
       var payload = json.decode(response.body);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         SignUp signUpDetails = SignUp.fromJson(payload);
 
+        await db.signUpAllDetailsBox!.clear();
+        await db.loginAllDetailsBox!.clear();
+        await db.signUpAllDetailsBox!.add(signUpDetails);
         notifyListeners();
         _signUpToast();
 
         _loadingSignUp = false;
         return signUpDetails;
       } else {
+        print(payload);
         _signUpErrorToast(payload);
         _loadingSignUp = false;
       }

@@ -1,10 +1,13 @@
 import "package:flutter/material.dart";
+import 'package:provider/provider.dart';
 import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/configs/styles.dart';
+import 'package:tabibu/providers/auth_provider.dart';
 import 'package:tabibu/services/validators.dart';
 import 'package:tabibu/views/auths/auth_base.dart';
 import 'package:tabibu/widgets/buttons/auth_button.dart';
 import 'package:tabibu/widgets/inputs/text_field_with_label.dart';
+import 'package:tabibu/widgets/spinner.dart';
 
 class SignUpScreen extends StatefulWidget {
   SignUpScreen({Key? key}) : super(key: key);
@@ -22,8 +25,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController fullnameTextEditingController = TextEditingController();
   TextEditingController phoneNumberTextEditingController =
       TextEditingController();
+
   bool _obsecure = true;
   bool _obsecureConfirm = true;
+
+  Future registerSubmitFnc() async {
+    if (signupFormKey.currentState!.validate()) {
+      await authProvider
+          .signUp(
+              phoneNumberTextEditingController.text,
+              emailTextEditingController.text,
+              fullnameTextEditingController.text,
+              passwordTextEditingController.text,
+              confirmPasswordTextEditingController.text)
+          .then((value) {
+        if (value != null) {
+          Navigator.of(context).pushNamed(RouteGenerator.activationOtpPage);
+          phoneNumberTextEditingController.text = "";
+          emailTextEditingController.text = "";
+          fullnameTextEditingController.text = "";
+          passwordTextEditingController.text = "";
+          confirmPasswordTextEditingController.text = "";
+        }
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return AuthBase(
@@ -189,19 +216,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
               height: 20,
             ),
             AuthButton(
-              onPressed: () {
-                Navigator.of(context)
-                    .pushNamed(RouteGenerator.activationOtpPage);
-              },
-              child: const Text(
-                "Sign Up",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
+                onPressed: registerSubmitFnc,
+                child: Consumer<AuthProvider>(
+                  builder: (context, value, child) {
+                    if (value.loadingSignUp == true) {
+                      return AppSpinner();
+                    } else {
+                      return const Text(
+                        "Sign Up",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      );
+                    }
+                  },
+                )),
             const SizedBox(height: 24),
             GestureDetector(
               onTap: () {
