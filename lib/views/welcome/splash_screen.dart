@@ -3,6 +3,7 @@ import 'dart:async';
 import "package:flutter/material.dart";
 import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/configs/styles.dart';
+import 'package:tabibu/data/models/db.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   void initDatabase() async {
-    // await db.init();
+    await db.init();
   }
 
   @override

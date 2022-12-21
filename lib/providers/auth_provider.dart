@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tabibu/api/api.dart';
 import 'package:tabibu/configs/styles.dart';
 
-class AuthService extends ChangeNotifier {
+class AuthProvider extends ChangeNotifier {
   void _loginToast() {
     Fluttertoast.showToast(
       msg: "Login Success",
@@ -21,11 +21,11 @@ class AuthService extends ChangeNotifier {
 
   void _loginToastError() {
     Fluttertoast.showToast(
-      msg: "Incorrect email or password",
+      msg: "Incorrect phone or password",
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
-      backgroundColor: Colors.orange,
+      backgroundColor: Styles.primaryColor,
       textColor: Colors.white,
       fontSize: 16.0,
     );
@@ -42,11 +42,17 @@ class AuthService extends ChangeNotifier {
   Future login(String phone, String password) async {
     _loadingLogin = true;
     return Api.login(phone, password).then((response) {
-      var payload = json.decode(response.body);
-      notifyListeners();
-      _loginToast();
-      _loadingLogin = false;
-      return payload;
+      print("Status::: ${response.statusCode}");
+      if (response.statusCode == 200) {
+        var payload = json.decode(response.body);
+        notifyListeners();
+        _loginToast();
+        _loadingLogin = false;
+        return payload;
+      } else {
+        _loginToastError();
+        _loadingLogin = false;
+      }
     }).catchError((error) {
       _loginToastError();
       _loadingLogin = false;
@@ -54,3 +60,5 @@ class AuthService extends ChangeNotifier {
     });
   }
 }
+
+AuthProvider authProvider = AuthProvider();

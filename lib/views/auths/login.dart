@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/configs/styles.dart';
+import 'package:tabibu/providers/auth_provider.dart';
 import 'package:tabibu/providers/google_signin_provider.dart';
 import 'package:tabibu/services/validators.dart';
 import 'package:tabibu/views/auths/auth_base.dart';
 import 'package:tabibu/widgets/buttons/auth_button.dart';
 import 'package:tabibu/widgets/inputs/text_field_with_label.dart';
+import 'package:tabibu/widgets/spinner.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -28,11 +30,21 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
   }
 
-  Future<void> _refresh() async {
-    var googleSignInService =
-        Provider.of<GoogleSignInProvider>(context, listen: false);
-
-    await googleSignInProvider.googleLogin();
+  Future loginSubmit() async {
+    if (loginFormKey.currentState!.validate()) {
+      await authProvider
+          .login(phoneNumberTextEditingController.text,
+              passwordTextEditingController.text)
+          .then(
+        (value) {
+          if (value != null) {
+            Navigator.of(context).pushNamed(RouteGenerator.homeBasePage);
+            phoneNumberTextEditingController.text = "";
+            passwordTextEditingController.text = "";
+          }
+        },
+      );
+    }
   }
 
   @override
@@ -107,18 +119,22 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 20,
             ),
             AuthButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(RouteGenerator.homeBasePage);
-              },
-              child: const Text(
-                "Sign In",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
+                onPressed: loginSubmit,
+                child: Consumer<AuthProvider>(
+                  builder: (context, value, child) {
+                    if (value.loadingLogin == true) {
+                      return AppSpinner();
+                    }
+                    return const Text(
+                      "Sign In",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    );
+                  },
+                )),
             const SizedBox(height: 24),
             GestureDetector(
               onTap: () {

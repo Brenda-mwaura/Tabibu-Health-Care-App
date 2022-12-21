@@ -35,7 +35,7 @@ class GoogleSignInProvider extends ChangeNotifier {
 
   void _loginToastError() {
     Fluttertoast.showToast(
-      msg: "Incorrect email or password",
+      msg: "Incorrect phone or password",
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
