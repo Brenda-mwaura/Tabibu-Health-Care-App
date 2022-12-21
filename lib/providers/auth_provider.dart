@@ -161,7 +161,7 @@ class AuthProvider extends ChangeNotifier {
 
   void _otpErrorToast(msg) {
     Fluttertoast.showToast(
-      msg: msg,
+      msg: msg.toString(),
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 4,
@@ -199,9 +199,9 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _passwordResetPhoneNumberSuccessToast(msg) {
+  void _passwordResetPhoneNumberSuccessToast() {
     Fluttertoast.showToast(
-      msg: msg,
+      msg: "Enter the OTP sent to your phone",
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 4,
@@ -213,7 +213,7 @@ class AuthProvider extends ChangeNotifier {
 
   void _passwordResetPhoneNumberErrorToast(msg) {
     Fluttertoast.showToast(
-      msg: msg,
+      msg: msg.toString(),
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 4,
@@ -228,12 +228,13 @@ class AuthProvider extends ChangeNotifier {
     return Api.passwordResetPhoneNumber(phoneNumber).then((response) {
       var payload = json.decode(response.body);
       if (response.statusCode == 200) {
+        print(payload);
         notifyListeners();
-        _passwordResetPhoneNumberSuccessToast(payload);
+        _passwordResetPhoneNumberSuccessToast();
         _passwordResetPhoneLoading = false;
         return payload;
       } else {
-        _passwordResetPhoneNumberSuccessToast(payload);
+        _passwordResetPhoneNumberErrorToast(payload["error"]);
         _passwordResetPhoneLoading = false;
       }
     }).catchError((error) {
