@@ -37,9 +37,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void goNext() {
     Timer(Duration(seconds: 3), () async {
-      //show onboarding if first time using shared preferences
       SharedPreferences prefs = await SharedPreferences.getInstance();
       bool? seen = prefs.getBool('seen');
+
       if (seen == null || seen == false) {
         Navigator.of(context).pushNamed(RouteGenerator.welcomePage);
       } else {

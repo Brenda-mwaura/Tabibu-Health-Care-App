@@ -255,6 +255,57 @@ class AuthProvider extends ChangeNotifier {
       print("error occured while requesting otp $error");
     });
   }
+
+  bool _isPasswordOTPLoading = false;
+  bool get isPasswordOTPLoading => _isPasswordOTPLoading;
+
+  set isPasswordOTPLoading(bool value) {
+    _isPasswordOTPLoading = value;
+    notifyListeners();
+  }
+
+  void passwordResetTokenCheckSuccessToast() {
+    Fluttertoast.showToast(
+      msg: "OTP successfully verified",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 4,
+      backgroundColor: Styles.primaryColor,
+      textColor: Colors.white,
+      fontSize: 18.0,
+    );
+  }
+
+  void passwordResetTokenCheckErrorToast(msg) {
+    Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 4,
+      backgroundColor: Styles.primaryColor,
+      textColor: Colors.white,
+      fontSize: 18.0,
+    );
+  }
+
+  Future passwordResetTokenCheck(String? token) async {
+    _isPasswordOTPLoading = true;
+    return await Api.passwordResetTokenCheck(token).then((response) {
+      var payload = json.decode(response.body);
+      if (response.statusCode == 200) {
+        notifyListeners();
+        _passwordResetPhoneNumberSuccessToast();
+        _isPasswordOTPLoading = false;
+      } else {
+        _passwordResetPhoneNumberErrorToast(payload["error"]);
+        _isPasswordOTPLoading = false;
+      }
+    }).catchError((error) {
+      passwordResetTokenCheckErrorToast(error);
+      _isPasswordOTPLoading = false;
+      print("error occured while checking the password reset token $error");
+    });
+  }
 }
 
 AuthProvider authProvider = AuthProvider();
