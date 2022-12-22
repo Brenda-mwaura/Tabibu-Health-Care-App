@@ -291,10 +291,16 @@ class AuthProvider extends ChangeNotifier {
 
   Future passwordResetTokenCheck(String? token) async {
     _isPasswordOTPLoading = true;
-    return await Api.passwordResetTokenCheck(token).then((response) {
+    return await Api.passwordResetTokenCheck(token).then((response) async {
       var payload = json.decode(response.body);
       if (response.statusCode == 200) {
         TokenCheck passwordResetTokenCheck = TokenCheck.fromJson(payload);
+
+        await db.loginAllDetailsBox!.clear();
+        await db.signUpAllDetailsBox!.clear();
+        await db.passwordResetTokenAllDetails!.clear();
+        await db.passwordResetTokenAllDetails!.add(passwordResetTokenCheck);
+
         notifyListeners();
         _passwordResetPhoneNumberSuccessToast();
         _isPasswordOTPLoading = false;
