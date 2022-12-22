@@ -8,6 +8,7 @@ import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/models/login_model.dart';
 import 'package:tabibu/data/db.dart';
 import 'package:tabibu/data/models/password_reset_phone_number_model.dart';
+import 'package:tabibu/data/models/password_reset_token_check_model.dart';
 import 'package:tabibu/data/models/sign_up_model.dart';
 
 class AuthProvider extends ChangeNotifier {
@@ -293,6 +294,7 @@ class AuthProvider extends ChangeNotifier {
     return await Api.passwordResetTokenCheck(token).then((response) {
       var payload = json.decode(response.body);
       if (response.statusCode == 200) {
+        TokenCheck passwordResetTokenCheck = TokenCheck.fromJson(payload);
         notifyListeners();
         _passwordResetPhoneNumberSuccessToast();
         _isPasswordOTPLoading = false;
