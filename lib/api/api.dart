@@ -80,13 +80,15 @@ class Api {
   }
 
   static Future<http.Response> passwordResetTokenCheck(String? token) async {
+    String? phone = authProvider.passwordResetPhoneDetailsDb.data!.phone;
+
     var response = await client.post(
       Uri.parse("${baseUrl}password-reset-token-check/"),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
       },
       body: jsonEncode({
-        // "phone": phone,
+        "phone": phone,
         "token": token,
       }),
     );

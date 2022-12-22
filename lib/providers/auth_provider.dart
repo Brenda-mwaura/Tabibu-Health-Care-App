@@ -224,6 +224,8 @@ class AuthProvider extends ChangeNotifier {
     );
   }
 
+  PasswordResetPhoneNumber get passwordResetPhoneDetailsDb =>
+      db.passwordResetPhoneNumberAllDetails!.getAt(0)!;
   Future passwordResetPhoneNumber(String? phoneNumber) {
     _passwordResetPhoneLoading = true;
     return Api.passwordResetPhoneNumber(phoneNumber).then((response) async {
