@@ -2,7 +2,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:tabibu/data/models/login_model.dart';
 import 'package:tabibu/data/models/password_reset_phone_number_model.dart';
-import 'package:tabibu/data/models/password_reset_token_check_model.dart';
+import 'package:tabibu/data/models/otp_check_model.dart';
 import 'package:tabibu/data/models/sign_up_model.dart';
 
 class DataBase {
@@ -13,8 +13,8 @@ class DataBase {
   Box<PasswordResetPhoneNumber>? passwordResetPhoneNumberAllDetails;
   Box<Data>? passwordResetPhoneNumberDetails;
 
-  Box<TokenCheck>? passwordResetTokenAllDetails;
-  Box<OtpData>? passwordResetTokenDetails;
+  Box<TokenCheck>? otpDetailsBox;
+  Box<OtpData>? otpDataDetailsBox;
 
   _initBoxes() async {
     loginAllDetailsBox = await Hive.openBox("loginDetailsBox");
@@ -26,10 +26,8 @@ class DataBase {
     passwordResetPhoneNumberDetails =
         await Hive.openBox("passwordResetPhoneNumberBox");
 
-    passwordResetTokenDetails =
-        await Hive.openBox("passwordResetTokenAllDetailsBox");
-    passwordResetTokenDetails =
-        await Hive.openBox("passwordResetTokenDetailsBox");
+    otpDetailsBox = await Hive.openBox("passwordTokenDetailsBox");
+    otpDataDetailsBox = await Hive.openBox("otpDataDetailsBox");
   }
 
   _loginAdapters() async {

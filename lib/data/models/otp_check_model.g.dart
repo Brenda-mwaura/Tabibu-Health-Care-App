@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'password_reset_token_check_model.dart';
+part of 'otp_check_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

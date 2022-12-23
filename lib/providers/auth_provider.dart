@@ -8,7 +8,7 @@ import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/models/login_model.dart';
 import 'package:tabibu/data/db.dart';
 import 'package:tabibu/data/models/password_reset_phone_number_model.dart';
-import 'package:tabibu/data/models/password_reset_token_check_model.dart';
+import 'package:tabibu/data/models/otp_check_model.dart';
 import 'package:tabibu/data/models/sign_up_model.dart';
 
 class AuthProvider extends ChangeNotifier {
@@ -260,12 +260,14 @@ class AuthProvider extends ChangeNotifier {
   bool _isPasswordOTPLoading = false;
   bool get isPasswordOTPLoading => _isPasswordOTPLoading;
 
+  TokenCheck get otpCheckDetails => db.otpDetailsBox!.getAt(0)!;
+
   set isPasswordOTPLoading(bool value) {
     _isPasswordOTPLoading = value;
     notifyListeners();
   }
 
-  void passwordResetTokenCheckSuccessToast() {
+  void _passwordResetTokenCheckSuccessToast() {
     Fluttertoast.showToast(
       msg: "OTP successfully verified",
       toastLength: Toast.LENGTH_SHORT,
@@ -277,7 +279,7 @@ class AuthProvider extends ChangeNotifier {
     );
   }
 
-  void passwordResetTokenCheckErrorToast(msg) {
+  void _passwordResetTokenCheckErrorToast(msg) {
     Fluttertoast.showToast(
       msg: msg,
       toastLength: Toast.LENGTH_SHORT,
@@ -293,26 +295,34 @@ class AuthProvider extends ChangeNotifier {
     _isPasswordOTPLoading = true;
     return await Api.passwordResetTokenCheck(token).then((response) async {
       var payload = json.decode(response.body);
+      print("Payload::: $payload");
       if (response.statusCode == 200) {
-        TokenCheck passwordResetTokenCheck = TokenCheck.fromJson(payload);
-
+        TokenCheck tokenDetails = TokenCheck.fromJson(payload);
+        TokenCheck passwordOtpDetails = TokenCheck(
+          otpData: OtpData(
+            token: tokenDetails.otpData!.token,
+            phone: tokenDetails.otpData!.phone,
+          ),
+        );
         await db.loginAllDetailsBox!.clear();
         await db.signUpAllDetailsBox!.clear();
-        await db.passwordResetTokenAllDetails!.clear();
-        await db.passwordResetTokenAllDetails!.add(passwordResetTokenCheck);
 
+        await db.otpDetailsBox!.clear();
+        await db.otpDetailsBox!.add(passwordOtpDetails);
         notifyListeners();
-        _passwordResetPhoneNumberSuccessToast();
+        _passwordResetTokenCheckSuccessToast();
         _isPasswordOTPLoading = false;
+        return payload;
       } else {
-        _passwordResetPhoneNumberErrorToast(payload["error"]);
+        _passwordResetTokenCheckErrorToast(payload["error"]);
         _isPasswordOTPLoading = false;
       }
-    }).catchError((error) {
-      passwordResetTokenCheckErrorToast(error);
-      _isPasswordOTPLoading = false;
-      print("error occured while checking the password reset token $error");
     });
+    // .catchError((error) {
+    //   _passwordResetTokenCheckErrorToast(error.toString());
+    //   _isPasswordOTPLoading = false;
+    //   print("error occured while checking the password reset token $error");
+    // });
   }
 }
 

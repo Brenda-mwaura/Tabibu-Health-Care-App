@@ -37,12 +37,12 @@ class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen> {
         await authProvider.passwordResetTokenCheck(otp).then((value) {
           if (value != null) {
             Navigator.of(context).pushNamed(RouteGenerator.passwordResetPage);
-            _pin1TextEditingController.text = "";
-            _pin2TextEditingController.text = "";
-            _pin3TextEditingController.text = "";
-            _pin4TextEditingController.text = "";
-            _pin5TextEditingController.text = "";
-            _pin6TextEditingController.text = "";
+            // _pin1TextEditingController.text = "";
+            // _pin2TextEditingController.text = "";
+            // _pin3TextEditingController.text = "";
+            // _pin4TextEditingController.text = "";
+            // _pin5TextEditingController.text = "";
+            // _pin6TextEditingController.text = "";
           }
         });
       } else {

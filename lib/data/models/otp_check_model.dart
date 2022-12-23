@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:hive/hive.dart';
-part 'password_reset_token_check_model.g.dart';
+part 'otp_check_model.g.dart';
 
 TokenCheck tokenCheckFromJson(String str) =>
     TokenCheck.fromJson(json.decode(str));
