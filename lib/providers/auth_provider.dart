@@ -430,6 +430,13 @@ class AuthProvider extends ChangeNotifier {
       print("error occured while logging out $error");
     });
   }
+
+  Future refreshToken(String? refreshToken) async {
+    return await Api.refreshToken(refreshToken).then((response) {
+      var payload = json.decode(response.body);
+      if (response.statusCode == 200) {}
+    }).catchError((error) {});
+  }
 }
 
 AuthProvider authProvider = AuthProvider();
