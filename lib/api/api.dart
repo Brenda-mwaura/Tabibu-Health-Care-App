@@ -94,4 +94,24 @@ class Api {
     );
     return response;
   }
+
+  static Future<http.Response> passwordReset(
+      String? password, String? passwordConfirm) async {
+    String? phone = authProvider.otpCheckDetails.otpData!.phone;
+    String? token = authProvider.otpCheckDetails.otpData!.token;
+
+    var response = await client.post(
+      Uri.parse("${baseUrl}password-reset-complete/"),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
+      body: jsonEncode({
+        "password": password,
+        "password_confirm": passwordConfirm,
+        "phone": phone,
+        "token": token,
+      }),
+    );
+    return response;
+  }
 }
