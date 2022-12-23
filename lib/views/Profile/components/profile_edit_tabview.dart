@@ -4,6 +4,7 @@ import 'package:tabibu/providers/profile_provider.dart';
 import 'package:tabibu/services/validators.dart';
 import 'package:tabibu/widgets/buttons/auth_button.dart';
 import 'package:tabibu/widgets/inputs/text_field_with_label.dart';
+import 'package:tabibu/widgets/spinner.dart';
 
 class ProfileEditTabView extends StatefulWidget {
   ProfileEditTabView({Key? key}) : super(key: key);
@@ -20,6 +21,24 @@ class _ProfileEditTabViewState extends State<ProfileEditTabView> {
   TextEditingController _phoneNumberTextEditingController =
       TextEditingController();
   TextEditingController _bioTextEditingController = TextEditingController();
+
+  Future _profileUpdateFnc() async {
+    if (profileUpdateKey.currentState!.validate()) {
+      await profileProvider
+          .updateProfile(
+        bio: _bioTextEditingController.text,
+        email: _emailTextEditingController.text,
+        fullName: _fullNameTextEditingController.text,
+        phone: _phoneNumberTextEditingController.text,
+        userID: profileProvider.profileDetails.id,
+      )
+          .then((value) async {
+        if (value != null) {
+          await _refresh();
+        }
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -87,9 +106,9 @@ class _ProfileEditTabViewState extends State<ProfileEditTabView> {
                     ),
                     keyboardType: TextInputType.text,
                     inputAction: TextInputAction.next,
-                    validator: (value) => FormValidators().phoneNumberValidator(
-                      value!,
-                    ),
+                    // validator: (value) => FormValidators().phoneNumberValidator(
+                    //   value!,
+                    // ),
                   ),
                   const SizedBox(
                     height: 20,
@@ -153,9 +172,14 @@ class _ProfileEditTabViewState extends State<ProfileEditTabView> {
                     height: 30,
                   ),
                   AuthButton(
-                    onPressed: () {},
+                    onPressed: _profileUpdateFnc,
                     child: Consumer<ProfileProvider>(
                       builder: (context, value, child) {
+                        if (value.profileUpdateLoading == true) {
+                          return const AppSpinner(
+                            color: Colors.white,
+                          );
+                        }
                         return const Text(
                           "Update",
                           style: TextStyle(

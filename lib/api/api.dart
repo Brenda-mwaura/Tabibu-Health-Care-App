@@ -198,6 +198,7 @@ class Api {
   static Future<http.Response> updateProfile(String? phone, String? email,
       String? fullName, String? bio, int? userID) async {
     String? token = authProvider.allLoginDetails.access;
+    print("Full name::: $fullName");
 
     var response = await client2.put(
       Uri.parse("${baseUrl}patient/profile/$userID/"),
@@ -206,9 +207,11 @@ class Api {
         HttpHeaders.authorizationHeader: 'Bearer $token',
       },
       body: jsonEncode({
-        "phone": phone,
-        "email": email,
-        "full_name": fullName,
+        "user": {
+          "full_name": fullName,
+          "phone": phone,
+          "email": email,
+        },
         "bio": bio,
       }),
     );
