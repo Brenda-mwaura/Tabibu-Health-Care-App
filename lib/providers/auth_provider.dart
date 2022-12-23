@@ -9,6 +9,7 @@ import 'package:tabibu/data/models/login_model.dart';
 import 'package:tabibu/data/db.dart';
 import 'package:tabibu/data/models/password_reset_phone_number_model.dart';
 import 'package:tabibu/data/models/otp_check_model.dart';
+import 'package:tabibu/data/models/refresh_token_model.dart';
 import 'package:tabibu/data/models/sign_up_model.dart';
 
 class AuthProvider extends ChangeNotifier {
@@ -434,8 +435,25 @@ class AuthProvider extends ChangeNotifier {
   Future refreshToken(String? refreshToken) async {
     return await Api.refreshToken(refreshToken).then((response) {
       var payload = json.decode(response.body);
-      if (response.statusCode == 200) {}
-    }).catchError((error) {});
+      if (response.statusCode == 200) {
+        RefreshToken refreshTokenDetails = RefreshToken();
+
+        // print old accessToken
+        print("Old Access Token ${allLoginDetails.access}");
+        print("Old refresh token ${allLoginDetails.refresh}");
+        // update accessToken
+        allLoginDetails.access = refreshTokenDetails.access;
+        allLoginDetails.refresh = refreshTokenDetails.refresh;
+        // save new accessToken
+        db.loginAllDetailsBox!.putAt(0, allLoginDetails);
+        print("New Access Token ${refreshTokenDetails.access}");
+        print("New refresh token ${refreshTokenDetails.refresh}");
+
+        notifyListeners();
+      }
+    }).catchError((error) {
+      print("error occured during token refresh authentication $error");
+    });
   }
 }
 
