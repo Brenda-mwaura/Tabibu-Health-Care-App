@@ -167,4 +167,30 @@ class Api {
 
     return response;
   }
+
+  static Future updateProfilePicture(
+      String? imagePath, File? profileImage, int? userID) async {
+    String? token = authProvider.allLoginDetails.access;
+    final file = File(imagePath!);
+    var request = http.MultipartRequest(
+      "PUT",
+      Uri.parse("${baseUrl}patient/profile/$userID/"),
+    );
+
+    request.headers.addAll({
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: "Bearer $token",
+    });
+
+    request.files.add(
+      http.MultipartFile.fromBytes(
+        "profile_picture",
+        file.readAsBytesSync(),
+        filename: imagePath.split('/').last,
+      ),
+    );
+
+    var response = await request.send();
+    return response;
+  }
 }
