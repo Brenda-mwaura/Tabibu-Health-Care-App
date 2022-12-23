@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tabibu/configs/styles.dart';
+import 'package:tabibu/providers/profile_provider.dart';
 
 class ImagePickerBottomSheet extends StatelessWidget {
   const ImagePickerBottomSheet({Key? key}) : super(key: key);
@@ -69,6 +72,12 @@ class ImagePickerBottomSheet extends StatelessWidget {
                               source: ImageSource.camera,
                               imageQuality: 100,
                             );
+
+                            if (_capturedImage != null) {
+                              File _cameraFile = File(_capturedImage.path);
+                              _uploadFnc(_capturedImage.path, _cameraFile);
+                              Navigator.of(context).pop();
+                            }
                           },
                           icon: const Icon(
                             Icons.camera_alt,
@@ -97,6 +106,12 @@ class ImagePickerBottomSheet extends StatelessWidget {
                               source: ImageSource.gallery,
                               imageQuality: 100,
                             );
+
+                            if (_pickedImageFile != null) {
+                              File _imageFile = File(_pickedImageFile.path);
+                              _uploadFnc(_pickedImageFile.path, _imageFile);
+                              Navigator.of(context).pop();
+                            }
                           },
                           icon: const Icon(
                             Icons.photo,
@@ -122,5 +137,17 @@ class ImagePickerBottomSheet extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void _uploadFnc(String? imagePath, File? profileImage) async {
+    await profileProvider
+        .profilePictureUpload(
+      imagePath,
+      profileImage,
+      profileProvider.profileDetails.id,
+    )
+        .then((value) {
+      print(value);
+    });
   }
 }

@@ -45,7 +45,7 @@ class ProfileProvider extends ChangeNotifier {
         _profileLoading = false;
       } else if (response.statusCode == 401) {
         await authProvider.refreshToken(refreshToken);
-        fetchProfile();
+        await fetchProfile();
       } else {
         _profileLoading = false;
       }
@@ -83,17 +83,15 @@ class ProfileProvider extends ChangeNotifier {
       String? imagePath, File? profileImage, int? userID) async {
     return await Api.updateProfilePicture(imagePath, profileImage, userID)
         .then((response) async {
-      var payload = jsonDecode(response.body);
-
       if (response.statusCode == 200) {
         _profilePictureUpdateSuccessToast();
         await fetchProfile();
-        return payload;
       } else {
-        _profilePictureUpdateErrorToast(payload);
+        _profilePictureUpdateErrorToast("Profile upload failed");
       }
     }).catchError((error) {
       _profileLoading = false;
+      _profilePictureUpdateErrorToast(error);
       print("error occured while fetching user profile $error");
     });
   }
