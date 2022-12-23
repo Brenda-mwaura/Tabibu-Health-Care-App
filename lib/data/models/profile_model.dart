@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:hive/hive.dart';
 part "profile_model.g.dart";
 
-PatientProfile patientProfileFromJson(String str) =>
-    PatientProfile.fromJson(json.decode(str));
+List<PatientProfile> patientProfileFromJson(String str) =>
+    List<PatientProfile>.from(
+        json.decode(str).map((x) => PatientProfile.fromJson(x)));
 
-String patientProfileToJson(PatientProfile data) => json.encode(data.toJson());
+String patientProfileToJson(List<PatientProfile> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 @HiveType(typeId: 8)
 class PatientProfile {
@@ -58,13 +60,13 @@ class PatientProfile {
   @HiveField(12)
   String? bloodGroup;
   @HiveField(13)
-  int? weight;
+  double? weight;
   @HiveField(14)
-  int? height;
+  double? height;
   @HiveField(15)
-  int? bloodPressure;
+  double? bloodPressure;
   @HiveField(16)
-  int? bloodSugar;
+  double? bloodSugar;
   @HiveField(17)
   String? allergies;
 

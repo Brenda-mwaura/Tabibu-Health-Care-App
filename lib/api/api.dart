@@ -158,7 +158,7 @@ class Api {
     String? accessToken = authProvider.allLoginDetails.access;
 
     var response = await client2.get(
-      Uri.parse("${baseUrl}owner/profile/"),
+      Uri.parse("${baseUrl}patient/profile/"),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.authorizationHeader: 'Bearer $accessToken',

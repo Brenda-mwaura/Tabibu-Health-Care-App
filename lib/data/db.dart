@@ -64,7 +64,7 @@ class DataBase {
 
   init() async {
     await Hive.initFlutter();
-    _profileAdapters();
+    await _profileAdapters();
     await _passwordResetTokenCheckAdapters();
     await _passwordResetPhoneNumberAdapters();
     await _signUpAdapters();

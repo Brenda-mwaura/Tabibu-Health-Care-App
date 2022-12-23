@@ -30,10 +30,10 @@ class PatientProfileAdapter extends TypeAdapter<PatientProfile> {
       dateOfBirth: fields[10] as String?,
       timestamp: fields[11] as String?,
       bloodGroup: fields[12] as String?,
-      weight: fields[13] as int?,
-      height: fields[14] as int?,
-      bloodPressure: fields[15] as int?,
-      bloodSugar: fields[16] as int?,
+      weight: fields[13] as double?,
+      height: fields[14] as double?,
+      bloodPressure: fields[15] as double?,
+      bloodSugar: fields[16] as double?,
       allergies: fields[17] as String?,
     );
   }
