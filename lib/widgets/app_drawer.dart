@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/providers/auth_provider.dart';
+import 'package:tabibu/providers/profile_provider.dart';
 import 'package:tabibu/services/navigation_service.dart';
 import 'package:tabibu/views/Profile/profile_screen.dart';
 
@@ -25,39 +27,48 @@ class AppDrawer extends StatelessWidget {
               height: 200,
               width: double.infinity,
               color: Styles.primaryColor,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  CircleAvatar(
-                      radius: 55,
-                      backgroundImage: AssetImage("assets/images/afya.jpeg")
-                      // NetworkImage(
-                      //   profileService.profileDetails.profilePicture.toString(),
-                      // ),
+              child: Consumer<ProfileProvider>(
+                builder: (context, value, child) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      value.profileDetails.profilePicture == null
+                          ? const CircleAvatar(
+                              radius: 55,
+                              backgroundImage:
+                                  AssetImage("assets/images/default.png"),
+                            )
+                          : CircleAvatar(
+                              radius: 55,
+                              backgroundImage: NetworkImage(
+                                value.profileDetails.profilePicture.toString(),
+                              ),
+                            ),
+                      const SizedBox(
+                        height: 10,
                       ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "doe@gmail.com",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 2,
-                  ),
-                  Text(
-                    "John Doe",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
+                      Text(
+                        value.profileDetails.user!.email.toString(),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 2,
+                      ),
+                      Text(
+                        value.profileDetails.user!.fullName.toString(),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
             ListTile(

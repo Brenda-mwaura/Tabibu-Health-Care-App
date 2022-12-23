@@ -36,8 +36,9 @@ class ProfileProvider extends ChangeNotifier {
 
         db.patientProfileBox!.clear();
         db.patientProfileBox!.add(profile);
-        _profileLoading = false;
+
         notifyListeners();
+        _profileLoading = false;
       } else if (response.statusCode == 401) {
         await authProvider.refreshToken(refreshToken);
         fetchProfile();
