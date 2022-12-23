@@ -281,7 +281,7 @@ class AuthProvider extends ChangeNotifier {
 
   void _passwordResetTokenCheckErrorToast(msg) {
     Fluttertoast.showToast(
-      msg: msg,
+      msg: msg.toString(),
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 4,
@@ -317,12 +317,63 @@ class AuthProvider extends ChangeNotifier {
         _passwordResetTokenCheckErrorToast(payload["error"]);
         _isPasswordOTPLoading = false;
       }
+    }).catchError((error) {
+      _passwordResetTokenCheckErrorToast(error.toString());
+      _isPasswordOTPLoading = false;
+      print("error occured while checking the password reset token $error");
     });
-    // .catchError((error) {
-    //   _passwordResetTokenCheckErrorToast(error.toString());
-    //   _isPasswordOTPLoading = false;
-    //   print("error occured while checking the password reset token $error");
-    // });
+  }
+
+  bool _passwordResetLoading = false;
+  bool get passwordResetLoading => _passwordResetLoading;
+
+  set passwordResetLoading(bool value) {
+    _passwordResetLoading = value;
+    notifyListeners();
+  }
+
+  void _passwordResetSuccessToast() {
+    Fluttertoast.showToast(
+      msg: "Password successfully reset",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 4,
+      backgroundColor: Styles.primaryColor,
+      textColor: Colors.white,
+      fontSize: 18.0,
+    );
+  }
+
+  void _passwordResetErrorToast(msg) {
+    Fluttertoast.showToast(
+      msg: msg.toString(),
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 4,
+      backgroundColor: Styles.primaryColor,
+      textColor: Colors.white,
+      fontSize: 18.0,
+    );
+  }
+
+  Future passwordReset(String? password, String? passwordConfirm) async {
+    _passwordResetLoading = true;
+    return await Api.passwordReset(password, passwordConfirm).then((response) {
+      var payload = json.decode(response.body);
+      if (response.statusCode == 200) {
+        notifyListeners();
+        _passwordResetSuccessToast();
+        _passwordResetLoading = false;
+        return payload;
+      } else {
+        _passwordResetErrorToast(payload["error"]);
+        _passwordResetLoading = false;
+      }
+    }).catchError((error) {
+      _passwordResetErrorToast(error);
+      _passwordResetLoading = false;
+      print("error occured while checking the password reset token $error");
+    });
   }
 }
 
