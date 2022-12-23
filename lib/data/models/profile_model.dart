@@ -111,6 +111,7 @@ class PatientProfile {
       };
 }
 
+@HiveType(typeId: 9)
 class User {
   User({
     this.id,

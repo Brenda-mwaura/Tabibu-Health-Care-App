@@ -57,7 +57,10 @@ class DataBase {
     Hive.registerAdapter(OtpDataAdapter());
   }
 
-  _profileAdapters() async {}
+  _profileAdapters() async {
+    Hive.registerAdapter(PatientProfileAdapter());
+    Hive.registerAdapter(UserAdapter());
+  }
 
   init() async {
     await Hive.initFlutter();
