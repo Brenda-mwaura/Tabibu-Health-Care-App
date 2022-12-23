@@ -5,6 +5,7 @@ import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/providers/auth_provider.dart';
 import 'package:tabibu/providers/geolocation_provider.dart.dart';
 import 'package:tabibu/providers/google_signin_provider.dart';
+import 'package:tabibu/providers/profile_provider.dart';
 import 'package:tabibu/services/navigation_service.dart';
 
 // initialize firebase
@@ -44,6 +45,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider.value(value: geolocationProvider),
         ChangeNotifierProvider.value(value: googleSignInProvider),
         ChangeNotifierProvider.value(value: authProvider),
+        ChangeNotifierProvider.value(value: profileProvider),
       ],
       child: MaterialApp(
         title: "Tabibu Health",

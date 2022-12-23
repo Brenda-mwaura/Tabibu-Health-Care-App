@@ -2,12 +2,21 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:http_interceptor/http/intercepted_client.dart';
+import 'package:tabibu/api/interceptors/authorization_interceptor.dart';
 import 'package:tabibu/app_config.dart';
 import 'package:tabibu/providers/auth_provider.dart';
 
 class Api {
   static var baseUrl = AppConfig.appUrl;
   static var client = http.Client();
+
+  static final client2 = InterceptedClient.build(
+    interceptors: [
+      AuthorizationInterceptor(),
+    ],
+    requestTimeout: const Duration(seconds: 5),
+  );
 
   static Future<http.Response> login(String phone, String password) async {
     var response = await client.post(
@@ -142,6 +151,20 @@ class Api {
         "refresh": refreshToken,
       }),
     );
+    return response;
+  }
+
+  static Future<http.Response> profile() async {
+    String? accessToken = authProvider.allLoginDetails.access;
+
+    var response = await client2.get(
+      Uri.parse("${baseUrl}owner/profile/"),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $accessToken',
+      },
+    );
+
     return response;
   }
 }
