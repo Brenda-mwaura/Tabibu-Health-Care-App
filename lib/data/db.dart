@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:tabibu/data/models/login_model.dart';
 import 'package:tabibu/data/models/password_reset_phone_number_model.dart';
 import 'package:tabibu/data/models/otp_check_model.dart';
+import 'package:tabibu/data/models/profile_model.dart';
 import 'package:tabibu/data/models/sign_up_model.dart';
 
 class DataBase {
@@ -16,6 +17,9 @@ class DataBase {
   Box<TokenCheck>? otpDetailsBox;
   Box<OtpData>? otpDataDetailsBox;
 
+  Box<PatientProfile>? patientProfileBox;
+  Box<User>? userProfileBox;
+
   _initBoxes() async {
     loginAllDetailsBox = await Hive.openBox("loginDetailsBox");
     loginUserDetailsBox = await Hive.openBox("loginUserBox");
@@ -28,6 +32,9 @@ class DataBase {
 
     otpDetailsBox = await Hive.openBox("passwordTokenDetailsBox");
     otpDataDetailsBox = await Hive.openBox("otpDataDetailsBox");
+
+    patientProfileBox = await Hive.openBox("patientProfileDetailsBox");
+    userProfileBox = await Hive.openBox("userProfileDetailsBox");
   }
 
   _loginAdapters() async {
@@ -50,8 +57,11 @@ class DataBase {
     Hive.registerAdapter(OtpDataAdapter());
   }
 
+  _profileAdapters() async {}
+
   init() async {
     await Hive.initFlutter();
+    _profileAdapters();
     await _passwordResetTokenCheckAdapters();
     await _passwordResetPhoneNumberAdapters();
     await _signUpAdapters();
