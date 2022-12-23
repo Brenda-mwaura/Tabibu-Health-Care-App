@@ -172,6 +172,7 @@ class Api {
       String? imagePath, File? profileImage, int? userID) async {
     String? token = authProvider.allLoginDetails.access;
     final file = File(imagePath!);
+
     var request = http.MultipartRequest(
       "PUT",
       Uri.parse("${baseUrl}patient/profile/$userID/"),
