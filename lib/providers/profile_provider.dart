@@ -95,6 +95,8 @@ class ProfileProvider extends ChangeNotifier {
       print("error occured while fetching user profile $error");
     });
   }
+
+  // Future updateProfile({String? phone,S})
 }
 
 ProfileProvider profileProvider = ProfileProvider();

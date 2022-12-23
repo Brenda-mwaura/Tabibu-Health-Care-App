@@ -194,4 +194,25 @@ class Api {
     var response = await request.send();
     return response;
   }
+
+  static Future<http.Response> updateProfile(String? phone, String? email,
+      String? fullName, String? bio, int? userID) async {
+    String? token = authProvider.allLoginDetails.access;
+
+    var response = await client2.put(
+      Uri.parse("${baseUrl}patient/profile/$userID/"),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $token',
+      },
+      body: jsonEncode({
+        "phone": phone,
+        "email": email,
+        "full_name": fullName,
+        "bio": bio,
+      }),
+    );
+
+    return response;
+  }
 }
