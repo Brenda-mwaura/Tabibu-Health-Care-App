@@ -96,7 +96,77 @@ class ProfileProvider extends ChangeNotifier {
     });
   }
 
-  // Future updateProfile({String? phone,S})
+  void _profileUpdateSuccessToast() {
+    Fluttertoast.showToast(
+      msg: "Profile updated successfully",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 3,
+      backgroundColor: Styles.primaryColor,
+      textColor: Colors.white,
+      fontSize: 18.0,
+    );
+  }
+
+  void _profileUpdateErrorToast(msg) {
+    Fluttertoast.showToast(
+      msg: msg.toString(),
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 3,
+      backgroundColor: Styles.primaryColor,
+      textColor: Colors.white,
+      fontSize: 18.0,
+    );
+  }
+
+  bool _profileUpdateLoading = false;
+  bool get profileUpdateLoading => _profileUpdateLoading;
+
+  set profileUpdateLoading(bool val) {
+    _profileUpdateLoading = val;
+    notifyListeners();
+  }
+
+  PatientProfile _updatedProfileDetails = PatientProfile();
+  PatientProfile get updatedProfileDetails => _updatedProfileDetails;
+
+  Future updateProfile(
+      {String? phone,
+      String? email,
+      String? fullName,
+      String? bio,
+      int? userID}) async {
+    _profileUpdateLoading = true;
+    String? refreshToken = authProvider.allLoginDetails.refresh;
+
+    return await Api.updateProfile(phone, email, fullName, bio, userID)
+        .then((response) async {
+      var payload = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        _updatedProfileDetails = PatientProfile.fromJson(payload);
+        _profileUpdateSuccessToast();
+        _profileUpdateLoading = false;
+        return payload;
+      } else if (response.statusCode == 401) {
+        await authProvider.refreshToken(refreshToken);
+        updateProfile(
+            phone: phone,
+            email: email,
+            fullName: fullName,
+            bio: bio,
+            userID: userID);
+      } else {
+        _profileUpdateErrorToast(payload);
+        _profileUpdateLoading = false;
+      }
+    }).catchError((error) {
+      _profileUpdateErrorToast(error);
+      _profileLoading = false;
+      print("error occured while updating profile $error");
+    });
+  }
 }
 
 ProfileProvider profileProvider = ProfileProvider();
