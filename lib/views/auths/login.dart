@@ -123,7 +123,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Consumer<AuthProvider>(
                   builder: (context, value, child) {
                     if (value.loadingLogin == true) {
-                      return AppSpinner();
+                      return const AppSpinner(
+                        color: Colors.white,
+                      );
                     }
                     return const Text(
                       "Sign In",

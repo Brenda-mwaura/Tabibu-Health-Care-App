@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tabibu/configs/routes.dart';
+import 'package:tabibu/providers/auth_provider.dart';
 import 'package:tabibu/services/validators.dart';
 import 'package:tabibu/views/auths/auth_base.dart';
 import 'package:tabibu/widgets/buttons/auth_button.dart';
 import 'package:tabibu/widgets/inputs/text_field_with_label.dart';
+import 'package:tabibu/widgets/spinner.dart';
 
 class PasswordResetScreen extends StatefulWidget {
   PasswordResetScreen({Key? key}) : super(key: key);
@@ -20,6 +23,21 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
       TextEditingController();
   bool _obsecure = true;
   bool _obsecureConfirm = true;
+
+  Future _passwordResetFnc() async {
+    if (passwordResetFormKey.currentState!.validate()) {
+      await authProvider
+          .passwordReset(passwordTextEditingController.text,
+              confirmPasswordTextEditingController.text)
+          .then((value) {
+        if (value != null) {
+          Navigator.of(context).popAndPushNamed(RouteGenerator.loginPage);
+          passwordTextEditingController.text = "";
+          confirmPasswordTextEditingController.text = "";
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,16 +96,23 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
               height: 30,
             ),
             AuthButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(RouteGenerator.loginPage);
-              },
-              child: const Text(
-                "Change Password",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w500,
-                ),
+              onPressed: _passwordResetFnc,
+              child: Consumer<AuthProvider>(
+                builder: (context, value, child) {
+                  if (value.passwordResetLoading == true) {
+                    return const AppSpinner(
+                      color: Colors.white,
+                    );
+                  }
+                  return const Text(
+                    "Change Password",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  );
+                },
               ),
             ),
           ],

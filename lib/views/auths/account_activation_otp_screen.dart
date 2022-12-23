@@ -132,7 +132,9 @@ class _ActivationOTPScreenState extends State<ActivationOTPScreen> {
               child: Consumer<AuthProvider>(
                 builder: (context, value, child) {
                   if (value.otpLoading == true) {
-                    return AppSpinner();
+                    return const AppSpinner(
+                      color: Colors.white,
+                    );
                   }
                   return const Text(
                     "Verify OTP",

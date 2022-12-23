@@ -220,7 +220,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Consumer<AuthProvider>(
                   builder: (context, value, child) {
                     if (value.loadingSignUp == true) {
-                      return AppSpinner();
+                      return const AppSpinner(
+                        color: Colors.white,
+                      );
                     } else {
                       return const Text(
                         "Sign Up",
