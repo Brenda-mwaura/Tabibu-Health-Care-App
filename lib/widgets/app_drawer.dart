@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/configs/styles.dart';
+import 'package:tabibu/providers/auth_provider.dart';
 import 'package:tabibu/services/navigation_service.dart';
 import 'package:tabibu/views/Profile/profile_screen.dart';
 
@@ -9,6 +10,12 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future _logout() async {
+      await authProvider.logout();
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          RouteGenerator.loginPage, (Route<dynamic> route) => false);
+    }
+
     return Drawer(
       child: Container(
         color: Colors.white,
@@ -160,7 +167,7 @@ class AppDrawer extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.of(context).pushNamed(RouteGenerator.loginPage);
+                _logout();
               },
             ),
           ],

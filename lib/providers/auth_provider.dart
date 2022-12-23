@@ -375,6 +375,61 @@ class AuthProvider extends ChangeNotifier {
       print("error occured while checking the password reset token $error");
     });
   }
+
+  void _logoutErrorToast() {
+    Fluttertoast.showToast(
+      msg: "Logout failed",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 4,
+      backgroundColor: Styles.primaryColor,
+      textColor: Colors.white,
+      fontSize: 18.0,
+    );
+  }
+
+  void _logoutSuccessToast() {
+    Fluttertoast.showToast(
+      msg: "Logout successful",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 4,
+      backgroundColor: Styles.primaryColor,
+      textColor: Colors.white,
+      fontSize: 18.0,
+    );
+  }
+
+  bool _logoutLoading = false;
+  bool get logoutLoading => _logoutLoading;
+
+  set logoutLoading(bool value) {
+    _loadingLogin = value;
+    notifyListeners();
+  }
+
+  Future logout() async {
+    _logoutLoading = true;
+    return await Api.logout().then((response) async {
+      var payload = json.decode(response.body);
+      if (response.statusCode == 205) {
+        await db.loginAllDetailsBox!.clear();
+        await db.signUpAllDetailsBox!.clear();
+        await db.otpDetailsBox!.clear();
+        notifyListeners();
+        _logoutSuccessToast();
+        _logoutLoading = false;
+        return payload;
+      } else {
+        _logoutErrorToast();
+        _logoutLoading = false;
+      }
+    }).catchError((error) {
+      _logoutErrorToast();
+      _logoutLoading = false;
+      print("error occured while logging out $error");
+    });
+  }
 }
 
 AuthProvider authProvider = AuthProvider();
