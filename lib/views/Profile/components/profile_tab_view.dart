@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/providers/geolocation_provider.dart.dart';
@@ -151,11 +152,14 @@ class _ProfileTabViewState extends State<ProfileTabView> {
                             ProfileText(
                               icon: Icons.calendar_month,
                               displayTitle: "DOB",
-                              text:
-                                  // value.profileDetails.dateOfBirth == null
-                                  //     ? ""
-                                  //     :
-                                  value.profileDetails.dateOfBirth.toString(),
+                              text: value.profileDetails.dateOfBirth == null
+                                  ? "Not set"
+                                  : DateFormat("dd-MM-yyyy").format(
+                                      DateTime.parse(
+                                        value.profileDetails.dateOfBirth
+                                            .toString(),
+                                      ),
+                                    ),
                             ),
                             const SizedBox(
                               height: 20,

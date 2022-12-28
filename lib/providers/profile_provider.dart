@@ -136,34 +136,42 @@ class ProfileProvider extends ChangeNotifier {
       String? email,
       String? fullName,
       String? bio,
-      int? userID}) async {
+      int? userID,
+      String? dateOfBirth}) async {
+    _profileLoading = true;
     _profileUpdateLoading = true;
     String? refreshToken = authProvider.allLoginDetails.refresh;
 
-    return await Api.updateProfile(phone, email, fullName, bio, userID)
+    return await Api.updateProfile(
+            phone, email, fullName, bio, userID, dateOfBirth)
         .then((response) async {
       var payload = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
         _updatedProfileDetails = PatientProfile.fromJson(payload);
         _profileUpdateSuccessToast();
+        _profileLoading = false;
         _profileUpdateLoading = false;
         return payload;
       } else if (response.statusCode == 401) {
         await authProvider.refreshToken(refreshToken);
         updateProfile(
-            phone: phone,
-            email: email,
-            fullName: fullName,
-            bio: bio,
-            userID: userID);
+          phone: phone,
+          email: email,
+          fullName: fullName,
+          bio: bio,
+          userID: userID,
+          dateOfBirth: dateOfBirth,
+        );
       } else {
         _profileUpdateErrorToast(payload);
+        _profileLoading = true;
         _profileUpdateLoading = false;
       }
     }).catchError((error) {
       _profileUpdateErrorToast(error);
       _profileLoading = false;
+      _profileLoading = true;
       print("error occured while updating profile $error");
     });
   }
