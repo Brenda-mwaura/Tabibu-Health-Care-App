@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/providers/auth_provider.dart';
+import 'package:tabibu/providers/clinic_provider.dart';
 import 'package:tabibu/providers/geolocation_provider.dart.dart';
 import 'package:tabibu/providers/google_signin_provider.dart';
 import 'package:tabibu/providers/profile_provider.dart';
@@ -46,6 +47,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider.value(value: googleSignInProvider),
         ChangeNotifierProvider.value(value: authProvider),
         ChangeNotifierProvider.value(value: profileProvider),
+        ChangeNotifierProvider.value(value: clinicProvider),
       ],
       child: MaterialApp(
         title: "Tabibu Health",

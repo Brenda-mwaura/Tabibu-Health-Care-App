@@ -6,6 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:location/location.dart' as location_package;
+import 'package:tabibu/providers/clinic_provider.dart';
 
 class GeolocationProvider with ChangeNotifier {
   var _longitude = 0.0;
@@ -53,6 +54,7 @@ class GeolocationProvider with ChangeNotifier {
         _longitude = position.longitude;
 
         await getAddressFromLatLng(_latitude, _longitude);
+        await clinicProvider.fetchNearestClinics(_latitude, _longitude);
       });
       _onGeolocationLoading = false;
       notifyListeners();

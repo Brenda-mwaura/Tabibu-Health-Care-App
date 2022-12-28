@@ -16,6 +16,7 @@ class Clinic {
     this.latitude,
     this.longitude,
     this.description,
+    this.displayImage,
     this.openingHours,
     this.closingHours,
     this.verified,
@@ -31,6 +32,7 @@ class Clinic {
   double? latitude;
   double? longitude;
   String? description;
+  String? displayImage;
   String? openingHours;
   String? closingHours;
   bool? verified;
@@ -46,6 +48,7 @@ class Clinic {
         latitude: json["latitude"].toDouble(),
         longitude: json["longitude"].toDouble(),
         description: json["description"],
+        displayImage: json["display_image"],
         openingHours: json["opening_hours"],
         closingHours: json["closing_hours"],
         verified: json["verified"],
@@ -62,6 +65,7 @@ class Clinic {
         "latitude": latitude,
         "longitude": longitude,
         "description": description,
+        "display_image": displayImage,
         "opening_hours": openingHours,
         "closing_hours": closingHours,
         "verified": verified,
