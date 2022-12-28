@@ -164,7 +164,7 @@ class Api {
         HttpHeaders.authorizationHeader: 'Bearer $accessToken',
       },
     );
-    print(response.body);
+
     return response;
   }
 
@@ -214,6 +214,20 @@ class Api {
         "bio": bio,
         "date_of_birth": dateOfBirth,
       }),
+    );
+
+    return response;
+  }
+
+  static Future<http.Response> clinics() async {
+    String? accessToken = authProvider.allLoginDetails.access;
+
+    var response = await client2.get(
+      Uri.parse("${baseUrl}clinics/"),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $accessToken',
+      },
     );
 
     return response;
