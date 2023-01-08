@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/data_search.dart';
+import 'package:tabibu/providers/clinic_provider.dart';
 import 'package:tabibu/views/home/components/home_list_view.dart';
 import 'package:tabibu/widgets/app_drawer.dart';
+import 'package:tabibu/widgets/spinner.dart';
 
 class ClinicScreen extends StatefulWidget {
   ClinicScreen({Key? key}) : super(key: key);
@@ -13,6 +16,17 @@ class ClinicScreen extends StatefulWidget {
 
 class _ClinicScreenState extends State<ClinicScreen> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    _refresh();
+  }
+
+  Future<void> _refresh() async {
+    var clinicProvider = Provider.of<ClinicProvider>(context, listen: false);
+    await clinicProvider.fetchClinics();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,22 +142,34 @@ class _ClinicScreenState extends State<ClinicScreen> {
                     left: 15,
                     right: 15,
                   ),
-                  child: Scrollable(
-                    viewportBuilder: (context, position) {
-                      return SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            ListView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: 20,
-                              itemBuilder: (context, index) {
-                                return HomePageListView();
-                              },
-                            )
-                          ],
-                        ),
-                      );
+                  child: Consumer<ClinicProvider>(
+                    builder: (context, value, child) {
+                      if (value.cinicsLoading == true) {
+                        return AppSpinner();
+                      } else {
+                        return RefreshIndicator(
+                          onRefresh: _refresh,
+                          child: Scrollable(
+                            viewportBuilder: (context, position) {
+                              return SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    ListView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: 20,
+                                      itemBuilder: (context, index) {
+                                        return HomePageListView();
+                                      },
+                                    )
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      }
                     },
                   ),
                 ),

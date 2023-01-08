@@ -1,10 +1,11 @@
 import 'dart:convert';
 
-List<Clinic> clinicFromJson(String str) =>
-    List<Clinic>.from(json.decode(str).map((x) => Clinic.fromJson(x)));
+List<Clinic?>? clinicFromJson(String str) => json.decode(str) == null
+    ? []
+    : List<Clinic?>.from(json.decode(str)!.map((x) => Clinic.fromJson(x)));
 
-String clinicToJson(List<Clinic> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String clinicToJson(List<Clinic?>? data) => json.encode(
+    data == null ? [] : List<dynamic>.from(data!.map((x) => x!.toJson())));
 
 class Clinic {
   Clinic({
@@ -16,6 +17,7 @@ class Clinic {
     this.latitude,
     this.longitude,
     this.description,
+    this.rating,
     this.displayImage,
     this.openingHours,
     this.closingHours,
@@ -32,6 +34,7 @@ class Clinic {
   double? latitude;
   double? longitude;
   String? description;
+  int? rating;
   String? displayImage;
   String? openingHours;
   String? closingHours;
@@ -48,6 +51,7 @@ class Clinic {
         latitude: json["latitude"].toDouble(),
         longitude: json["longitude"].toDouble(),
         description: json["description"],
+        rating: json["rating"],
         displayImage: json["display_image"],
         openingHours: json["opening_hours"],
         closingHours: json["closing_hours"],
@@ -65,6 +69,7 @@ class Clinic {
         "latitude": latitude,
         "longitude": longitude,
         "description": description,
+        "rating": rating,
         "display_image": displayImage,
         "opening_hours": openingHours,
         "closing_hours": closingHours,
