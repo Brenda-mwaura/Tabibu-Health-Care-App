@@ -158,9 +158,18 @@ class _ClinicScreenState extends State<ClinicScreen> {
                                       physics:
                                           const NeverScrollableScrollPhysics(),
                                       shrinkWrap: true,
-                                      itemCount: 20,
+                                      itemCount: value.clinics.length,
                                       itemBuilder: (context, index) {
-                                        return HomePageListView();
+                                        return HomePageListView(
+                                          clinicName:
+                                              value.clinics[index].clinicName,
+                                          clinicAddress:
+                                              value.clinics[index].address,
+                                          clinicRating:
+                                              value.clinics[index].rating,
+                                          clinicImage:
+                                              value.clinics[index].displayImage,
+                                        );
                                       },
                                     )
                                   ],

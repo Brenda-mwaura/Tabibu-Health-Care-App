@@ -1,10 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:tabibu/data/models/clinic_model.dart';
 import 'package:tabibu/views/clinics/clinic_details.dart';
 
-class HomePageListView extends StatelessWidget {
-  const HomePageListView({Key? key}) : super(key: key);
+class HomePageListView extends StatefulWidget {
+  //clinic
+  final String? clinicName;
+  final String? clinicAddress;
+  final double? clinicRating;
+  final String? clinicImage;
 
+  HomePageListView({
+    Key? key,
+    this.clinicName,
+    this.clinicAddress,
+    this.clinicRating,
+    this.clinicImage,
+  }) : super(key: key);
+
+  @override
+  State<HomePageListView> createState() => _HomePageListViewState();
+}
+
+class _HomePageListViewState extends State<HomePageListView> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -42,9 +60,12 @@ class HomePageListView extends StatelessWidget {
               width: 100,
               height: 120,
               decoration: BoxDecoration(
-                  image: const DecorationImage(
-                      image: AssetImage("assets/images/afya.jpeg"),
-                      fit: BoxFit.fill),
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      widget.clinicImage.toString(),
+                    ),
+                    fit: BoxFit.cover,
+                  ),
                   borderRadius: BorderRadius.circular(5)),
             ),
             const SizedBox(
@@ -56,22 +77,24 @@ class HomePageListView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Equity afya Thika",
-                    style: TextStyle(
+                  Text(
+                    widget.clinicName.toString(),
+                    style: const TextStyle(
                       color: Colors.black,
-                      fontSize: 17.0,
+                      fontSize: 18.0,
                       fontWeight: FontWeight.w700,
                     ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(
                     height: 7,
                   ),
-                  const Text(
-                    "Makao Road, 67 N",
-                    style: TextStyle(
+                  Text(
+                    widget.clinicAddress.toString(),
+                    style: const TextStyle(
                       color: Colors.grey,
-                      fontSize: 15.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -82,17 +105,19 @@ class HomePageListView extends StatelessWidget {
                     children: [
                       IgnorePointer(
                         child: RatingBar.builder(
-                          initialRating: 3.5,
+                          initialRating: 3,
                           minRating: 1,
                           unratedColor: Colors.grey,
                           direction: Axis.horizontal,
                           allowHalfRating: true,
                           itemCount: 5,
-                          itemSize: 20,
+                          itemSize: 18,
                           itemPadding:
                               const EdgeInsets.symmetric(horizontal: 0),
-                          itemBuilder: (context, index) => const Icon(
-                            Icons.star,
+                          itemBuilder: (context, index) => Icon(
+                            index >= widget.clinicRating!.toInt()
+                                ? Icons.star_border_outlined
+                                : Icons.star,
                             color: Colors.amber,
                           ),
                           maxRating: 5,
@@ -102,14 +127,14 @@ class HomePageListView extends StatelessWidget {
                       const SizedBox(
                         width: 10,
                       ),
-                      const Text(
-                        "5.0",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      )
+                      // Text(
+                      //   widget.clinicRating!.toString(),
+                      //   style: const TextStyle(
+                      //     color: Colors.black,
+                      //     fontSize: 14.0,
+                      //     fontWeight: FontWeight.w700,
+                      //   ),
+                      // )
                     ],
                   ),
                 ],

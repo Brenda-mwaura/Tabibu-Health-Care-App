@@ -5,7 +5,7 @@ List<Clinic?>? clinicFromJson(String str) => json.decode(str) == null
     : List<Clinic?>.from(json.decode(str)!.map((x) => Clinic.fromJson(x)));
 
 String clinicToJson(List<Clinic?>? data) => json.encode(
-    data == null ? [] : List<dynamic>.from(data!.map((x) => x!.toJson())));
+    data == null ? [] : List<dynamic>.from(data.map((x) => x!.toJson())));
 
 class Clinic {
   Clinic({
@@ -34,7 +34,7 @@ class Clinic {
   double? latitude;
   double? longitude;
   String? description;
-  int? rating;
+  double? rating;
   String? displayImage;
   String? openingHours;
   String? closingHours;
@@ -51,7 +51,7 @@ class Clinic {
         latitude: json["latitude"].toDouble(),
         longitude: json["longitude"].toDouble(),
         description: json["description"],
-        rating: json["rating"],
+        rating: json["rating"].toDouble(),
         displayImage: json["display_image"],
         openingHours: json["opening_hours"],
         closingHours: json["closing_hours"],

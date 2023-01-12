@@ -232,7 +232,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           shrinkWrap: true,
                                           itemCount: 4,
                                           itemBuilder: (context, index) {
-                                            return HomePageListView();
+                                            return Text("Clinic");
+                                            // return HomePageListView();
                                           },
                                         )
                                       ],

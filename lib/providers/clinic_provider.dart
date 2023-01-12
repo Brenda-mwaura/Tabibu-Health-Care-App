@@ -14,19 +14,17 @@ class ClinicProvider extends ChangeNotifier {
 
   Future fetchClinics() async {
     _clinicsLoading = true;
+    _clinics = [];
     String? refreshToken = authProvider.allLoginDetails.refresh;
 
     return Api.clinics().then((response) async {
       var payload = jsonDecode(response.body);
-      print(payload);
       if (response.statusCode == 200) {
-        Clinic clinicDetails = Clinic.fromJson(payload);
         for (var clinic in payload) {
           _clinics.add(Clinic.fromJson(clinic));
         }
-
+        print("clinic 1 fetched successfully ${_clinics[0].clinicName}");
         notifyListeners();
-
         _clinicsLoading = false;
       } else if (response.statusCode == 401) {
         await authProvider.refreshToken(refreshToken);
@@ -46,9 +44,6 @@ class ClinicProvider extends ChangeNotifier {
     return Api.clinics().then((response) async {
       var payload = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        Clinic clinic = Clinic.fromJson(payload);
-
-        print(payload);
         notifyListeners();
       } else if (response.statusCode == 401) {
         await authProvider.refreshToken(refreshToken);
