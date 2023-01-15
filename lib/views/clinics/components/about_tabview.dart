@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/configs/styles.dart';
+import 'package:tabibu/data/models/clinic_model.dart';
 import 'package:tabibu/views/clinics/clinic_reviews_screen.dart';
 import 'package:tabibu/widgets/clinics_widget/expandable_description.dart';
 import 'package:tabibu/widgets/clinics_widget/reviews_container.dart';
 
-class AboutClinicTabView extends StatelessWidget {
-  const AboutClinicTabView({Key? key}) : super(key: key);
+class AboutClinicTabView extends StatefulWidget {
+  final Clinic clinic;
+  AboutClinicTabView({Key? key, required this.clinic}) : super(key: key);
 
+  @override
+  State<AboutClinicTabView> createState() => _AboutClinicTabViewState();
+}
+
+class _AboutClinicTabViewState extends State<AboutClinicTabView> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,8 +38,10 @@ class AboutClinicTabView extends StatelessWidget {
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        image: const DecorationImage(
-                          image: AssetImage('assets/images/afya.jpeg'),
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            widget.clinic.displayImage.toString(),
+                          ),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -121,9 +130,9 @@ class AboutClinicTabView extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        const Text(
-                          'Afya Clinic Nairobi CBD',
-                          style: TextStyle(
+                        Text(
+                          widget.clinic.clinicName.toString(),
+                          style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
@@ -148,9 +157,9 @@ class AboutClinicTabView extends StatelessWidget {
                             const SizedBox(
                               width: 5,
                             ),
-                            const Text(
-                              'Makao Road, 67N',
-                              style: TextStyle(
+                            Text(
+                              widget.clinic.address.toString(),
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.grey,
@@ -172,8 +181,7 @@ class AboutClinicTabView extends StatelessWidget {
                           height: 8,
                         ),
                         ExpandableDescription(
-                          description:
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel tincidunt lacinia, nunc nisl aliquam nunc, eget aliquam nisl nisl sit amet lorem. Sed euismod, nunc vel tincidunt lacinia, nunc nisl aliquam nunc, eget aliquam nisl nisl sit amet lorem.',
+                          description: "${widget.clinic.description}",
                         ),
                         // preview images
                         const SizedBox(

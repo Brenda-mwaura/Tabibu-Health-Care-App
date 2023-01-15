@@ -18,7 +18,7 @@ class _ExpandableDescriptionState extends State<ExpandableDescription> {
   void initState() {
     super.initState();
     if (widget.description.length > 30) {
-      firstHalf = widget.description.substring(0, 100);
+      firstHalf = widget.description.substring(0, 99);
       secondHalf = widget.description.substring(100, widget.description.length);
     } else {
       firstHalf = widget.description;

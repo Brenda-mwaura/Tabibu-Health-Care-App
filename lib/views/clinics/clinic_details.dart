@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/data_search.dart';
+import 'package:tabibu/data/models/clinic_model.dart';
 import 'package:tabibu/views/appointment/components/cancelled_appointment_tabview.dart';
 import 'package:tabibu/views/appointment/components/completed_appointment_tabview.dart';
 import 'package:tabibu/views/appointment/components/upcoming_appointment_tabview.dart';
@@ -12,7 +13,8 @@ import 'package:tabibu/widgets/buttons/auth_button.dart';
 import 'package:tabibu/widgets/clinics_widget/schedule_bottom_sheet.dart';
 
 class ClinicDetailsScreen extends StatefulWidget {
-  ClinicDetailsScreen({Key? key}) : super(key: key);
+  final Clinic clinic;
+  ClinicDetailsScreen({Key? key, required this.clinic}) : super(key: key);
 
   @override
   State<ClinicDetailsScreen> createState() => _ClinicDetailsScreenState();
@@ -124,7 +126,9 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                     child: TabBarView(
                       controller: _tabController,
                       children: [
-                        AboutClinicTabView(),
+                        AboutClinicTabView(
+                          clinic: widget.clinic,
+                        ),
                         DirectionsTabView(),
                         DoctorsTabView(),
                       ],

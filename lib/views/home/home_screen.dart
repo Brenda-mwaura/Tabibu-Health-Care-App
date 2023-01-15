@@ -183,13 +183,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                         const SizedBox(height: 10),
                                         GestureDetector(
                                           onTap: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ClinicDetailsScreen(),
-                                              ),
-                                            );
+                                            // Navigator.push(
+                                            //   context,
+                                            //   MaterialPageRoute(
+                                            //     builder: (context) =>
+                                            //         ClinicDetailsScreen(),
+                                            //   ),
+                                            // );
                                           },
                                           child: const SuggestedClinic(),
                                         ),

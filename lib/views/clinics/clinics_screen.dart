@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/data_search.dart';
 import 'package:tabibu/providers/clinic_provider.dart';
+import 'package:tabibu/views/clinics/clinic_details.dart';
 import 'package:tabibu/views/home/components/home_list_view.dart';
 import 'package:tabibu/widgets/app_drawer.dart';
 import 'package:tabibu/widgets/spinner.dart';
@@ -160,15 +161,28 @@ class _ClinicScreenState extends State<ClinicScreen> {
                                       shrinkWrap: true,
                                       itemCount: value.clinics.length,
                                       itemBuilder: (context, index) {
-                                        return HomePageListView(
-                                          clinicName:
-                                              value.clinics[index].clinicName,
-                                          clinicAddress:
-                                              value.clinics[index].address,
-                                          clinicRating:
-                                              value.clinics[index].rating,
-                                          clinicImage:
-                                              value.clinics[index].displayImage,
+                                        return GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ClinicDetailsScreen(
+                                                  clinic: value.clinics[index],
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          child: HomePageListView(
+                                            clinicName:
+                                                value.clinics[index].clinicName,
+                                            clinicAddress:
+                                                value.clinics[index].address,
+                                            clinicRating:
+                                                value.clinics[index].rating,
+                                            clinicImage: value
+                                                .clinics[index].displayImage,
+                                          ),
                                         );
                                       },
                                     )
