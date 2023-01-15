@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -224,6 +226,20 @@ class Api {
 
     var response = await client2.get(
       Uri.parse("${baseUrl}clinics/"),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $accessToken',
+      },
+    );
+
+    return response;
+  }
+
+  static Future<http.Response> clinicAlbum(int? clinicID) async {
+    String? accessToken = authProvider.allLoginDetails.access;
+
+    var response = await client2.get(
+      Uri.parse("${baseUrl}clinic/albums/${clinicID}/photos/"),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.authorizationHeader: 'Bearer $accessToken',

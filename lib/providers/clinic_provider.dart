@@ -38,6 +38,28 @@ class ClinicProvider extends ChangeNotifier {
     });
   }
 
+  bool _clinicAlbumLoading = false;
+  bool get clinicAlbumLoading => _clinicAlbumLoading;
+
+  Future getClinicAlbum(int? clinicID) {
+    _clinicAlbumLoading = true;
+    String? refreshToken = authProvider.allLoginDetails.refresh;
+
+    return Api.clinicAlbum(clinicID).then((response) async {
+      var payload = jsonEncode(response.body);
+      if (response.statusCode == 200) {
+        _clinicAlbumLoading = false;
+      } else if (response.statusCode == 401) {
+        await authProvider.refreshToken(refreshToken);
+        await getClinicAlbum(clinicID);
+      } else {
+        _clinicAlbumLoading = false;
+      }
+    }).catchError((error) {
+      print("error occured while fetching the clinic album $error");
+    });
+  }
+
   Future fetchNearestClinics(double? lat, double? lng) async {
     String? refreshToken = authProvider.allLoginDetails.refresh;
 
