@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:tabibu/api/api.dart';
+import 'package:tabibu/data/models/clinic_album_model.dart';
 import 'package:tabibu/data/models/clinic_model.dart';
 import 'package:tabibu/providers/auth_provider.dart';
 
@@ -41,13 +42,21 @@ class ClinicProvider extends ChangeNotifier {
   bool _clinicAlbumLoading = false;
   bool get clinicAlbumLoading => _clinicAlbumLoading;
 
+  List<ClinicAlbum> _clinicAlbum = [];
+  List<ClinicAlbum> get clinicAlbum => _clinicAlbum;
+
   Future getClinicAlbum(int? clinicID) {
     _clinicAlbumLoading = true;
     String? refreshToken = authProvider.allLoginDetails.refresh;
 
     return Api.clinicAlbum(clinicID).then((response) async {
-      var payload = jsonEncode(response.body);
+      var payload = jsonDecode(response.body);
       if (response.statusCode == 200) {
+        for (var clinic in payload) {
+          _clinics.add(Clinic.fromJson(clinic));
+        }
+
+        notifyListeners();
         _clinicAlbumLoading = false;
       } else if (response.statusCode == 401) {
         await authProvider.refreshToken(refreshToken);
