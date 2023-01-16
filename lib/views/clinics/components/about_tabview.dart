@@ -70,31 +70,53 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Container(
-                                  height: 35,
-                                  width: 35,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white.withOpacity(0.8),
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),
-                                  child: const Icon(
-                                    Icons.call,
-                                    color: Styles.primaryColor,
+                                InkWell(
+                                  onTap: () {
+                                    print("launching....");
+                                  },
+                                  child: Container(
+                                    height: 35,
+                                    width: 35,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white.withOpacity(0.8),
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        print("Launch this");
+                                        _launchCaller("${widget.clinic.phone}");
+                                      },
+                                      child: const Icon(
+                                        Icons.call,
+                                        color: Styles.primaryColor,
+                                      ),
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(
                                   width: 18,
                                 ),
-                                Container(
-                                  height: 35,
-                                  width: 35,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white.withOpacity(0.8),
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),
-                                  child: const Icon(
-                                    Icons.mail,
-                                    color: Styles.primaryColor,
+                                GestureDetector(
+                                  onTap: () async {},
+                                  child: Container(
+                                    height: 35,
+                                    width: 35,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white.withOpacity(0.8),
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    child: InkWell(
+                                      onTap: () {
+                                        _launchEmail(
+                                            widget.clinic.email.toString(),
+                                            "",
+                                            "");
+                                      },
+                                      child: const Icon(
+                                        Icons.mail,
+                                        color: Styles.primaryColor,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -309,7 +331,7 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                                         ),
                                       );
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       'See all',
                                       style: TextStyle(
                                         fontSize: 18,
@@ -385,6 +407,7 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
 
   Future _launchCaller(String phoneNumber) async {
     final url = "tel:$phoneNumber";
+
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
     } else {

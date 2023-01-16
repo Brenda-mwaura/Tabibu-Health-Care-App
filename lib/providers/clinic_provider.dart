@@ -58,8 +58,10 @@ class ClinicProvider extends ChangeNotifier {
         for (var photo in payload) {
           _clinicAlbum.add(ClinicAlbum.fromJson(photo));
         }
+        if (_clinicAlbum.length > 6) {
+          _clinicAlbum = _clinicAlbum.sublist(0, 6);
+        }
 
-        _clinicAlbum = _clinicAlbum.sublist(0, 6);
         notifyListeners();
         _clinicAlbumLoading = false;
       } else if (response.statusCode == 401) {
@@ -100,6 +102,11 @@ class ClinicProvider extends ChangeNotifier {
           }
         }
         _numOfClinicReviews = _clinicReview.length;
+
+        if (_clinicReview.length > 6) {
+          _clinicReview = _clinicReview.sublist(0, 6);
+        }
+
         notifyListeners();
         _clinicReviewsLoading = false;
       } else if (response.statusCode == 401) {
