@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:tabibu/data/models/clinic_review_model.dart';
 
 class ReviewsContainer extends StatelessWidget {
-  const ReviewsContainer({Key? key}) : super(key: key);
+  // clinic
+  final ClinicReview clinicReview;
+  const ReviewsContainer({Key? key, required this.clinicReview})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +52,7 @@ class ReviewsContainer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
                     Text(
-                      'John Doe',
+                      '',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,

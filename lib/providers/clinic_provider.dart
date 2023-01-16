@@ -76,11 +76,18 @@ class ClinicProvider extends ChangeNotifier {
   bool _clinicReviewsLoading = false;
   bool get clinicReviewsLoading => _clinicReviewsLoading;
 
+  int _numOfClinicReviews = 0;
+  int get numOfClinicReviews => _numOfClinicReviews;
+
+  int _clinicRating = 0;
+  int get clinicRating => _clinicRating;
+
   List<ClinicReview> _clinicReview = [];
   List<ClinicReview> get clinicReview => _clinicReview;
 
   Future getClinicReviews(int? clinicID) {
     _clinicReviewsLoading = true;
+    _clinicReview = [];
     String? refreshToken = authProvider.allLoginDetails.refresh;
 
     return Api.clinicReview().then((response) async {
@@ -88,14 +95,11 @@ class ClinicProvider extends ChangeNotifier {
 
       if (response.statusCode == 200) {
         for (var review in payload) {
-          //if review clinic id is equal to clinicID
-          print("Clinic ID ::: ${review["clinic"].runtimeType}");
-          print("Clinic ID 2::: ${clinicID}");
           if (review['clinic'] == clinicID) {
             _clinicReview.add(ClinicReview.fromJson(review));
           }
         }
-        print("Clinic Review Length ${_clinicReview.length}");
+        _numOfClinicReviews = _clinicReview.length;
         notifyListeners();
         _clinicReviewsLoading = false;
       } else if (response.statusCode == 401) {

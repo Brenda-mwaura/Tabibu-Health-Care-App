@@ -260,60 +260,68 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Reviews',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                              Icon(
-                                Icons.star,
-                                color: Colors.orange,
-                                size: MediaQuery.of(context).size.width * 0.05,
-                              ),
-                              const Text(
-                                '4.5',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              const SizedBox(width: 3),
-                              const Text(
-                                '(12)',
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              const Spacer(),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          ClinicReviewsScreen(),
+
+                          Consumer<ClinicProvider>(
+                            builder: (context, value, child) {
+                              return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text(
+                                    'Reviews',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                  );
-                                },
-                                child: Text(
-                                  'See all',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    color: Styles.primaryColor,
                                   ),
-                                ),
-                              ),
-                            ],
+                                  const SizedBox(width: 8),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.orange,
+                                    size: MediaQuery.of(context).size.width *
+                                        0.05,
+                                  ),
+                                  Text(
+                                    value.numOfClinicReviews.toString(),
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 3),
+                                  Text(
+                                    '( ${value.numOfClinicReviews.toString()})',
+                                    style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ClinicReviewsScreen(),
+                                        ),
+                                      );
+                                    },
+                                    child: Text(
+                                      'See all',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                        color: Styles.primaryColor,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
                           ),
+
                           const SizedBox(
                             height: 10,
                           ),
@@ -323,20 +331,33 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                               bottom: 10,
                               top: 10,
                             ),
-                            child: SizedBox(
-                              width: double.infinity,
-                              height: MediaQuery.of(context).size.height * 0.19,
-                              child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: 10,
-                                  itemBuilder: (context, index) {
-                                    print('$index');
-                                    return SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.8,
-                                      child: ReviewsContainer(),
-                                    );
-                                  }),
+                            child: Consumer<ClinicProvider>(
+                              builder: (context, value, child) {
+                                if (value.clinicReviewsLoading == true) {
+                                  return AppSpinner();
+                                } else {
+                                  return SizedBox(
+                                    width: double.infinity,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.19,
+                                    child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: value.clinicReview.length,
+                                        itemBuilder: (context, index) {
+                                          print('$index');
+                                          return SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.8,
+                                            child: ReviewsContainer(
+                                                clinicReview:
+                                                    value.clinicReview[index]),
+                                          );
+                                        }),
+                                  );
+                                }
+                              },
                             ),
                           ),
                         ],
