@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/data/models/clinic_review_model.dart';
+import 'package:intl/intl.dart';
 
 class ReviewsContainer extends StatelessWidget {
   // clinic
@@ -9,6 +10,9 @@ class ReviewsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var createdAt = DateFormat("dd-MM-yyyy")
+        .format(DateTime.parse(clinicReview.createdAt.toString()));
+
     return Container(
       margin: const EdgeInsets.only(
         left: 5.0,
@@ -50,20 +54,20 @@ class ReviewsContainer extends StatelessWidget {
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
-                      '',
-                      style: TextStyle(
+                      clinicReview.patient!.user!.fullName.toString(),
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
-                      '12th May 2021',
-                      style: TextStyle(
+                      createdAt,
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: Colors.grey,
@@ -77,9 +81,9 @@ class ReviewsContainer extends StatelessWidget {
                   color: Colors.orange,
                   size: MediaQuery.of(context).size.width * 0.05,
                 ),
-                const Text(
-                  '4.5',
-                  style: TextStyle(
+                Text(
+                  clinicReview.rating.toString(),
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
@@ -90,10 +94,13 @@ class ReviewsContainer extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          const Text(
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel tincidunt lacinia, nunc nisl aliquam nisl, eu aliquam nisl nisl sit amet nisl. Sed euismod, nunc vel tincidunt lacinia, nunc nisl aliquam nisl, eu aliquam nisl nisl sit amet nisl.',
-            style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w500, color: Colors.grey),
+          Text(
+            clinicReview.comment.toString(),
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: Colors.grey,
+            ),
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),
