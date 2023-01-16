@@ -248,4 +248,18 @@ class Api {
 
     return response;
   }
+
+  static Future<http.Response> clinicReview() async {
+    String? accessToken = authProvider.allLoginDetails.access;
+
+    var response = await client2.get(
+      Uri.parse("${baseUrl}clinic/reviews/"),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $accessToken',
+      },
+    );
+
+    return response;
+  }
 }
