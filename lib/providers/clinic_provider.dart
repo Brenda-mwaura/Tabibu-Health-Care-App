@@ -46,16 +46,19 @@ class ClinicProvider extends ChangeNotifier {
   List<ClinicAlbum> get clinicAlbum => _clinicAlbum;
 
   Future getClinicAlbum(int? clinicID) {
+    _clinicAlbum = [];
     _clinicAlbumLoading = true;
     String? refreshToken = authProvider.allLoginDetails.refresh;
 
     return Api.clinicAlbum(clinicID).then((response) async {
       var payload = jsonDecode(response.body);
-      if (response.statusCode == 200) {
-        for (var clinic in payload) {
-          _clinics.add(Clinic.fromJson(clinic));
-        }
 
+      if (response.statusCode == 200) {
+        for (var photo in payload) {
+          _clinicAlbum.add(ClinicAlbum.fromJson(photo));
+        }
+        
+        _clinicAlbum = _clinicAlbum.sublist(0, 6);
         notifyListeners();
         _clinicAlbumLoading = false;
       } else if (response.statusCode == 401) {
