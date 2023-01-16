@@ -35,9 +35,9 @@ class AuthProvider extends ChangeNotifier {
     );
   }
 
-  void _loginToastError() {
+  void _loginToastError(String msg) {
     Fluttertoast.showToast(
-      msg: "Incorrect phone or password",
+      msg: msg,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 4,
@@ -50,25 +50,28 @@ class AuthProvider extends ChangeNotifier {
   Future login(String phone, String password) async {
     _loadingLogin = true;
     return Api.login(phone, password).then((response) async {
-      print("Status::: ${response.statusCode}");
       if (response.statusCode == 200) {
         var payload = json.decode(response.body);
         Login loginDetails = Login.fromJson(payload);
 
-        await db.loginAllDetailsBox!.clear();
-        await db.loginAllDetailsBox!.add(loginDetails);
+        if (loginDetails.user!.role == "Patient") {
+          await db.loginAllDetailsBox!.clear();
+          await db.loginAllDetailsBox!.add(loginDetails);
 
-        notifyListeners();
-        _loginToast();
-        _loadingLogin = false;
-        return loginDetails;
+          notifyListeners();
+          _loginToast();
+          _loadingLogin = false;
+          return loginDetails;
+        } else {
+          _loginToastError("Permission denied");
+          _loadingLogin = false;
+        }
       } else {
-        _loginToastError();
+        _loginToastError("Incorrect phone or password");
         _loadingLogin = false;
       }
     }).catchError((error) {
-      _loginToastError();
-      _loadingLogin = false;
+      _loginToastError("Incorrect phone or password");
       print("error occured during user login $error");
     });
   }
