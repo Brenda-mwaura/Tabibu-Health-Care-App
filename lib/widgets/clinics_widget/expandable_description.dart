@@ -17,10 +17,11 @@ class _ExpandableDescriptionState extends State<ExpandableDescription> {
   @override
   void initState() {
     super.initState();
-    if (widget.description.length > 30) {
-      firstHalf = widget.description.substring(0, 99);
+    if (widget.description.length > 100) {
+      firstHalf = widget.description.substring(0, 100);
       secondHalf = widget.description.substring(100, widget.description.length);
     } else {
+      flag = false;
       firstHalf = widget.description;
       secondHalf = "";
     }
@@ -57,14 +58,22 @@ class _ExpandableDescriptionState extends State<ExpandableDescription> {
                       flag = !flag;
                     });
                   },
-                  child: Text(
-                    flag ? "Read more" : "Read less",
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.red,
-                    ),
-                  ),
+                  child: secondHalf == ""
+                      ? const SizedBox()
+                      : Text(
+                          firstHalf == ""
+                              ? "No description"
+                              : secondHalf == ""
+                                  ? ""
+                                  : flag
+                                      ? "Read more"
+                                      : "Read less",
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.red,
+                          ),
+                        ),
                 ),
               ],
             ),

@@ -7,6 +7,7 @@ import 'package:tabibu/views/clinics/clinic_reviews_screen.dart';
 import 'package:tabibu/widgets/clinics_widget/expandable_description.dart';
 import 'package:tabibu/widgets/clinics_widget/reviews_container.dart';
 import 'package:tabibu/widgets/spinner.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutClinicTabView extends StatefulWidget {
   final Clinic clinic;
@@ -371,5 +372,23 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
         ),
       ),
     );
+  }
+
+  Future _launchEmail(String toEmail, String subject, String message) async {
+    final url =
+        "mailto:$toEmail?subject=${Uri.encodeFull(subject)}&body=${Uri.encodeFull(message)}";
+
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    }
+  }
+
+  Future _launchCaller(String phoneNumber) async {
+    final url = "tel:$phoneNumber";
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
