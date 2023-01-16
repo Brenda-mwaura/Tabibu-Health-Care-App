@@ -26,6 +26,7 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
   Future<void> _refresh() async {
     var clinicProvider = Provider.of<ClinicProvider>(context, listen: false);
     await clinicProvider.getClinicAlbum(widget.clinic.id);
+    await clinicProvider.getClinicReviews(widget.clinic.id);
   }
 
   @override

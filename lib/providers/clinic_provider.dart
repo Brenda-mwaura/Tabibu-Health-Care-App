@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:tabibu/api/api.dart';
 import 'package:tabibu/data/models/clinic_album_model.dart';
 import 'package:tabibu/data/models/clinic_model.dart';
+import 'package:tabibu/data/models/clinic_review_model.dart';
 import 'package:tabibu/providers/auth_provider.dart';
 
 class ClinicProvider extends ChangeNotifier {
@@ -57,7 +58,7 @@ class ClinicProvider extends ChangeNotifier {
         for (var photo in payload) {
           _clinicAlbum.add(ClinicAlbum.fromJson(photo));
         }
-        
+
         _clinicAlbum = _clinicAlbum.sublist(0, 6);
         notifyListeners();
         _clinicAlbumLoading = false;
@@ -69,6 +70,42 @@ class ClinicProvider extends ChangeNotifier {
       }
     }).catchError((error) {
       print("error occured while fetching the clinic album $error");
+    });
+  }
+
+  bool _clinicReviewsLoading = false;
+  bool get clinicReviewsLoading => _clinicReviewsLoading;
+
+  List<ClinicReview> _clinicReview = [];
+  List<ClinicReview> get clinicReview => _clinicReview;
+
+  Future getClinicReviews(int? clinicID) {
+    _clinicReviewsLoading = true;
+    String? refreshToken = authProvider.allLoginDetails.refresh;
+
+    return Api.clinicReview().then((response) async {
+      var payload = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        for (var review in payload) {
+          //if review clinic id is equal to clinicID
+          print("Clinic ID ::: ${review["clinic"].runtimeType}");
+          print("Clinic ID 2::: ${clinicID}");
+          if (review['clinic'] == clinicID) {
+            _clinicReview.add(ClinicReview.fromJson(review));
+          }
+        }
+        print("Clinic Review Length ${_clinicReview.length}");
+        notifyListeners();
+        _clinicReviewsLoading = false;
+      } else if (response.statusCode == 401) {
+        await authProvider.refreshToken(refreshToken);
+        await getClinicReviews(clinicID);
+      } else {
+        _clinicReviewsLoading = false;
+      }
+    }).catchError((error) {
+      print("error occured while fetching clinic reviews $error");
     });
   }
 

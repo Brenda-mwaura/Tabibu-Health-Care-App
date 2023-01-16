@@ -23,7 +23,7 @@ class ClinicReview {
 
   int? id;
   int? clinic;
-  int? rating;
+  double? rating;
   int? patient;
   String? comment;
   bool? flag;
