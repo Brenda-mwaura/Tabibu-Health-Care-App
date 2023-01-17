@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/models/clinic_model.dart';
@@ -294,7 +295,7 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                                         0.05,
                                   ),
                                   Text(
-                                    value.numOfClinicReviews.toString(),
+                                    widget.clinic.rating.toString(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w500,
@@ -302,7 +303,7 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                                   ),
                                   const SizedBox(width: 3),
                                   Text(
-                                    '( ${value.numOfClinicReviews.toString()})',
+                                    '(${value.numOfClinicReviews.toString()})',
                                     style: const TextStyle(
                                       color: Colors.grey,
                                       fontSize: 18,
@@ -338,7 +339,7 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                             height: 10,
                           ),
                           Container(
-                            color: Colors.grey[200],
+                            color: Colors.grey[100],
                             padding: const EdgeInsets.only(
                               bottom: 10,
                               top: 10,
@@ -352,21 +353,26 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                                     width: double.infinity,
                                     height: MediaQuery.of(context).size.height *
                                         0.19,
-                                    child: ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: value.clinicReview.length,
-                                        itemBuilder: (context, index) {
-                                          print('$index');
-                                          return SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.8,
-                                            child: ReviewsContainer(
-                                                clinicReview:
-                                                    value.clinicReview[index]),
-                                          );
-                                        }),
+                                    child: value.clinicReview.isEmpty
+                                        ? SvgPicture.asset(
+                                            "assets/images/no_reviews.svg",
+                                            fit: BoxFit.contain,
+                                          )
+                                        : ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount:
+                                                value.clinicReview.length,
+                                            itemBuilder: (context, index) {
+                                              return SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.8,
+                                                child: ReviewsContainer(
+                                                    clinicReview: value
+                                                        .clinicReview[index]),
+                                              );
+                                            }),
                                   );
                                 }
                               },
