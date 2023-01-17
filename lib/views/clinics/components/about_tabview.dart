@@ -237,34 +237,42 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                                   height: MediaQuery.of(context).size.height *
                                       0.178,
                                   width: double.infinity,
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: value.clinicAlbum.length,
-                                    itemBuilder: (context, index) {
-                                      return Container(
-                                        margin: const EdgeInsets.only(
-                                          right: 10,
+                                  child: value.clinicAlbum.isEmpty
+                                      ? SvgPicture.asset(
+                                          "assets/images/no_preview.svg",
+                                          fit: BoxFit.contain,
+                                        )
+                                      : ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: value.clinicAlbum.length,
+                                          itemBuilder: (context, index) {
+                                            return Container(
+                                              margin: const EdgeInsets.only(
+                                                right: 10,
+                                              ),
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.178,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.3,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                    value.clinicAlbum[index]
+                                                        .image
+                                                        .toString(),
+                                                  ),
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         ),
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.178,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.3,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          image: DecorationImage(
-                                            image: NetworkImage(
-                                              value.clinicAlbum[index].image
-                                                  .toString(),
-                                            ),
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
                                 );
                               }
                             },
