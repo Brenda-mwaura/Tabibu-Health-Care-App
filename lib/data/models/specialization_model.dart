@@ -1,13 +1,10 @@
 import 'dart:convert';
 
-List<Specialization?>? specializationFromJson(String str) =>
-    json.decode(str) == null
-        ? []
-        : List<Specialization?>.from(
-            json.decode(str)!.map((x) => Specialization.fromJson(x)));
+Specialization? specializationFromJson(String str) =>
+    Specialization.fromJson(json.decode(str));
 
-String specializationToJson(List<Specialization?>? data) => json.encode(
-    data == null ? [] : List<dynamic>.from(data!.map((x) => x!.toJson())));
+String specializationToJson(Specialization? data) =>
+    json.encode(data!.toJson());
 
 class Specialization {
   Specialization({
@@ -26,13 +23,13 @@ class Specialization {
         id: json["id"],
         specialization: json["specialization"],
         createdAt: json["created_at"],
-        updatedAt:json["updated_at"],
+        updatedAt: json["updated_at"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "specialization": specialization,
-        "created_at": createdAt?,
-        "updated_at": updatedAt?,
+        "created_at": createdAt,
+        "updated_at": updatedAt,
       };
 }
