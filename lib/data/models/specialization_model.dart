@@ -33,3 +33,4 @@ class Specialization {
         "updated_at": updatedAt,
       };
 }
+      

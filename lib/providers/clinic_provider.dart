@@ -6,6 +6,7 @@ import 'package:tabibu/data/models/clinic_album_model.dart';
 import 'package:tabibu/data/models/clinic_doctor_model.dart';
 import 'package:tabibu/data/models/clinic_model.dart';
 import 'package:tabibu/data/models/clinic_review_model.dart';
+import 'package:tabibu/data/models/specialization_model.dart';
 import 'package:tabibu/providers/auth_provider.dart';
 
 class ClinicProvider extends ChangeNotifier {
@@ -126,8 +127,8 @@ class ClinicProvider extends ChangeNotifier {
 
   Future getClinicDoctors(int? clinicID) {
     _clinicDoctorsLoading = true;
-    _clinicDoctors=[];
-    
+    _clinicDoctors = [];
+
     String? refreshToken = authProvider.allLoginDetails.refresh;
 
     return Api.clinicDoctors().then((response) async {
@@ -148,6 +149,32 @@ class ClinicProvider extends ChangeNotifier {
       }
     }).catchError((error) {
       print("error occured while fetching clinic doctors $error");
+    });
+  }
+
+  Specialization _doctorSpecialization = Specialization();
+  Specialization get doctorSpecialization => _doctorSpecialization;
+
+  Future getDoctorSpecialization(int? specializationID) async {
+    _clinicDoctorsLoading = true;
+    String? refreshToken = authProvider.allLoginDetails.refresh;
+
+    return Api.doctorSpecialization(specializationID).then((response) async {
+      var payload = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        _doctorSpecialization = Specialization.fromJson(payload);
+        notifyListeners();
+        _clinicDoctorsLoading = false;
+
+      } else if (response.statusCode == 401) {
+        await authProvider.refreshToken(refreshToken);
+        await getDoctorSpecialization(specializationID);
+        
+      } else {
+        _clinicDoctorsLoading = false;
+      }
+    }).catchError((error) {
+      print("error occured while fetching the doctor specialization $error");
     });
   }
 
