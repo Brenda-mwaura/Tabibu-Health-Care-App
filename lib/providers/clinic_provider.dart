@@ -81,9 +81,6 @@ class ClinicProvider extends ChangeNotifier {
   int _numOfClinicReviews = 0;
   int get numOfClinicReviews => _numOfClinicReviews;
 
-  int _clinicRating = 0;
-  int get clinicRating => _clinicRating;
-
   List<ClinicReview> _clinicReview = [];
   List<ClinicReview> get clinicReview => _clinicReview;
 
@@ -120,6 +117,37 @@ class ClinicProvider extends ChangeNotifier {
     });
   }
 
+  bool _clinicDoctorsLoading=false;
+  bool get clinicDoctorsLoading=> _clinicDoctorsLoading;
+
+  List<ClinicDoctors> _clinicDoctors=[];
+  List<ClinicDoctors> get clinicDoctors=> _clinicDoctors;
+
+  Future getClinicDoctors(int? clinicID){
+    _clinicDoctorsLoading=true;
+      String? refreshToken = authProvider.allLoginDetails.refresh;
+
+      return Api.clinicDoctors().then((response){
+        var payload= jsonDecode(response.body);
+        if (response.statusCode==200){
+          for (var doc in payload){
+            //
+          }
+          notifyListeners();
+          _clinicDoctorsLoading=false;
+
+        }else if(response.statusCode==401){
+          await authProvider.refreshToken(refreshToken);
+          await getClinicDoctors(clinicID);
+        }else{
+          _clinicDoctorsLoading=false;
+        }
+      }).catchError((error){
+        print("error occured while fetching clinic doctors $error");
+      });
+
+  }
+
   Future fetchNearestClinics(double? lat, double? lng) async {
     String? refreshToken = authProvider.allLoginDetails.refresh;
 
@@ -135,6 +163,7 @@ class ClinicProvider extends ChangeNotifier {
       print("error occured while fetching the clinics $error");
     });
   }
+
 }
 
 ClinicProvider clinicProvider = ClinicProvider();
