@@ -70,52 +70,41 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                InkWell(
-                                  onTap: () {
-                                    print("launching....");
-                                  },
-                                  child: Container(
-                                    height: 35,
-                                    width: 35,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.8),
-                                      borderRadius: BorderRadius.circular(50),
-                                    ),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        print("Launch this");
-                                        _launchCaller("${widget.clinic.phone}");
-                                      },
-                                      child: const Icon(
-                                        Icons.call,
-                                        color: Styles.primaryColor,
-                                      ),
+                                Container(
+                                  height: 35,
+                                  width: 35,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.8),
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      _launchCaller("${widget.clinic.phone}");
+                                    },
+                                    child: const Icon(
+                                      Icons.call,
+                                      color: Styles.primaryColor,
                                     ),
                                   ),
                                 ),
                                 const SizedBox(
                                   width: 18,
                                 ),
-                                GestureDetector(
-                                  onTap: () async {},
-                                  child: Container(
-                                    height: 35,
-                                    width: 35,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.8),
-                                      borderRadius: BorderRadius.circular(50),
-                                    ),
-                                    child: InkWell(
-                                      onTap: () {
-                                        _launchEmail(
-                                            widget.clinic.email.toString(),
-                                            "",
-                                            "");
-                                      },
-                                      child: const Icon(
-                                        Icons.mail,
-                                        color: Styles.primaryColor,
-                                      ),
+                                Container(
+                                  height: 35,
+                                  width: 35,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.8),
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      _launchEmail(
+                                          widget.clinic.email.toString());
+                                    },
+                                    child: const Icon(
+                                      Icons.mail,
+                                      color: Styles.primaryColor,
                                     ),
                                   ),
                                 ),
@@ -396,22 +385,30 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
     );
   }
 
-  Future _launchEmail(String toEmail, String subject, String message) async {
-    final url =
-        "mailto:$toEmail?subject=${Uri.encodeFull(subject)}&body=${Uri.encodeFull(message)}";
-
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
+  Future _launchEmail(String toEmail) async {
+    String? encodeQueryParameters(Map<String, String> params) {
+      return params.entries
+          .map((MapEntry<String, String> e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+          .join('&');
     }
+
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: toEmail,
+      query: encodeQueryParameters(<String, String>{
+        'subject': '',
+      }),
+    );
+
+    await launchUrl(emailLaunchUri);
   }
 
   Future _launchCaller(String phoneNumber) async {
-    final url = "tel:$phoneNumber";
-
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
-    } else {
-      throw 'Could not launch $url';
-    }
+    final Uri phoneLaunchUri = Uri(
+      scheme: "tel",
+      path: phoneNumber,
+    );
+    await launchUrl(phoneLaunchUri);
   }
 }
