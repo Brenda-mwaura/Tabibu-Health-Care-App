@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:tabibu/api/api.dart';
 import 'package:tabibu/data/models/clinic_album_model.dart';
+import 'package:tabibu/data/models/clinic_doctor_model.dart';
 import 'package:tabibu/data/models/clinic_model.dart';
 import 'package:tabibu/data/models/clinic_review_model.dart';
 import 'package:tabibu/providers/auth_provider.dart';
@@ -120,18 +121,22 @@ class ClinicProvider extends ChangeNotifier {
   bool _clinicDoctorsLoading = false;
   bool get clinicDoctorsLoading => _clinicDoctorsLoading;
 
-  // List<ClinicDoctors> _clinicDoctors = [];
-  // List<ClinicDoctors> get clinicDoctors => _clinicDoctors;
+  List<ClinicDoctor> _clinicDoctors = [];
+  List<ClinicDoctor> get clinicDoctors => _clinicDoctors;
 
   Future getClinicDoctors(int? clinicID) {
     _clinicDoctorsLoading = true;
+    _clinicDoctors=[];
+    
     String? refreshToken = authProvider.allLoginDetails.refresh;
 
     return Api.clinicDoctors().then((response) async {
       var payload = jsonDecode(response.body);
       if (response.statusCode == 200) {
         for (var doctor in payload) {
-          //
+          if (doctor["clinic"] == clinicID) {
+            _clinicDoctors.add(ClinicDoctor.fromJson(doctor));
+          }
         }
         notifyListeners();
         _clinicDoctorsLoading = false;

@@ -129,8 +129,10 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                         AboutClinicTabView(
                           clinic: widget.clinic,
                         ),
-                        DirectionsTabView(),
-                        DoctorsTabView(),
+                        DirectionsTabView(
+                      
+                        ),
+                        DoctorsTabView(clinic:widget.clinic,),
                       ],
                     ),
                   )

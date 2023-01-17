@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/configs/styles.dart';
+import 'package:tabibu/data/models/clinic_doctor_model.dart';
 
 class DoctorsContainer extends StatelessWidget {
-  const DoctorsContainer({Key? key}) : super(key: key);
+  final ClinicDoctor doctor;
+  const DoctorsContainer({Key? key, required this.doctor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +40,9 @@ class DoctorsContainer extends StatelessWidget {
           const SizedBox(
             height: 8,
           ),
-          const Text(
-            "Dr. Chris Frazier",
-            style: TextStyle(
+          Text(
+            doctor.user!.fullName.toString(),
+            style: const TextStyle(
               color: Colors.black,
               fontSize: 18.0,
               fontWeight: FontWeight.w700,
@@ -49,9 +51,9 @@ class DoctorsContainer extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          const Text(
-            "Therapist",
-            style: TextStyle(
+          Text(
+            doctor.specialization.toString(),
+            style: const TextStyle(
               color: Colors.grey,
               fontSize: 16.0,
               fontWeight: FontWeight.w500,
