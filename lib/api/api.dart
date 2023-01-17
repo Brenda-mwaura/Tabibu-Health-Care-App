@@ -276,4 +276,19 @@ class Api {
 
     return response;
   }
+
+  static Future<http.Response> doctorSpecialization(
+      int? specializationID) async {
+    String? accessToken = authProvider.allLoginDetails.access;
+
+    var response = await client2.get(
+      Uri.parse("${baseUrl}specialization/$specializationID"),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $accessToken',
+      },
+    );
+
+    return response;
+  }
 }
