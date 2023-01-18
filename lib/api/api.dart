@@ -291,4 +291,32 @@ class Api {
 
     return response;
   }
+
+  static Future<http.Response> appointmentBooking(
+      int? clinicID,
+      String? appointmentDate,
+      String? appointmentTime,
+      int? serviceID,
+      String? paymentPhoneNumber,
+      String? yourMessage) async {
+    String? accessToken = authProvider.allLoginDetails.access;
+
+    var response = await client2.post(
+      Uri.parse("${baseUrl}appointment/booking/"),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $accessToken',
+      },
+      body: jsonEncode({
+        "clinic": clinicID,
+        "appointment_date": appointmentDate,
+        "appointment_time": appointmentTime,
+        "service": serviceID,
+        "phone": paymentPhoneNumber,
+        "your_message": yourMessage
+      }),
+    );
+
+    return response;
+  }
 }
