@@ -6,6 +6,7 @@ import 'package:tabibu/data/models/clinic_album_model.dart';
 import 'package:tabibu/data/models/clinic_doctor_model.dart';
 import 'package:tabibu/data/models/clinic_model.dart';
 import 'package:tabibu/data/models/clinic_review_model.dart';
+import 'package:tabibu/data/models/services.dart';
 import 'package:tabibu/data/models/specialization_model.dart';
 import 'package:tabibu/providers/auth_provider.dart';
 
@@ -40,6 +41,29 @@ class ClinicProvider extends ChangeNotifier {
       _clinicsLoading = false;
       print("error occured while fetching the clinics $error");
     });
+  }
+
+  List<Services> _services = [];
+  List<Services> get services => _services;
+  Future getClinicServices() async {
+    _clinicsLoading = true;
+    _services = [];
+    String? refreshToken = authProvider.allLoginDetails.refresh;
+
+    return Api.clinicServices().then((response) async {
+      var payload = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        for (var service in payload) {
+          _services.add(Services.fromJson(service));
+        }
+
+        notifyListeners();
+        _clinicsLoading = false;
+      } else if (response.statusCode == 401) {
+        await authProvider.refreshToken(refreshToken);
+        await getClinicServices();
+      } else {}
+    }).catchError((error) {});
   }
 
   bool _clinicAlbumLoading = false;
