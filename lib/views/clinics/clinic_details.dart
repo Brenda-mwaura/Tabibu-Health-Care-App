@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/data_search.dart';
 import 'package:tabibu/data/models/clinic_model.dart';
+import 'package:tabibu/providers/clinic_provider.dart';
 import 'package:tabibu/views/appointment/components/cancelled_appointment_tabview.dart';
 import 'package:tabibu/views/appointment/components/completed_appointment_tabview.dart';
 import 'package:tabibu/views/appointment/components/upcoming_appointment_tabview.dart';
@@ -27,6 +29,10 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
   late TabController _tabController;
   var _currentSelectedValue;
 
+  GlobalKey<FormState> appointmentFormKey = GlobalKey<FormState>();
+
+  TextEditingController _appointmentFee = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -37,21 +43,17 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
         print(_tabController.index);
       });
     });
+    _refresh();
+  }
+
+  Future<void> _refresh() async {
+    var clinicProvider = Provider.of<ClinicProvider>(context, listen: false);
+    await clinicProvider.getClinicServices();
+    _appointmentFee.text = "0.00";
   }
 
   @override
   Widget build(BuildContext context) {
-    var _currencies = [
-      "Food",
-      "Transport",
-      "Personal",
-      "Shopping",
-      "Medical",
-      "Rent",
-      "Movie",
-      "Salary"
-    ];
-
     return Scaffold(
       key: _scaffoldKey,
       drawer: const AppDrawer(),
@@ -173,83 +175,142 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
               horizontal: 10.0,
             ),
             child: RawMaterialButton(
-              onPressed: () {
+              onPressed: () async {
                 showModalBottomSheet(
                     isScrollControlled: true,
                     context: context,
                     backgroundColor: Colors.transparent,
                     builder: (context) {
                       return ScheduleBottomSheet(
-                        formWidget: Form(
-                          child: Column(
-                            children: [
-                              GestureDetector(
-                                onHorizontalDragDown: (details) {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Container(
-                                  margin:
-                                      const EdgeInsets.only(top: 0, bottom: 5),
-                                  height: 5,
-                                  width: 50,
-                                  decoration: BoxDecoration(
-                                    color: Styles.primaryColor,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                              ),
-                              const Center(
-                                child: Text(
-                                  "Book Appointment",
-                                  style: TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              //dropdown form
-
-                              FormField<String>(
-                                builder: (FormFieldState<String> state) {
-                                  return InputDecorator(
-                                    decoration: InputDecoration(
-                                        labelStyle: const TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 30.0),
-                                        errorStyle: const TextStyle(
-                                            color: Colors.redAccent,
-                                            fontSize: 16.0),
-                                        hintText: 'Please select service',
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5.0))),
-                                    isEmpty: _currentSelectedValue == "",
-                                    child: DropdownButtonHideUnderline(
-                                      child: DropdownButton<String>(
-                                        value: _currentSelectedValue,
-                                        isDense: true,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            _currentSelectedValue =
-                                                value.toString();
-                                            state.didChange(value);
-                                          });
-                                        },
-                                        items: _currencies.map((String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
-                                      ),
+                          formWidget: Consumer<ClinicProvider>(
+                        builder: (context, value, child) {
+                          return Form(
+                            key: appointmentFormKey,
+                            child: Column(
+                              children: [
+                                GestureDetector(
+                                  onHorizontalDragDown: (details) {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.only(
+                                        top: 0, bottom: 5),
+                                    height: 5,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                      color: Styles.primaryColor,
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
-                                  );
-                                },
-                              )
-                            ],
-                          ),
-                        ),
-                      );
+                                  ),
+                                ),
+                                const Center(
+                                  child: Text(
+                                    "Book Appointment",
+                                    style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                const Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "Medical Service",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      color: Color.fromARGB(255, 106, 106, 106),
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                FormField<String>(
+                                  builder: (FormFieldState<String> state) {
+                                    return InputDecorator(
+                                      decoration: InputDecoration(
+                                          labelStyle: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 30.0),
+                                          errorStyle: const TextStyle(
+                                              color: Colors.redAccent,
+                                              fontSize: 16.0),
+                                          hintText: 'Please select service',
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0))),
+                                      isEmpty: _currentSelectedValue == "",
+                                      child: DropdownButtonHideUnderline(
+                                        child: DropdownButton<String>(
+                                          value: _currentSelectedValue,
+                                          isDense: true,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              print(
+                                                  "Selected:::: ${value.toString()}");
+
+                                              _currentSelectedValue =
+                                                  value.toString();
+                                              state.didChange(value);
+                                            });
+                                          },
+                                          items:
+                                              value.clinicServices.map((value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value.id.toString(),
+                                              child: Text(
+                                                  value.serviceName.toString()),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                const Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "Consultation fee",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      color: Color.fromARGB(255, 106, 106, 106),
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                TextFormField(
+                                  controller: _appointmentFee,
+                                  onChanged: (value) {},
+                                  readOnly: true,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    fillColor:
+                                        const Color.fromARGB(255, 245, 170, 51),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Colors.grey,
+                                        // Color.fromARGB(255, 20, 106, 218),
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                      ));
                     });
               },
               fillColor: Styles.primaryColor,

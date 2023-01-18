@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart';
 import 'package:tabibu/api/api.dart';
 import 'package:tabibu/data/models/clinic_album_model.dart';
 import 'package:tabibu/data/models/clinic_doctor_model.dart';
@@ -43,27 +44,60 @@ class ClinicProvider extends ChangeNotifier {
     });
   }
 
-  List<Services> _services = [];
-  List<Services> get services => _services;
+  List<ClinicServices> _clinicServices = [];
+  List<ClinicServices> get clinicServices => _clinicServices;
+
+  bool _servicesLoading = false;
+  bool get servicesLoading => _servicesLoading;
   Future getClinicServices() async {
-    _clinicsLoading = true;
-    _services = [];
+    _servicesLoading = true;
+    _clinicServices = [];
     String? refreshToken = authProvider.allLoginDetails.refresh;
 
     return Api.clinicServices().then((response) async {
-      var payload = jsonDecode(response.body);
+      var payload = json.decode(response.body);
       if (response.statusCode == 200) {
         for (var service in payload) {
-          _services.add(Services.fromJson(service));
+          _clinicServices.add(ClinicServices.fromJson(service));
         }
 
         notifyListeners();
-        _clinicsLoading = false;
+        _servicesLoading = false;
+        return payload;
       } else if (response.statusCode == 401) {
         await authProvider.refreshToken(refreshToken);
         await getClinicServices();
-      } else {}
-    }).catchError((error) {});
+      } else {
+        _servicesLoading = false;
+      }
+    }).catchError((error) {
+      print("error occured while fetching services $error");
+    });
+  }
+
+  ClinicServices _serviceDetails = ClinicServices();
+  ClinicServices get serviceDetails => _serviceDetails;
+
+  Future getClinicServiceDetails(int? serviceID) {
+    _servicesLoading = true;
+    String? refreshToken = authProvider.allLoginDetails.refresh;
+
+    return Api.clinicServiceDetails(serviceID).then((response) async {
+      var payload = json.decode(response.body);
+      if (response.statusCode == 200) {
+        _serviceDetails = ClinicServices.fromJson(payload);
+
+        notifyListeners();
+        _servicesLoading = false;
+      } else if (response.statusCode == 401) {
+        await authProvider.refreshToken(refreshToken);
+        await getClinicServiceDetails(serviceID);
+      } else {
+        _servicesLoading = false;
+      }
+    }).catchError((error) {
+      print("error occured while fetching clinic details $error");
+    });
   }
 
   bool _clinicAlbumLoading = false;

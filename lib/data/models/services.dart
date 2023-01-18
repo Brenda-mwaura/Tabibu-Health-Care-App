@@ -1,14 +1,16 @@
 import 'dart:convert';
 
-List<Services?>? servicesFromJson(String str) => json.decode(str) == null
-    ? []
-    : List<Services?>.from(json.decode(str)!.map((x) => Services.fromJson(x)));
+List<ClinicServices?>? clinicServicesFromJson(String str) =>
+    json.decode(str) == null
+        ? []
+        : List<ClinicServices?>.from(
+            json.decode(str)!.map((x) => ClinicServices.fromJson(x)));
 
-String servicesToJson(List<Services?>? data) => json.encode(
+String clinicServicesToJson(List<ClinicServices?>? data) => json.encode(
     data == null ? [] : List<dynamic>.from(data.map((x) => x!.toJson())));
 
-class Services {
-  Services({
+class ClinicServices {
+  ClinicServices({
     this.id,
     this.serviceName,
     this.description,
@@ -22,11 +24,11 @@ class Services {
   String? serviceName;
   String? description;
   bool? available;
-  int? price;
+  double? price;
   String? createdAt;
   String? updatedAt;
 
-  factory Services.fromJson(Map<String, dynamic> json) => Services(
+  factory ClinicServices.fromJson(Map<String, dynamic> json) => ClinicServices(
         id: json["id"],
         serviceName: json["service_name"],
         description: json["description"],
