@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/models/clinic_model.dart';
 import 'package:tabibu/providers/clinic_provider.dart';
@@ -60,22 +61,31 @@ class _DoctorsTabViewState extends State<DoctorsTabView> {
                       if (value.clinicDoctorsLoading == true) {
                         return AppSpinner();
                       } else {
-                        return GridView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: value.clinicDoctors.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 0.85,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 12,
-                          ),
-                          itemBuilder: (context, index) {
-                            return DoctorsContainer(
-                                doctor: value.clinicDoctors[index]);
-                          },
-                        );
+                        return value.clinicDoctors.isEmpty
+                            ? Container(
+                                margin: EdgeInsets.only(top: 20),
+                                height: 200,
+                                child: SvgPicture.asset(
+                                  "assets/images/signup.svg",
+                                  fit: BoxFit.contain,
+                                ),
+                              )
+                            : GridView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: value.clinicDoctors.length,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 0.85,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 12,
+                                ),
+                                itemBuilder: (context, index) {
+                                  return DoctorsContainer(
+                                      doctor: value.clinicDoctors[index]);
+                                },
+                              );
                       }
                     },
                   ),

@@ -129,10 +129,10 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                         AboutClinicTabView(
                           clinic: widget.clinic,
                         ),
-                        DirectionsTabView(
-                      
+                        DirectionsTabView(),
+                        DoctorsTabView(
+                          clinic: widget.clinic,
                         ),
-                        DoctorsTabView(clinic:widget.clinic,),
                       ],
                     ),
                   )
@@ -167,6 +167,7 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                     context: context,
                     backgroundColor: Colors.transparent,
                     builder: (context) {
+                   
                       return ScheduleBottomSheet(
                         formWidget: Form(
                           child: Column(
@@ -176,12 +177,22 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                   Navigator.of(context).pop();
                                 },
                                 child: Container(
-                                  margin: const EdgeInsets.only(top: 0),
+                                  margin:
+                                      const EdgeInsets.only(top: 0, bottom: 5),
                                   height: 5,
                                   width: 50,
                                   decoration: BoxDecoration(
                                     color: Styles.primaryColor,
                                     borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                              ),
+                              const Center(
+                                child: Text(
+                                  "Book Appointment",
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),

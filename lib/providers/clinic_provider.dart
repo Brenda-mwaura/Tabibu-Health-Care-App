@@ -165,11 +165,9 @@ class ClinicProvider extends ChangeNotifier {
         _doctorSpecialization = Specialization.fromJson(payload);
         notifyListeners();
         _clinicDoctorsLoading = false;
-
       } else if (response.statusCode == 401) {
         await authProvider.refreshToken(refreshToken);
         await getDoctorSpecialization(specializationID);
-        
       } else {
         _clinicDoctorsLoading = false;
       }

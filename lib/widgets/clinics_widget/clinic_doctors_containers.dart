@@ -1,10 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/models/clinic_doctor_model.dart';
+import 'package:tabibu/providers/clinic_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class DoctorsContainer extends StatelessWidget {
+class DoctorsContainer extends StatefulWidget {
   final ClinicDoctor doctor;
-  const DoctorsContainer({Key? key, required this.doctor}) : super(key: key);
+  DoctorsContainer({Key? key, required this.doctor}) : super(key: key);
+
+  @override
+  State<DoctorsContainer> createState() => _DoctorsContainerState();
+}
+
+class _DoctorsContainerState extends State<DoctorsContainer> {
+  @override
+  void initState() {
+    super.initState();
+    _refresh();
+  }
+
+  Future<void> _refresh() async {
+    var clinicProvider = Provider.of<ClinicProvider>(context, listen: false);
+    await clinicProvider.getDoctorSpecialization(widget.doctor.specialization);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +48,10 @@ class DoctorsContainer extends StatelessWidget {
           Container(
             width: 60,
             height: 60,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                image: AssetImage("assets/images/afya.jpeg"),
+                image: NetworkImage(widget.doctor.profilePicture.toString()),
                 fit: BoxFit.cover,
               ),
             ),
@@ -41,7 +60,7 @@ class DoctorsContainer extends StatelessWidget {
             height: 8,
           ),
           Text(
-            doctor.user!.fullName.toString(),
+            widget.doctor.user!.fullName.toString(),
             style: const TextStyle(
               color: Colors.black,
               fontSize: 18.0,
@@ -51,19 +70,25 @@ class DoctorsContainer extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          Text(
-            doctor.specialization.toString(),
-            style: const TextStyle(
-              color: Colors.grey,
-              fontSize: 16.0,
-              fontWeight: FontWeight.w500,
-            ),
+          Consumer<ClinicProvider>(
+            builder: (context, value, child) {
+              return Text(
+                value.doctorSpecialization.specialization.toString(),
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w500,
+                ),
+              );
+            },
           ),
           const SizedBox(
             height: 12,
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () async {
+              await _launchCaller(widget.doctor.user!.phone.toString());
+            },
             child: Container(
               width: 40,
               height: 40,
@@ -75,7 +100,7 @@ class DoctorsContainer extends StatelessWidget {
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 1,
                     blurRadius: 7,
-                    offset: const Offset(0, 3), // changes position of shadow
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),
@@ -88,5 +113,13 @@ class DoctorsContainer extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future _launchCaller(String phoneNumber) async {
+    final Uri phoneLaunchUri = Uri(
+      scheme: "tel",
+      path: phoneNumber,
+    );
+    await launchUrl(phoneLaunchUri);
   }
 }
