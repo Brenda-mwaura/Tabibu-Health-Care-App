@@ -25,6 +25,7 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   int index = 0;
   late TabController _tabController;
+  var _currentSelectedValue;
 
   @override
   void initState() {
@@ -40,6 +41,17 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
 
   @override
   Widget build(BuildContext context) {
+    var _currencies = [
+      "Food",
+      "Transport",
+      "Personal",
+      "Shopping",
+      "Medical",
+      "Rent",
+      "Movie",
+      "Salary"
+    ];
+
     return Scaffold(
       key: _scaffoldKey,
       drawer: const AppDrawer(),
@@ -167,7 +179,6 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                     context: context,
                     backgroundColor: Colors.transparent,
                     builder: (context) {
-                   
                       return ScheduleBottomSheet(
                         formWidget: Form(
                           child: Column(
@@ -196,6 +207,45 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                   ),
                                 ),
                               ),
+                              //dropdown form
+
+                              FormField<String>(
+                                builder: (FormFieldState<String> state) {
+                                  return InputDecorator(
+                                    decoration: InputDecoration(
+                                        labelStyle: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 30.0),
+                                        errorStyle: const TextStyle(
+                                            color: Colors.redAccent,
+                                            fontSize: 16.0),
+                                        hintText: 'Please select service',
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5.0))),
+                                    isEmpty: _currentSelectedValue == "",
+                                    child: DropdownButtonHideUnderline(
+                                      child: DropdownButton<String>(
+                                        value: _currentSelectedValue,
+                                        isDense: true,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _currentSelectedValue =
+                                                value.toString();
+                                            state.didChange(value);
+                                          });
+                                        },
+                                        items: _currencies.map((String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(value),
+                                          );
+                                        }).toList(),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              )
                             ],
                           ),
                         ),

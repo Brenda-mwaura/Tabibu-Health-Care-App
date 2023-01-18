@@ -319,4 +319,18 @@ class Api {
 
     return response;
   }
+
+  static Future<http.Response> clinicServices() async {
+    String? accessToken = authProvider.allLoginDetails.access;
+
+    var response = await client2.get(
+      Uri.parse("${baseUrl}services/"),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $accessToken',
+      },
+    );
+
+    return response;
+  }
 }
