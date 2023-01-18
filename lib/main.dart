@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:tabibu/configs/routes.dart';
+import 'package:tabibu/providers/appointment_provider.dart';
 import 'package:tabibu/providers/auth_provider.dart';
 import 'package:tabibu/providers/clinic_provider.dart';
 import 'package:tabibu/providers/geolocation_provider.dart.dart';
@@ -48,6 +49,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider.value(value: authProvider),
         ChangeNotifierProvider.value(value: profileProvider),
         ChangeNotifierProvider.value(value: clinicProvider),
+        ChangeNotifierProvider.value(value: appointmentProvider),
       ],
       child: MaterialApp(
         title: "Tabibu Health",
