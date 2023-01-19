@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tabibu/configs/styles.dart';
 
 class ScheduleBottomSheet extends StatelessWidget {
   final Widget formWidget;
-  const ScheduleBottomSheet({Key? key, required this.formWidget})
+  final String? title;
+  const ScheduleBottomSheet({Key? key, required this.formWidget, this.title})
       : super(key: key);
 
   @override
@@ -20,7 +22,7 @@ class ScheduleBottomSheet extends StatelessWidget {
 
     return _makeDismissible(
       child: DraggableScrollableSheet(
-        initialChildSize: 0.85,
+        initialChildSize: 0.87,
         minChildSize: 0.5,
         maxChildSize: 0.9,
         builder: (context, scrollController) {
@@ -36,12 +38,44 @@ class ScheduleBottomSheet extends StatelessWidget {
                 topRight: Radius.circular(20),
               ),
             ),
-            child: ListView(
+            child: Column(
               children: [
                 const SizedBox(
-                  height: 15.0,
+                  height: 10,
                 ),
-                formWidget
+                GestureDetector(
+                  onHorizontalDragDown: (details) {
+                    Navigator.of(context).pop();
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 0, bottom: 5),
+                    height: 5,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      color: Styles.primaryColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    title.toString(),
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Expanded(
+                    child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    formWidget,
+                  ],
+                ))
               ],
             ),
           );

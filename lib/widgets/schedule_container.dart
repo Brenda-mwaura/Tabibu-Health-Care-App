@@ -193,25 +193,10 @@ class ScheduleContainer extends StatelessWidget {
                           backgroundColor: Colors.transparent,
                           builder: (context) {
                             return ScheduleBottomSheet(
+                              title: "Reschedule",
                               formWidget: Form(
                                 child: Column(
-                                  children: [
-                                    GestureDetector(
-                                      onHorizontalDragDown: (details) {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Container(
-                                        margin: const EdgeInsets.only(top: 0),
-                                        height: 5,
-                                        width: 50,
-                                        decoration: BoxDecoration(
-                                          color: Styles.primaryColor,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                  children: [],
                                 ),
                               ),
                             );
