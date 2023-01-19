@@ -509,11 +509,12 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                 TextFormField(
                                   // controller: _appointmentFee,
                                   onChanged: (value) {},
-                                  readOnly: true,
+
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5),
                                     ),
+                                    hintText: "2547XXX",
                                     fillColor:
                                         const Color.fromARGB(255, 245, 170, 51),
                                     focusedBorder: OutlineInputBorder(
@@ -543,7 +544,7 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                         );
                                       },
                                     )),
-                                const SizedBox(height: 24),
+                                const SizedBox(height: 30),
                               ],
                             ),
                           );
