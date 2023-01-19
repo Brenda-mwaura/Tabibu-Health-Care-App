@@ -20,7 +20,7 @@ class ScheduleBottomSheet extends StatelessWidget {
 
     return _makeDismissible(
       child: DraggableScrollableSheet(
-        initialChildSize: 0.8,
+        initialChildSize: 0.85,
         minChildSize: 0.5,
         maxChildSize: 0.9,
         builder: (context, scrollController) {

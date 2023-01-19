@@ -211,7 +211,7 @@ class _ProfileEditTabViewState extends State<ProfileEditTabView> {
                                     width: 2.0),
                                 borderRadius: BorderRadius.circular(5),
                               ),
-                              prefixIcon: const Icon(Icons.calendar_today),
+                              prefixIcon: const Icon(Icons.calendar_month),
                             ),
                             style: const TextStyle(
                               fontSize: 16,
