@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/data_search.dart';
@@ -32,7 +33,57 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
 
   GlobalKey<FormState> appointmentFormKey = GlobalKey<FormState>();
 
-  TextEditingController _appointmentFee = TextEditingController();
+  TextEditingController _appointmentFeeController = TextEditingController();
+  TextEditingController _patientAppointmentDescriptionController =
+      TextEditingController();
+  TextEditingController _paymentPhoneNumberController = TextEditingController();
+  TextEditingController _appointmentDateTextController =
+      TextEditingController();
+  TextEditingController _appointmentTimeTextController =
+      TextEditingController();
+
+  Future _selectAppointmentTime(BuildContext context) async {
+    TimeOfDay initTime = TimeOfDay.now();
+
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: initTime,
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null) {
+      setState(() {
+        print("Picked::: ${picked}");
+        _appointmentTimeTextController.text = picked.format(context);
+      });
+    }
+  }
+
+  Future _selectAppointmentDate(BuildContext context) async {
+    DateTime initDate = DateTime.now();
+
+    final DateTime? selected = await showDatePicker(
+      context: context,
+      initialDate: initDate,
+      firstDate: DateTime(
+        2015,
+      ),
+      lastDate: DateTime(2101),
+    );
+    if (selected != null) {
+      _appointmentDateTextController.text =
+          DateFormat('dd-MM-yyyy').format(selected);
+      setState() {
+        _appointmentDateTextController.text =
+            DateFormat('dd-MM-yyyy').format(selected);
+      }
+    }
+  }
 
   @override
   void initState() {
@@ -50,7 +101,10 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
   Future<void> _refresh() async {
     var clinicProvider = Provider.of<ClinicProvider>(context, listen: false);
     await clinicProvider.getClinicServices();
-    _appointmentFee.text = "0.00";
+    _appointmentFeeController.text = "0.00";
+    _appointmentDateTextController.text =
+        DateFormat('dd-MM-yyyy').format(DateTime.now());
+    _appointmentTimeTextController.text = TimeOfDay.now().format(context);
   }
 
   @override
@@ -233,7 +287,8 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                                         int.parse(
                                                             value.toString()));
                                                 setState(() {
-                                                  _appointmentFee.text =
+                                                  _appointmentFeeController
+                                                          .text =
                                                       clinicValue
                                                           .serviceDetails.price
                                                           .toString();
@@ -274,7 +329,7 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                       height: 8,
                                     ),
                                     TextFormField(
-                                      controller: _appointmentFee,
+                                      controller: _appointmentFeeController,
                                       onChanged: (value) {},
                                       readOnly: true,
                                       decoration: InputDecoration(
@@ -315,7 +370,8 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                     ),
                                     TextFormField(
                                       autofocus: false,
-                                      // controller: _bioTextEditingController,
+                                      controller:
+                                          _patientAppointmentDescriptionController,
                                       textInputAction: TextInputAction.next,
                                       keyboardType: TextInputType.text,
                                       decoration: InputDecoration(
@@ -366,6 +422,8 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                                 height: 8,
                                               ),
                                               TextFormField(
+                                                controller:
+                                                    _appointmentDateTextController,
                                                 autofocus: false,
                                                 textInputAction:
                                                     TextInputAction.next,
@@ -402,7 +460,10 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                                       255, 106, 106, 106),
                                                 ),
                                                 readOnly: true,
-                                                onTap: () async {},
+                                                onTap: () async {
+                                                  _selectAppointmentDate(
+                                                      context);
+                                                },
                                               ),
                                             ],
                                           ),
@@ -427,6 +488,8 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                                 height: 8,
                                               ),
                                               TextFormField(
+                                                controller:
+                                                    _appointmentTimeTextController,
                                                 autofocus: false,
                                                 textInputAction:
                                                     TextInputAction.next,
@@ -463,7 +526,10 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                                       255, 106, 106, 106),
                                                 ),
                                                 readOnly: true,
-                                                onTap: () async {},
+                                                onTap: () async {
+                                                  _selectAppointmentTime(
+                                                      context);
+                                                },
                                               ),
                                             ],
                                           ),
@@ -510,9 +576,8 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                       height: 8,
                                     ),
                                     TextFormField(
-                                      // controller: _appointmentFee,
+                                      controller: _paymentPhoneNumberController,
                                       onChanged: (value) {},
-
                                       decoration: InputDecoration(
                                         border: OutlineInputBorder(
                                           borderRadius:
