@@ -183,7 +183,7 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                     builder: (context) {
                       return ScheduleBottomSheet(
                           formWidget: Consumer<ClinicProvider>(
-                        builder: (context, value, child) {
+                        builder: (context, clinicValue, child) {
                           return Form(
                             key: appointmentFormKey,
                             child: Column(
@@ -246,18 +246,26 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                         child: DropdownButton<String>(
                                           value: _currentSelectedValue,
                                           isDense: true,
-                                          onChanged: (value) {
+                                          onChanged: (value) async {
+                                            var clinicProvider =
+                                                Provider.of<ClinicProvider>(
+                                                    context,
+                                                    listen: false);
+                                            await clinicProvider
+                                                .getClinicServiceDetails(
+                                                    int.parse(
+                                                        value.toString()));
                                             setState(() {
-                                              print(
-                                                  "Selected:::: ${value.toString()}");
-
+                                              _appointmentFee.text = clinicValue
+                                                  .serviceDetails.price
+                                                  .toString();
                                               _currentSelectedValue =
                                                   value.toString();
                                               state.didChange(value);
                                             });
                                           },
-                                          items:
-                                              value.clinicServices.map((value) {
+                                          items: clinicValue.clinicServices
+                                              .map((value) {
                                             return DropdownMenuItem<String>(
                                               value: value.id.toString(),
                                               child: Text(
