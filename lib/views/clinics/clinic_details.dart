@@ -6,6 +6,7 @@ import 'package:tabibu/data/data_search.dart';
 import 'package:tabibu/data/models/clinic_model.dart';
 import 'package:tabibu/providers/appointment_provider.dart';
 import 'package:tabibu/providers/clinic_provider.dart';
+import 'package:tabibu/providers/profile_provider.dart';
 import 'package:tabibu/views/appointment/components/cancelled_appointment_tabview.dart';
 import 'package:tabibu/views/appointment/components/completed_appointment_tabview.dart';
 import 'package:tabibu/views/appointment/components/upcoming_appointment_tabview.dart';
@@ -42,6 +43,43 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
   TextEditingController _appointmentTimeTextController =
       TextEditingController();
 
+  Future _appointmentBookingFnc(String? currentSelectedValue) async {
+    if (appointmentFormKey.currentState!.validate()) {
+      // YYYY-MM-DD
+      String formattedAppointmentDate = DateFormat('yyyy-MM-dd').format(
+          DateFormat("dd-MM-yyyy").parse(_appointmentDateTextController.text));
+      print("AppointmentDate:::: $formattedAppointmentDate");
+
+      print("Appointment Time ${_appointmentTimeTextController.text}");
+
+      final format = DateFormat.jm();
+      TimeOfDay formttedAppointmentTime = TimeOfDay.fromDateTime(
+          format.parse(_appointmentTimeTextController.text));
+
+      print("Time Of Daya ::: $formttedAppointmentTime");
+
+      //onvert timeOfDay to 24 hrs format
+      String appointmentTime = formttedAppointmentTime.hour.toString() +
+          ":" +
+          formttedAppointmentTime.minute.toString() +
+          ":00";
+
+      print("Appointment Time 24 hrs format::: $appointmentTime");
+
+      await appointmentProvider
+          .appointmentBooking(
+              widget.clinic.id,
+              formattedAppointmentDate,
+              appointmentTime,
+              int.parse(currentSelectedValue.toString()),
+              _paymentPhoneNumberController.text,
+              _patientAppointmentDescriptionController.text)
+          .then((value) {
+        print(value);
+      });
+    }
+  }
+
   Future _selectAppointmentTime(BuildContext context) async {
     TimeOfDay initTime = TimeOfDay.now();
 
@@ -58,7 +96,6 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
 
     if (picked != null) {
       setState(() {
-        print("Picked::: ${picked}");
         _appointmentTimeTextController.text = picked.format(context);
       });
     }
@@ -105,6 +142,10 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
     _appointmentDateTextController.text =
         DateFormat('dd-MM-yyyy').format(DateTime.now());
     _appointmentTimeTextController.text = TimeOfDay.now().format(context);
+    var profileProvider = Provider.of<ProfileProvider>(context, listen: false);
+    await profileProvider.fetchProfile();
+    _paymentPhoneNumberController.text =
+        profileProvider.profileDetails.user!.phone.toString();
   }
 
   @override
@@ -600,20 +641,23 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                     const SizedBox(
                                       height: 20,
                                     ),
-                                    AuthButton(
-                                        onPressed: () {},
-                                        child: Consumer<AppointmentProvider>(
-                                          builder: (context, value, child) {
-                                            return const Text(
-                                              "Book Appointment",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            );
-                                          },
-                                        )),
+                                    AuthButton(onPressed: () {
+                                      print(
+                                          "This value.... ${_currentSelectedValue.runtimeType}");
+                                      _appointmentBookingFnc(
+                                          _currentSelectedValue);
+                                    }, child: Consumer<AppointmentProvider>(
+                                      builder: (context, value, child) {
+                                        return const Text(
+                                          "Book Appointment",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        );
+                                      },
+                                    )),
                                     const SizedBox(height: 30),
                                   ],
                                 ),

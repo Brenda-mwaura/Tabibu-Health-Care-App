@@ -55,6 +55,7 @@ class AppointmentProvider extends ChangeNotifier {
             serviceID, paymentPhoneNumber, yourMessage)
         .then((response) async {
       var payload = json.decode(response.body);
+      print("Payload $payload");
 
       if (response.statusCode == 201) {
         Appointment appointmentDetails = json.decode(payload);
@@ -67,10 +68,10 @@ class AppointmentProvider extends ChangeNotifier {
             serviceID, paymentPhoneNumber, yourMessage);
       } else {
         _appointmentBookingLoading = false;
+        _appointmentBookingToastError(payload);
       }
-      
     }).catchError((error) {
-      print("error occured while booking an appointment");
+      print("error occured while booking an appointment $error");
     });
   }
 }
