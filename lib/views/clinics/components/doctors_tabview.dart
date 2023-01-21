@@ -64,9 +64,9 @@ class _DoctorsTabViewState extends State<DoctorsTabView> {
                         return value.clinicDoctors.isEmpty
                             ? Container(
                                 margin: EdgeInsets.only(top: 20),
-                                height: 200,
+                                height: 250,
                                 child: SvgPicture.asset(
-                                  "assets/images/signup.svg",
+                                  "assets/images/not_found.svg",
                                   fit: BoxFit.contain,
                                 ),
                               )

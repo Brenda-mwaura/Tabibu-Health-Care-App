@@ -150,6 +150,7 @@ class AppointmentProvider extends ChangeNotifier {
             _completedAppointment.add(Appointment.fromJson(appointment));
           }
         }
+        print("Completed::::");
 
         notifyListeners();
         _patientAppointmentLoading = false;

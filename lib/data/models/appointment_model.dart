@@ -1,12 +1,10 @@
 import 'dart:convert';
 
-List<Appointment?>? appointmentFromJson(String str) => json.decode(str) == null
-    ? []
-    : List<Appointment?>.from(
-        json.decode(str)!.map((x) => Appointment.fromJson(x)));
+List<Appointment> appointmentFromJson(String str) => List<Appointment>.from(
+    json.decode(str).map((x) => Appointment.fromJson(x)));
 
-String appointmentToJson(List<Appointment?>? data) => json.encode(
-    data == null ? [] : List<dynamic>.from(data!.map((x) => x!.toJson())));
+String appointmentToJson(List<Appointment> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Appointment {
   Appointment({
@@ -31,7 +29,7 @@ class Appointment {
   int? id;
   AppointmentPatient? patient;
   int? clinic;
-  int? appointmentFee;
+  double? appointmentFee;
   String? appointmentDate;
   int? service;
   String? appointmentTime;
@@ -119,10 +117,10 @@ class AppointmentPatient {
   String? dateOfBirth;
   String? timestamp;
   String? bloodGroup;
-  int? weight;
-  int? height;
-  int? bloodPressure;
-  int? bloodSugar;
+  double? weight;
+  double? height;
+  double? bloodPressure;
+  double? bloodSugar;
   String? allergies;
 
   factory AppointmentPatient.fromJson(Map<String, dynamic> json) =>
