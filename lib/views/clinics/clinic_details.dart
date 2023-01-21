@@ -60,6 +60,7 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
             ":" +
             formttedAppointmentTime.minute.toString() +
             ":00";
+        
 
         await appointmentProvider
             .appointmentBooking(
@@ -69,8 +70,9 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                 int.parse(currentSelectedValue.toString()),
                 _paymentPhoneNumberController.text,
                 _patientAppointmentDescriptionController.text)
-            .then((value) {
+            .then((value) async{
           if (value != null) {
+            await appointmentProvider.lipaAppointmentNaMpesaOnline( _paymentPhoneNumberController.text, int.parse(currentSelectedValue.toString()),widget.clinic.id,);
             Navigator.of(context).pushNamed(RouteGenerator.appointmentPage);
             currentSelectedValue = "";
             _appointmentFeeController.clear();
@@ -521,19 +523,11 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                                       context);
                                                 },
                                                 validator: (value) {
-                                                  //validate to prevent empty field
+                        
                                                   if (value!.isEmpty) {
                                                     return "Please select date";
                                                   }
-                                                  //validate to prevent date in the past
-                                                  if (DateTime.parse(value)
-                                                          .isBefore(
-                                                              DateTime.now()) ||
-                                                      DateTime.parse(value)
-                                                          .isAtSameMomentAs(
-                                                              DateTime.now())) {
-                                                    return "Invalid date";
-                                                  }
+                                                 
                                                 },
                                               ),
                                             ],

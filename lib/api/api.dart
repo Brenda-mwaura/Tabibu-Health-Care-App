@@ -367,4 +367,18 @@ class Api {
 
     return response;
   }
+
+  static Future<http.Response> patientAppointments() async {
+    String? accessToken = authProvider.allLoginDetails.access;
+
+    var response = await client2.get(
+      Uri.parse("${baseUrl}appointment/booking/"),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $accessToken',
+      },
+    );
+
+    return response;
+  }
 }
