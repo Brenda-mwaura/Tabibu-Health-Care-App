@@ -234,6 +234,36 @@ class ClinicProvider extends ChangeNotifier {
     });
   }
 
+  bool _clinicDetailsLoading = false;
+  bool get clinicDetailsLoading => _clinicDetailsLoading;
+
+  Clinic _clinicDetails = Clinic();
+  Clinic get clinicDetails => _clinicDetails;
+
+  Future fetchClinicDetails(int? clinicID) async {
+    _clinicDetailsLoading = true;
+    String? refreshToken = authProvider.allLoginDetails.refresh;
+
+    return Api.clinicDetails(clinicID).then((response) async {
+      var payload = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        _clinicDetails = Clinic.fromJson(payload);
+        notifyListeners();
+        _clinicDetailsLoading = false;
+
+        return _clinicDetails;
+      } else if (response.statusCode == 401) {
+        await authProvider.refreshToken(refreshToken);
+        await fetchClinicDetails(clinicID);
+      } else {
+        _clinicDetailsLoading = false;
+      }
+    }).catchError((error) {
+      print("error occured while fetching clinic details $error");
+    });
+  }
+
   Future fetchNearestClinics(double? lat, double? lng) async {
     String? refreshToken = authProvider.allLoginDetails.refresh;
 

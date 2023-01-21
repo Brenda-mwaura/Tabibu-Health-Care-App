@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/models/appointment_model.dart';
+import 'package:tabibu/providers/clinic_provider.dart';
 
 class AppointmentContainer extends StatefulWidget {
   final Color statusColor;
@@ -20,6 +22,21 @@ class AppointmentContainer extends StatefulWidget {
 }
 
 class _AppointmentContainerState extends State<AppointmentContainer> {
+  @override
+  void initState() {
+    super.initState();
+    _refresh();
+  }
+
+  Future<void> _refresh() async {
+    var clinicProvider = Provider.of<ClinicProvider>(context, listen: false);
+
+    await clinicProvider
+        .fetchClinicDetails(int.parse(widget.appointment.clinic.toString()));
+    await clinicProvider.getClinicServiceDetails(
+        int.parse(widget.appointment.service.toString()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,46 +63,56 @@ class _AppointmentContainerState extends State<AppointmentContainer> {
       ),
       child: Column(
         children: [
-          Row(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "Equity Afya Nairobi CBD",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w700,
-                    ),
+          Consumer<ClinicProvider>(
+            builder: (context, value, child) {
+              return Row(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        value.clinicDetails.clinicName.toString(),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Consumer<ClinicProvider>(
+                        builder: (context, serviceValue, child) {
+                          return Text(
+                            serviceValue.serviceDetails.serviceName.toString(),
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    "General Consultation",
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
+                  const Spacer(),
+                  Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          value.clinicDetails.displayImage.toString(),
+                        ),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ],
-              ),
-              const Spacer(),
-              Container(
-                width: 50,
-                height: 50,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/afya.jpeg"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ],
+              );
+            },
           ),
           const SizedBox(
             height: 15,
