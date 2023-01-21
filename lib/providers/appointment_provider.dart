@@ -150,10 +150,10 @@ class AppointmentProvider extends ChangeNotifier {
             _completedAppointment.add(Appointment.fromJson(appointment));
           }
         }
-        print("Completed::::");
 
         notifyListeners();
         _patientAppointmentLoading = false;
+        return _completedAppointment;
       } else if (response.statusCode == 401) {
         await authProvider.refreshToken(refreshToken);
         await fetchCompletedAppointment();
@@ -162,6 +162,41 @@ class AppointmentProvider extends ChangeNotifier {
       }
     }).catchError((error) {
       print("error occured while fetching completed appointments $error");
+    });
+  }
+
+  bool _cancelledAppointmentLoading = false;
+  bool get cancelledAppointmentLoading => _cancelledAppointmentLoading;
+
+  List<Appointment> _cancelledAppointments = [];
+  List<Appointment> get cancelledAppointments => _cancelledAppointments;
+
+  Future fetchCancelledAppointment() {
+    _cancelledAppointmentLoading = true;
+    _cancelledAppointments = [];
+    String? refreshToken = authProvider.allLoginDetails.refresh;
+
+    return Api.patientAppointments().then((response) async {
+      var payload = await jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        for (var appointment in payload) {
+          if (appointment["status"] == "Cancelled") {
+            _cancelledAppointments.add(Appointment.fromJson(appointment));
+          }
+        }
+
+        notifyListeners();
+        _cancelledAppointmentLoading = false;
+        return _cancelledAppointments;
+      } else if (response.statusCode == 401) {
+        await authProvider.refreshToken(refreshToken);
+        await fetchCancelledAppointment();
+      } else {
+        _cancelledAppointmentLoading = false;
+      }
+    }).catchError((error) {
+      print("error occured while fetching cancelled appointments $error");
     });
   }
 }
