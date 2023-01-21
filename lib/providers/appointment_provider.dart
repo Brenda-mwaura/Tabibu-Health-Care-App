@@ -129,6 +129,40 @@ class AppointmentProvider extends ChangeNotifier {
       print("error occured while booking an appointment $error");
     });
   }
+
+  bool _patientAppointmentLoading = false;
+  bool get patientAppointmentLoading => _patientAppointmentLoading;
+
+  List<Appointment> _completedAppointment = [];
+  List<Appointment> get completedAppointment => _completedAppointment;
+
+  Future fetchCompletedAppointment() {
+    _patientAppointmentLoading = true;
+    _completedAppointment = [];
+    String? refreshToken = authProvider.allLoginDetails.refresh;
+
+    return Api.patientAppointments().then((response) async {
+      var payload = await jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        for (var appointment in payload) {
+          if (appointment["status"] == "Completed") {
+            _completedAppointment.add(Appointment.fromJson(appointment));
+          }
+        }
+
+        notifyListeners();
+        _patientAppointmentLoading = false;
+      } else if (response.statusCode == 401) {
+        await authProvider.refreshToken(refreshToken);
+        await fetchCompletedAppointment();
+      } else {
+        _patientAppointmentLoading = false;
+      }
+    }).catchError((error) {
+      print("error occured while fetching completed appointments $error");
+    });
+  }
 }
 
 AppointmentProvider appointmentProvider = AppointmentProvider();
