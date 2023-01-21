@@ -33,7 +33,7 @@ class AppointmentProvider extends ChangeNotifier {
     Fluttertoast.showToast(
       msg: msg,
       toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
+      gravity: ToastGravity.TOP,
       timeInSecForIosWeb: 4,
       backgroundColor: Styles.primaryColor,
       textColor: Colors.white,
@@ -58,17 +58,20 @@ class AppointmentProvider extends ChangeNotifier {
       print("Payload $payload");
 
       if (response.statusCode == 201) {
-        Appointment appointmentDetails = json.decode(payload);
+        // Appointment appointmentDetails = json.decode(payload);
         notifyListeners();
         _appointmentBookingSuccess();
         _appointmentBookingLoading = false;
+        //delay for 2 seconds
+        // await Future.delayed(Duration(seconds: 5));
+        return payload;
       } else if (response.statusCode == 401) {
         await authProvider.refreshToken(refreshToken);
         await appointmentBooking(clinicID, appointmentDate, appointmentTime,
             serviceID, paymentPhoneNumber, yourMessage);
       } else {
         _appointmentBookingLoading = false;
-        _appointmentBookingToastError(payload);
+        _appointmentBookingToastError(payload.toString());
       }
     }).catchError((error) {
       print("error occured while booking an appointment $error");

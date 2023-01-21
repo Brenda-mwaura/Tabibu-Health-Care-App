@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/data_search.dart';
 import 'package:tabibu/data/models/clinic_model.dart';
@@ -45,38 +47,49 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
 
   Future _appointmentBookingFnc(String? currentSelectedValue) async {
     if (appointmentFormKey.currentState!.validate()) {
-      // YYYY-MM-DD
-      String formattedAppointmentDate = DateFormat('yyyy-MM-dd').format(
-          DateFormat("dd-MM-yyyy").parse(_appointmentDateTextController.text));
-      print("AppointmentDate:::: $formattedAppointmentDate");
+      if (currentSelectedValue != null) {
+        String formattedAppointmentDate = DateFormat('yyyy-MM-dd').format(
+            DateFormat("dd-MM-yyyy")
+                .parse(_appointmentDateTextController.text));
 
-      print("Appointment Time ${_appointmentTimeTextController.text}");
+        final format = DateFormat.jm();
+        TimeOfDay formttedAppointmentTime = TimeOfDay.fromDateTime(
+            format.parse(_appointmentTimeTextController.text));
 
-      final format = DateFormat.jm();
-      TimeOfDay formttedAppointmentTime = TimeOfDay.fromDateTime(
-          format.parse(_appointmentTimeTextController.text));
+        String appointmentTime = formttedAppointmentTime.hour.toString() +
+            ":" +
+            formttedAppointmentTime.minute.toString() +
+            ":00";
 
-      print("Time Of Daya ::: $formttedAppointmentTime");
-
-      //onvert timeOfDay to 24 hrs format
-      String appointmentTime = formttedAppointmentTime.hour.toString() +
-          ":" +
-          formttedAppointmentTime.minute.toString() +
-          ":00";
-
-      print("Appointment Time 24 hrs format::: $appointmentTime");
-
-      await appointmentProvider
-          .appointmentBooking(
-              widget.clinic.id,
-              formattedAppointmentDate,
-              appointmentTime,
-              int.parse(currentSelectedValue.toString()),
-              _paymentPhoneNumberController.text,
-              _patientAppointmentDescriptionController.text)
-          .then((value) {
-        print(value);
-      });
+        await appointmentProvider
+            .appointmentBooking(
+                widget.clinic.id,
+                formattedAppointmentDate,
+                appointmentTime,
+                int.parse(currentSelectedValue.toString()),
+                _paymentPhoneNumberController.text,
+                _patientAppointmentDescriptionController.text)
+            .then((value) {
+          if (value != null) {
+            Navigator.of(context).pushNamed(RouteGenerator.appointmentPage);
+            currentSelectedValue = "";
+            _appointmentFeeController.clear();
+            _patientAppointmentDescriptionController.clear();
+            _appointmentDateTextController.clear();
+            _appointmentTimeTextController.clear();
+          }
+        });
+      } else {
+        Fluttertoast.showToast(
+          msg: "Please select a medical service",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 4,
+          backgroundColor: Styles.primaryColor,
+          textColor: Colors.white,
+          fontSize: 18.0,
+        );
+      }
     }
   }
 
@@ -318,6 +331,8 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                             child: DropdownButton<String>(
                                               value: _currentSelectedValue,
                                               isDense: true,
+                                              //validate to ensure that user selects service
+
                                               onChanged: (value) async {
                                                 var clinicProvider =
                                                     Provider.of<ClinicProvider>(
@@ -505,6 +520,21 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                                   _selectAppointmentDate(
                                                       context);
                                                 },
+                                                validator: (value) {
+                                                  //validate to prevent empty field
+                                                  if (value!.isEmpty) {
+                                                    return "Please select date";
+                                                  }
+                                                  //validate to prevent date in the past
+                                                  if (DateTime.parse(value)
+                                                          .isBefore(
+                                                              DateTime.now()) ||
+                                                      DateTime.parse(value)
+                                                          .isAtSameMomentAs(
+                                                              DateTime.now())) {
+                                                    return "Invalid date";
+                                                  }
+                                                },
                                               ),
                                             ],
                                           ),
@@ -570,6 +600,12 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                                 onTap: () async {
                                                   _selectAppointmentTime(
                                                       context);
+                                                },
+                                                validator: (value) {
+                                                  //validate to prevent empty field
+                                                  if (value!.isEmpty) {
+                                                    return "Please select time";
+                                                  }
                                                 },
                                               ),
                                             ],
