@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:tabibu/configs/styles.dart';
+import 'package:tabibu/data/models/appointment_model.dart';
 
-class AppointmentContainer extends StatelessWidget {
+class AppointmentContainer extends StatefulWidget {
   final Color statusColor;
   final String status;
+  final Appointment appointment;
 
-  const AppointmentContainer(
-      {Key? key, required this.statusColor, required this.status})
+  AppointmentContainer(
+      {Key? key,
+      required this.statusColor,
+      required this.status,
+      required this.appointment})
       : super(key: key);
 
+  @override
+  State<AppointmentContainer> createState() => _AppointmentContainerState();
+}
+
+class _AppointmentContainerState extends State<AppointmentContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -89,17 +100,21 @@ class AppointmentContainer extends StatelessWidget {
           Row(
             children: [
               Row(
-                children: const [
-                  Icon(
+                children: [
+                  const Icon(
                     Icons.calendar_month,
                     color: Color.fromARGB(221, 69, 69, 69),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   Text(
-                    "12th May 2021",
-                    style: TextStyle(
+                    DateFormat('dd-MM-yyyy')
+                        .format(DateTime.parse(
+                          widget.appointment.appointmentDate.toString(),
+                        ))
+                        .toString(),
+                    style: const TextStyle(
                       color: Color.fromARGB(221, 69, 69, 69),
                       fontSize: 16.0,
                       fontWeight: FontWeight.w500,
@@ -109,17 +124,18 @@ class AppointmentContainer extends StatelessWidget {
               ),
               const Spacer(),
               Row(
-                children: const [
-                  Icon(
+                children: [
+                  const Icon(
                     Icons.access_time,
                     color: Color.fromARGB(221, 69, 69, 69),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   Text(
-                    "10:00 AM",
-                    style: TextStyle(
+                    DateFormat('hh:mm a').format(DateTime.parse(
+                        "2022-10-15 ${widget.appointment.appointmentTime}")),
+                    style: const TextStyle(
                       color: Color.fromARGB(221, 69, 69, 69),
                       fontSize: 16.0,
                       fontWeight: FontWeight.w500,
@@ -133,14 +149,14 @@ class AppointmentContainer extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.circle,
-                    color: statusColor,
+                    color: widget.statusColor,
                     size: 10,
                   ),
                   const SizedBox(
                     width: 5,
                   ),
                   Text(
-                    status,
+                    widget.status,
                     style: const TextStyle(
                       color: Color.fromARGB(221, 69, 69, 69),
                       fontSize: 16.0,

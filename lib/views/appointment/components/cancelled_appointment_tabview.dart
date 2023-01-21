@@ -20,10 +20,11 @@ class CancelledAppointmentTabView extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: 6,
                 itemBuilder: (context, index) {
-                  return const AppointmentContainer(
-                    status: "Cancelled",
-                    statusColor: Colors.red,
-                  );
+                  // return const AppointmentContainer(
+                  //   status: "Cancelled",
+                  //   statusColor: Colors.red,
+                  // );
+                  return Text("Cancelled...");
                 },
               )
             ],

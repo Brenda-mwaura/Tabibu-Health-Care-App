@@ -59,9 +59,11 @@ class _CompletedAppointmentsTabViewState
                               shrinkWrap: true,
                               itemCount: value.completedAppointment.length,
                               itemBuilder: (context, index) {
-                                return const AppointmentContainer(
+                                return AppointmentContainer(
                                   status: "Completed",
                                   statusColor: Colors.green,
+                                  appointment:
+                                      value.completedAppointment[index],
                                 );
                               },
                             )

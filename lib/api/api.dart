@@ -235,6 +235,20 @@ class Api {
     return response;
   }
 
+  static Future<http.Response> clinicDetails(clinicID) async {
+    String? accessToken = authProvider.allLoginDetails.access;
+
+    var response = await client2.get(
+      Uri.parse("${baseUrl}clinics/$clinicID/"),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $accessToken',
+      },
+    );
+
+    return response;
+  }
+
   static Future<http.Response> clinicAlbum(int? clinicID) async {
     String? accessToken = authProvider.allLoginDetails.access;
 
