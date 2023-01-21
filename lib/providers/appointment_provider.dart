@@ -77,6 +77,58 @@ class AppointmentProvider extends ChangeNotifier {
       print("error occured while booking an appointment $error");
     });
   }
+
+  void _lipaNaMpesaSuccessToast() {
+    Fluttertoast.showToast(
+      msg: "You are being redirected to Mpesa menu",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 4,
+      backgroundColor: Styles.primaryColor,
+      textColor: Colors.white,
+      fontSize: 18.0,
+    );
+  }
+
+  void _lipaNaMpesaErrorToast(msg) {
+    Fluttertoast.showToast(
+      msg: msg.toString(),
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 4,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 18.0,
+    );
+  }
+
+  bool _payAppointmentLoading = false;
+  bool get payAppointmentLoading => _payAppointmentLoading;
+
+  Future lipaAppointmentNaMpesaOnline(
+      String? phoneNumber, int? serviceID, int? clinicID) {
+    _payAppointmentLoading = true;
+    String? refreshToken = authProvider.allLoginDetails.refresh;
+
+    return Api.lipaAppointmentNaMpesaOnline(phoneNumber, serviceID, clinicID)
+        .then((response) async {
+      var payload = await jsonDecode(response.body);
+      if (response.statusCode == 201) {
+        _lipaNaMpesaSuccessToast();
+        notifyListeners();
+        _payAppointmentLoading = false;
+        return payload;
+      } else if (response.statusCode == 401) {
+        await authProvider.refreshToken(refreshToken);
+        await lipaAppointmentNaMpesaOnline(phoneNumber, serviceID, clinicID);
+      } else {
+        _lipaNaMpesaErrorToast(payload.toString());
+        _payAppointmentLoading = false;
+      }
+    }).catchError((error) {
+      print("error occured while booking an appointment $error");
+    });
+  }
 }
 
 AppointmentProvider appointmentProvider = AppointmentProvider();
