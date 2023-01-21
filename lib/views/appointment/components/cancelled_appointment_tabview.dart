@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:tabibu/providers/appointment_provider.dart';
 import 'package:tabibu/widgets/clinics_widget/appoinment_container.dart';
@@ -44,18 +45,28 @@ class _CancelledAppointmentTabViewState
                       const SizedBox(
                         height: 5,
                       ),
-                      ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: value.cancelledAppointments.length,
-                        itemBuilder: (context, index) {
-                          return AppointmentContainer(
-                            status: "Cancelled",
-                            statusColor: Colors.red,
-                            appointment: value.cancelledAppointments[index],
-                          );
-                        },
-                      )
+                      value.cancelledAppointments.isEmpty
+                          ? Container(
+                              margin: EdgeInsets.only(top: 20),
+                              height: 200,
+                              child: SvgPicture.asset(
+                                "assets/images/cancelled.svg",
+                                fit: BoxFit.contain,
+                              ),
+                            )
+                          : ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: value.cancelledAppointments.length,
+                              itemBuilder: (context, index) {
+                                return AppointmentContainer(
+                                  status: "Cancelled",
+                                  statusColor: Colors.red,
+                                  appointment:
+                                      value.cancelledAppointments[index],
+                                );
+                              },
+                            )
                     ],
                   );
                 }

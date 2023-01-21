@@ -199,6 +199,42 @@ class AppointmentProvider extends ChangeNotifier {
       print("error occured while fetching cancelled appointments $error");
     });
   }
+
+  bool _upcomingAppointmentsLoading = false;
+  bool get upcomingAppointmentsLoading => _upcomingAppointmentsLoading;
+
+  List<Appointment> _upcomingAppointment = [];
+  List<Appointment> get upcomingAppointment => _upcomingAppointment;
+
+  Appointment _nearestUpcomingAppointment = Appointment();
+  Appointment get nearestUpcomingAppointment => _nearestUpcomingAppointment;
+
+  Future fetchUpcomingAppointment() {
+    _upcomingAppointmentsLoading = true;
+    _upcomingAppointment = [];
+    String? refreshToken = authProvider.allLoginDetails.refresh;
+
+    return Api.patientAppointments().then((response) async {
+      var payload = await jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        for (var appointment in payload) {
+          if (appointment["status"] == "Confirmed" ||
+              appointment["status"] == "In Progress" ||
+              appointment["status"] == "Pending") {}
+        }
+        notifyListeners();
+        _upcomingAppointmentsLoading = false;
+      } else if (response.statusCode == 401) {
+        await authProvider.refreshToken(refreshToken);
+        await fetchUpcomingAppointment();
+      } else {
+        _upcomingAppointmentsLoading = false;
+      }
+    }).catchError((error) {
+      print("error occured while fetching upcoming appointments $error");
+    });
+  }
 }
 
 AppointmentProvider appointmentProvider = AppointmentProvider();
