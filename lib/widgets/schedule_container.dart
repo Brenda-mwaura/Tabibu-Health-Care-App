@@ -1,10 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:tabibu/configs/styles.dart';
+import 'package:tabibu/data/models/appointment_model.dart';
+import 'package:tabibu/providers/clinic_provider.dart';
 import 'package:tabibu/widgets/buttons/schedule_button.dart';
 import 'package:tabibu/widgets/clinics_widget/schedule_bottom_sheet.dart';
 
-class ScheduleContainer extends StatelessWidget {
-  const ScheduleContainer({Key? key}) : super(key: key);
+class ScheduleContainer extends StatefulWidget {
+  final Appointment appointment;
+  ScheduleContainer({Key? key, required this.appointment}) : super(key: key);
+
+  @override
+  State<ScheduleContainer> createState() => _ScheduleContainerState();
+}
+
+class _ScheduleContainerState extends State<ScheduleContainer> {
+  @override
+  void initState() {
+    super.initState();
+    _refresh();
+  }
+
+  Future<void> _refresh() async {
+    var clinicProvider = Provider.of<ClinicProvider>(context, listen: false);
+
+    await clinicProvider.fetchClinicDetails(widget.appointment.clinic);
+    await clinicProvider.getClinicServiceDetails(
+        int.parse(widget.appointment.service.toString()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,47 +56,58 @@ class ScheduleContainer extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Row(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "Equity Afya Nairobi CBD",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w700,
-                    ),
+          Consumer<ClinicProvider>(
+            builder: (context, value, child) {
+              return Row(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        value.clinicDetails.clinicName.toString(),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Consumer<ClinicProvider>(
+                        builder: (context, serviceValue, child) {
+                          return Text(
+                            serviceValue.serviceDetails.serviceName.toString(),
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    "General Consultation",
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
+                  const Spacer(),
+                  Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          value.clinicDetails.displayImage.toString(),
+                        ),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ],
-              ),
-              const Spacer(),
-              Container(
-                width: 50,
-                height: 50,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/afya.jpeg"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ],
+              );
+            },
           ),
+
           const SizedBox(
             height: 15,
           ),
@@ -86,17 +121,21 @@ class ScheduleContainer extends StatelessWidget {
           Row(
             children: [
               Row(
-                children: const [
-                  Icon(
+                children: [
+                  const Icon(
                     Icons.calendar_month,
                     color: Color.fromARGB(221, 69, 69, 69),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   Text(
-                    "12th May 2021",
-                    style: TextStyle(
+                    DateFormat('dd-MM-yyyy')
+                        .format(DateTime.parse(
+                          widget.appointment.appointmentDate.toString(),
+                        ))
+                        .toString(),
+                    style: const TextStyle(
                       color: Color.fromARGB(221, 69, 69, 69),
                       fontSize: 16.0,
                       fontWeight: FontWeight.w500,
@@ -106,17 +145,18 @@ class ScheduleContainer extends StatelessWidget {
               ),
               const Spacer(),
               Row(
-                children: const [
-                  Icon(
+                children: [
+                  const Icon(
                     Icons.access_time,
                     color: Color.fromARGB(221, 69, 69, 69),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   Text(
-                    "10:00 AM",
-                    style: TextStyle(
+                    DateFormat('hh:mm a').format(DateTime.parse(
+                        "2022-10-15 ${widget.appointment.appointmentTime}")),
+                    style: const TextStyle(
                       color: Color.fromARGB(221, 69, 69, 69),
                       fontSize: 16.0,
                       fontWeight: FontWeight.w500,
@@ -124,21 +164,20 @@ class ScheduleContainer extends StatelessWidget {
                   ),
                 ],
               ),
-              // confirmed green dot
               const Spacer(),
               Row(
-                children: const [
-                  Icon(
+                children: [
+                  const Icon(
                     Icons.circle,
                     color: Colors.orange,
                     size: 10,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   Text(
-                    "Confirmed",
-                    style: TextStyle(
+                    widget.appointment.status.toString(),
+                    style: const TextStyle(
                       color: Color.fromARGB(221, 69, 69, 69),
                       fontSize: 16.0,
                       fontWeight: FontWeight.w500,

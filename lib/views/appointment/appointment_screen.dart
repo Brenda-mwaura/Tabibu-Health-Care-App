@@ -122,7 +122,7 @@ class _AppointmentScreenState extends State<AppointmentScreen>
                   child: TabBarView(
                     controller: _tabController,
                     children: [
-                      UpcomingAppointmentsTabView(),
+                      UpcomingAppointmentTabView(),
                       CompletedAppointmentsTabView(),
                       CancelledAppointmentTabView(),
                     ],

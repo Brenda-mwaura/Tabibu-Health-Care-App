@@ -212,6 +212,7 @@ class AppointmentProvider extends ChangeNotifier {
   Future fetchUpcomingAppointment() {
     _upcomingAppointmentsLoading = true;
     _upcomingAppointment = [];
+    _nearestUpcomingAppointment = Appointment();
     String? refreshToken = authProvider.allLoginDetails.refresh;
 
     return Api.patientAppointments().then((response) async {
@@ -221,7 +222,22 @@ class AppointmentProvider extends ChangeNotifier {
         for (var appointment in payload) {
           if (appointment["status"] == "Confirmed" ||
               appointment["status"] == "In Progress" ||
-              appointment["status"] == "Pending") {}
+              appointment["status"] == "Pending") {
+            //get the first appointment in the payload
+            if (_nearestUpcomingAppointment.id == null) {
+              _nearestUpcomingAppointment = Appointment.fromJson(appointment);
+            } else {
+              //get the nearest appointment
+              DateTime _nearestAppointmentDate = DateTime.parse(
+                  _nearestUpcomingAppointment.appointmentDate.toString());
+              DateTime _appointmentDate =
+                  DateTime.parse(appointment["appointment_date"]);
+
+              if (_appointmentDate.isBefore(_nearestAppointmentDate)) {
+                _nearestUpcomingAppointment = Appointment.fromJson(appointment);
+              }
+            }
+          }
         }
         notifyListeners();
         _upcomingAppointmentsLoading = false;

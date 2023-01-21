@@ -115,7 +115,7 @@ class _AppointmentContainerState extends State<AppointmentContainer> {
             },
           ),
           const SizedBox(
-            height: 15,
+            height: 8,
           ),
           const Divider(
             color: Color.fromARGB(255, 199, 199, 199),
