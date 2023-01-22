@@ -6,6 +6,7 @@ import 'package:tabibu/providers/auth_provider.dart';
 import 'package:tabibu/providers/profile_provider.dart';
 import 'package:tabibu/services/navigation_service.dart';
 import 'package:tabibu/views/Profile/profile_screen.dart';
+import 'package:tabibu/widgets/spinner.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -32,18 +33,21 @@ class AppDrawer extends StatelessWidget {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      value.profileDetails.profilePicture == null
-                          ? const CircleAvatar(
-                              radius: 55,
-                              backgroundImage:
-                                  AssetImage("assets/images/default.png"),
-                            )
-                          : CircleAvatar(
-                              radius: 55,
-                              backgroundImage: NetworkImage(
-                                value.profileDetails.profilePicture.toString(),
-                              ),
-                            ),
+                      value.profileLoading == true
+                          ? const AppSpinner()
+                          : value.profileDetails.profilePicture == null
+                              ? const CircleAvatar(
+                                  radius: 55,
+                                  backgroundImage:
+                                      AssetImage("assets/images/default.png"),
+                                )
+                              : CircleAvatar(
+                                  radius: 55,
+                                  backgroundImage: NetworkImage(
+                                    value.profileDetails.profilePicture
+                                        .toString(),
+                                  ),
+                                ),
                       const SizedBox(
                         height: 10,
                       ),

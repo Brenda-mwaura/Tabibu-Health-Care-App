@@ -97,19 +97,28 @@ class _AppointmentContainerState extends State<AppointmentContainer> {
                     ],
                   ),
                   const Spacer(),
-                  Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          value.clinicDetails.displayImage.toString(),
+                  value.clinicDetails.displayImage == null
+                      ? Container(
+                          width: 60,
+                          height: 60,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.grey,
+                          ),
+                        )
+                      : Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                value.clinicDetails.displayImage.toString(),
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
                 ],
               );
             },

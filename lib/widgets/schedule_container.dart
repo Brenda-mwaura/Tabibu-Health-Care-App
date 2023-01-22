@@ -24,10 +24,13 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
 
   Future<void> _refresh() async {
     var clinicProvider = Provider.of<ClinicProvider>(context, listen: false);
-
-    await clinicProvider.fetchClinicDetails(widget.appointment.clinic);
-    await clinicProvider.getClinicServiceDetails(
-        int.parse(widget.appointment.service.toString()));
+    if (widget.appointment.clinic != null) {
+      await clinicProvider.fetchClinicDetails(widget.appointment.clinic);
+    }
+    if (widget.appointment.service != null) {
+      await clinicProvider.getClinicServiceDetails(
+          int.parse(widget.appointment.service.toString()));
+    }
   }
 
   @override
@@ -90,19 +93,28 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                     ],
                   ),
                   const Spacer(),
-                  Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          value.clinicDetails.displayImage.toString(),
+                  value.clinicDetails.displayImage == null
+                      ? Container(
+                          width: 60,
+                          height: 60,
+                          decoration: const BoxDecoration(
+                            color: Colors.grey,
+                            shape: BoxShape.circle,
+                          ),
+                        )
+                      : Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                value.clinicDetails.displayImage.toString(),
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
                 ],
               );
             },

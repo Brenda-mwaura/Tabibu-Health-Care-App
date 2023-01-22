@@ -38,73 +38,101 @@ class _UpcomingAppointmentTabViewState
             onRefresh: _refresh,
             child: Consumer<AppointmentProvider>(
               builder: (context, value, child) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Nearest visit",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    value.upcomingAppointmentsLoading == true
-                        ? AppSpinner()
-                        : value.nearestUpcomingAppointment == null
-                            ? Text("Empty")
-                            : ScheduleContainer(
-                                appointment: value.nearestUpcomingAppointment,
+                return Consumer<ClinicProvider>(
+                  builder: (context, clinicValue, child) {
+                    return value.nearestUpcomingAppointment.id == null &&
+                            value.upcomingAppointment.isEmpty
+                        ? Container(
+                            margin: const EdgeInsets.only(top: 20),
+                            height: 200,
+                            child: SvgPicture.asset(
+                              "assets/images/no_future_appointment.svg",
+                              fit: BoxFit.contain,
+                            ),
+                          )
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const SizedBox(
+                                height: 5,
                               ),
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Future visits",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Consumer<AppointmentProvider>(
-                      builder: (context, value, child) {
-                        if (value.upcomingAppointmentsLoading == true) {
-                          return AppSpinner();
-                        } else {
-                          return value.upcomingAppointment.isEmpty
-                              ? Container(
-                                  margin: const EdgeInsets.only(top: 20),
-                                  height: 200,
-                                  child: SvgPicture.asset(
-                                    "assets/images/cancelled.svg",
-                                    fit: BoxFit.contain,
+                              const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Nearest visit",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                )
-                              : ListView.builder(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: value.upcomingAppointment.length,
-                                  itemBuilder: (context, index) {
-                                    return ScheduleContainer(
-                                        appointment:
-                                            value.upcomingAppointment[index]);
-                                  },
-                                );
-                        }
-                      },
-                    ),
-                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              value.upcomingAppointmentsLoading == true
+                                  ? AppSpinner()
+                                  : value.nearestUpcomingAppointment.id == null
+                                      ? Container(
+                                          margin:
+                                              const EdgeInsets.only(top: 20),
+                                          height: 200,
+                                          child: SvgPicture.asset(
+                                            "assets/images/no_future_appointment.svg",
+                                            fit: BoxFit.contain,
+                                          ),
+                                        )
+                                      : ScheduleContainer(
+                                          appointment:
+                                              value.nearestUpcomingAppointment,
+                                        ),
+                              const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Future visits",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Consumer<AppointmentProvider>(
+                                builder: (context, value, child) {
+                                  if (value.upcomingAppointmentsLoading ==
+                                      true) {
+                                    return AppSpinner();
+                                  } else {
+                                    return value.upcomingAppointment.isEmpty
+                                        ? Container(
+                                            margin:
+                                                const EdgeInsets.only(top: 20),
+                                            height: 200,
+                                            child: SvgPicture.asset(
+                                              "assets/images/no_future_appointment.svg",
+                                              fit: BoxFit.contain,
+                                            ),
+                                          )
+                                        : ListView.builder(
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemCount: value
+                                                .upcomingAppointment.length,
+                                            itemBuilder: (context, index) {
+                                              return ScheduleContainer(
+                                                  appointment:
+                                                      value.upcomingAppointment[
+                                                          index]);
+                                            },
+                                          );
+                                  }
+                                },
+                              ),
+                            ],
+                          );
+                  },
                 );
               },
             ),
