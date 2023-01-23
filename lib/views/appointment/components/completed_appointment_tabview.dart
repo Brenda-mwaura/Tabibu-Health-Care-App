@@ -44,7 +44,7 @@ class _CompletedAppointmentsTabViewState
             child: Consumer<AppointmentProvider>(
               builder: (context, value, child) {
                 if (value.patientAppointmentLoading == true) {
-                  return AppSpinner();
+                  return const AppSpinner();
                 } else {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -54,7 +54,7 @@ class _CompletedAppointmentsTabViewState
                       ),
                       value.completedAppointment.isEmpty
                           ? Container(
-                              margin: EdgeInsets.only(top: 20),
+                              margin: const EdgeInsets.only(top: 20),
                               height: 200,
                               child: SvgPicture.asset(
                                 "assets/images/completed.svg",
@@ -70,25 +70,26 @@ class _CompletedAppointmentsTabViewState
                                     builder: (context, clinicValue, child) {
                                   if (clinicValue.clinicsLoading == true ||
                                       clinicValue.servicesLoading == true) {
-                                    return AppSpinner();
+                                    return const SizedBox();
                                   } else {
                                     //get appointment clinic
-                                    List<Clinic> clinics = clinicValue.clinics;
-                                    int clinicId = int.parse(value
-                                        .completedAppointment[index].clinic
-                                        .toString());
-                                    Clinic clinic = clinics.firstWhere(
-                                        (clinic) => clinic.id == clinicId);
+                                    Clinic clinic = clinicValue.clinics
+                                        .firstWhere((clinic) =>
+                                            clinic.id ==
+                                            int.parse(value
+                                                .completedAppointment[index]
+                                                .clinic
+                                                .toString()));
 
                                     //clinic service
-                                    List<ClinicServices> services =
-                                        clinicValue.clinicServices;
-                                    int serviceId = int.parse(value
-                                        .completedAppointment[index].service
-                                        .toString());
-                                    ClinicServices service =
-                                        services.firstWhere((service) =>
-                                            service.id == serviceId);
+                                    ClinicServices service = clinicValue
+                                        .clinicServices
+                                        .firstWhere((service) =>
+                                            service.id ==
+                                            int.parse(value
+                                                .completedAppointment[index]
+                                                .service
+                                                .toString()));
 
                                     return AppointmentContainer(
                                       service: service,

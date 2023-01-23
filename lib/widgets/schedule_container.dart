@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/models/appointment_model.dart';
 import 'package:tabibu/data/models/clinic_model.dart';
+import 'package:tabibu/data/models/services.dart';
 import 'package:tabibu/providers/clinic_provider.dart';
 import 'package:tabibu/widgets/buttons/schedule_button.dart';
 import 'package:tabibu/widgets/clinics_widget/schedule_bottom_sheet.dart';
@@ -11,7 +12,13 @@ import 'package:tabibu/widgets/clinics_widget/schedule_bottom_sheet.dart';
 class ScheduleContainer extends StatefulWidget {
   final Appointment appointment;
   final Clinic clinic;
-  ScheduleContainer({Key? key, required this.appointment, required this.clinic})
+  final ClinicServices service;
+
+  ScheduleContainer(
+      {Key? key,
+      required this.appointment,
+      required this.clinic,
+      required this.service})
       : super(key: key);
 
   @override
@@ -44,7 +51,7 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 1,
             blurRadius: 7,
-            offset: const Offset(0, 3), // changes position of shadow
+            offset: const Offset(0, 3),
           ),
         ],
       ),
@@ -59,8 +66,7 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                         widget.clinic.clinicName.toString(),
-                        // value.clinicDetails.clinicName.toString(),
+                        widget.clinic.clinicName.toString(),
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18.0,
@@ -73,8 +79,7 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                       Consumer<ClinicProvider>(
                         builder: (context, serviceValue, child) {
                           return Text(
-                           "",
-                            // serviceValue.serviceDetails.serviceName.toString(),
+                            widget.service.serviceName.toString(),
                             style: const TextStyle(
                               color: Colors.grey,
                               fontSize: 16.0,
@@ -86,7 +91,7 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                     ],
                   ),
                   const Spacer(),
-                  value.clinicDetails.displayImage == null
+                  widget.clinic.displayImage == null
                       ? Container(
                           width: 60,
                           height: 60,
@@ -102,7 +107,7 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                               image: NetworkImage(
-                                value.clinicDetails.displayImage.toString(),
+                                widget.clinic.displayImage.toString(),
                               ),
                               fit: BoxFit.cover,
                             ),

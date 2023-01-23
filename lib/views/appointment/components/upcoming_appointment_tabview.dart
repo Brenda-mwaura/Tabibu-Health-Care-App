@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/models/clinic_model.dart';
+import 'package:tabibu/data/models/services.dart';
 import 'package:tabibu/providers/appointment_provider.dart';
 import 'package:tabibu/providers/clinic_provider.dart';
 import 'package:tabibu/widgets/schedule_container.dart';
@@ -44,6 +45,7 @@ class _UpcomingAppointmentTabViewState
               builder: (context, value, child) {
                 return Consumer<ClinicProvider>(
                   builder: (context, clinicValue, child) {
+                    //get appointment clinic
                     Clinic nearestUpcomingAppointmentClinic = Clinic();
 
                     if (value.nearestUpcomingAppointment.clinic != null) {
@@ -57,67 +59,79 @@ class _UpcomingAppointmentTabViewState
                       );
                     }
 
-                    print(
-                        "Clinic ::: ${nearestUpcomingAppointmentClinic.clinicName}");
+                    //get appointment service
+                    ClinicServices nearestUpcomingAppointmentClinicService =
+                        ClinicServices();
 
-                    return value.nearestUpcomingAppointment.id == null &&
-                            value.upcomingAppointment.isEmpty
-                        ? Container(
-                            margin: const EdgeInsets.only(top: 20),
-                            height: 200,
-                            child: SvgPicture.asset(
-                              "assets/images/no_future_appointment.svg",
-                              fit: BoxFit.contain,
-                            ),
-                          )
-                        : Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const SizedBox(
-                                height: 5,
+                    if (value.nearestUpcomingAppointment.service != null) {
+                      nearestUpcomingAppointmentClinicService =
+                          clinicValue.clinicServices.firstWhere(
+                        (service) =>
+                            service.id ==
+                            int.parse(value.nearestUpcomingAppointment.service
+                                .toString()),
+                        orElse: () => ClinicServices(),
+                      );
+                    }
+                    if (value.upcomingAppointmentsLoading == true ||
+                        clinicValue.servicesLoading == true ||
+                        clinicValue.clinicsLoading == true) {
+                      return const AppSpinner();
+                    } else {
+                      return value.nearestUpcomingAppointment.id == null &&
+                              value.upcomingAppointment.isEmpty
+                          ? Container(
+                              margin: const EdgeInsets.only(top: 20),
+                              height: 200,
+                              child: SvgPicture.asset(
+                                "assets/images/no_future_appointment.svg",
+                                fit: BoxFit.contain,
                               ),
-                              const Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "Nearest visit",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                const Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "Nearest visit",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              value.upcomingAppointmentsLoading == true
-                                  ? AppSpinner()
-                                  : value.nearestUpcomingAppointment.id != null
-                                      ? ScheduleContainer(
-                                          clinic:
-                                              nearestUpcomingAppointmentClinic,
-                                          appointment:
-                                              value.nearestUpcomingAppointment,
-                                        )
-                                      : SizedBox(),
-                              const Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "Future visits",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                value.nearestUpcomingAppointment.id != null
+                                    ? ScheduleContainer(
+                                        service:
+                                            nearestUpcomingAppointmentClinicService,
+                                        clinic:
+                                            nearestUpcomingAppointmentClinic,
+                                        appointment:
+                                            value.nearestUpcomingAppointment,
+                                      )
+                                    : SizedBox(),
+                                const Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "Future visits",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Consumer<AppointmentProvider>(
-                                builder: (context, value, child) {
-                                  if (value.upcomingAppointmentsLoading ==
-                                      true) {
-                                    return AppSpinner();
-                                  } else {
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                Consumer<AppointmentProvider>(
+                                  builder: (context, value, child) {
                                     return value.upcomingAppointment.isEmpty
                                         ? Container(
                                             margin:
@@ -136,21 +150,35 @@ class _UpcomingAppointmentTabViewState
                                                 .upcomingAppointment.length,
                                             itemBuilder: (context, index) {
                                               if (clinicValue.clinicsLoading ==
-                                                  true) {
-                                                return AppSpinner();
+                                                      true ||
+                                                  clinicValue.servicesLoading ==
+                                                      true) {
+                                                return const SizedBox();
                                               } else {
-                                                List<Clinic> clinics =
-                                                    clinicValue.clinics;
-
-                                                int clinicId = int.parse(value
-                                                    .upcomingAppointment[index]
-                                                    .clinic
-                                                    .toString());
-                                                Clinic clinic = clinics
+                                                // appointment clinic
+                                                Clinic clinic = clinicValue
+                                                    .clinics
                                                     .firstWhere((clinic) =>
-                                                        clinic.id == clinicId);
+                                                        clinic.id ==
+                                                        int.parse(value
+                                                            .upcomingAppointment[
+                                                                index]
+                                                            .clinic
+                                                            .toString()));
+
+                                                // clinic service
+                                                ClinicServices service = clinicValue
+                                                    .clinicServices
+                                                    .firstWhere((service) =>
+                                                        service.id ==
+                                                        int.parse(value
+                                                            .upcomingAppointment[
+                                                                index]
+                                                            .service
+                                                            .toString()));
 
                                                 return ScheduleContainer(
+                                                    service: service,
                                                     clinic: clinic,
                                                     appointment: value
                                                             .upcomingAppointment[
@@ -158,11 +186,11 @@ class _UpcomingAppointmentTabViewState
                                               }
                                             },
                                           );
-                                  }
-                                },
-                              ),
-                            ],
-                          );
+                                  },
+                                ),
+                              ],
+                            );
+                    }
                   },
                 );
               },
