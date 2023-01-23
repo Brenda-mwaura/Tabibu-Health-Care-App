@@ -366,18 +366,20 @@ class Api {
       String? phoneNumber, int? serviceID, int? clinicID) async {
     String? accessToken = authProvider.allLoginDetails.access;
 
-    var response = await client2.post(
-      Uri.parse("${baseUrl}lipa-appointment-na-mpesa/"),
-      headers: {
-        HttpHeaders.contentTypeHeader: 'application/json',
-        HttpHeaders.authorizationHeader: 'Bearer $accessToken',
-      },
-      body: jsonEncode({
-        "phone": phoneNumber,
-        "service": serviceID,
-        "clinic": clinicID,
-      }),
-    );
+    var response = await client2
+        .post(
+          Uri.parse("${baseUrl}lipa-appointment-na-mpesa/"),
+          headers: {
+            HttpHeaders.contentTypeHeader: 'application/json',
+            HttpHeaders.authorizationHeader: 'Bearer $accessToken',
+          },
+          body: jsonEncode({
+            "phone": phoneNumber,
+            "service": serviceID,
+            "clinic": clinicID,
+          }),
+        )
+        .timeout(Duration(seconds: 8));
 
     return response;
   }

@@ -106,7 +106,7 @@ class AppointmentProvider extends ChangeNotifier {
   bool get payAppointmentLoading => _payAppointmentLoading;
 
   Future lipaAppointmentNaMpesaOnline(
-      String? phoneNumber, int? serviceID, int? clinicID) {
+      String? phoneNumber, int? serviceID, int? clinicID) async {
     _payAppointmentLoading = true;
     String? refreshToken = authProvider.allLoginDetails.refresh;
 
@@ -117,6 +117,7 @@ class AppointmentProvider extends ChangeNotifier {
         _lipaNaMpesaSuccessToast();
         notifyListeners();
         _payAppointmentLoading = false;
+
         return payload;
       } else if (response.statusCode == 401) {
         await authProvider.refreshToken(refreshToken);
@@ -150,7 +151,6 @@ class AppointmentProvider extends ChangeNotifier {
             _completedAppointment.add(Appointment.fromJson(appointment));
           }
         }
-        print("Completed Appointment-----> ${_completedAppointment}");
 
         notifyListeners();
         _patientAppointmentLoading = false;
@@ -186,7 +186,6 @@ class AppointmentProvider extends ChangeNotifier {
             _cancelledAppointments.add(Appointment.fromJson(appointment));
           }
         }
-        print("Cancelled Appointments::::----${_cancelledAppointments}");
 
         notifyListeners();
         _cancelledAppointmentLoading = false;
@@ -208,11 +207,18 @@ class AppointmentProvider extends ChangeNotifier {
   List<Appointment> _upcomingAppointment = [];
   List<Appointment> get upcomingAppointment => _upcomingAppointment;
 
+  List<Appointment> _allUpcomingAppointments = [];
+  List<Appointment> get allUpcomingAppointments => _allUpcomingAppointments;
+
+  // List Appointment _allUpcomingAppointments=[];
+  // List<Appointment> get allUpcomingAppointments =>_allUpcomignAppointments;
+
   Appointment _nearestUpcomingAppointment = Appointment();
   Appointment get nearestUpcomingAppointment => _nearestUpcomingAppointment;
 
   Future fetchUpcomingAppointment() {
     _upcomingAppointmentsLoading = true;
+    _allUpcomingAppointments = [];
     _upcomingAppointment = [];
     _nearestUpcomingAppointment = Appointment();
     String? refreshToken = authProvider.allLoginDetails.refresh;
@@ -225,22 +231,13 @@ class AppointmentProvider extends ChangeNotifier {
           if (appointment["status"] == "Confirmed" ||
               appointment["status"] == "In Progress" ||
               appointment["status"] == "Pending") {
-            //get the first appointment in the payload
-            if (_nearestUpcomingAppointment.id == null) {
-              _nearestUpcomingAppointment = Appointment.fromJson(appointment);
-            } else {
-              //get the nearest appointment
-              DateTime _nearestAppointmentDate = DateTime.parse(
-                  _nearestUpcomingAppointment.appointmentDate.toString());
-              DateTime _appointmentDate =
-                  DateTime.parse(appointment["appointment_date"]);
-
-              if (_appointmentDate.isBefore(_nearestAppointmentDate)) {
-                _nearestUpcomingAppointment = Appointment.fromJson(appointment);
-              }
-            }
+            _allUpcomingAppointments.add(Appointment.fromJson(appointment));
           }
         }
+        //get the first appointment the list
+        _nearestUpcomingAppointment = _allUpcomingAppointments[0];
+        // get the other appointments from index 1...
+        _upcomingAppointment = _allUpcomingAppointments.sublist(1);
         notifyListeners();
         _upcomingAppointmentsLoading = false;
       } else if (response.statusCode == 401) {
