@@ -234,10 +234,12 @@ class AppointmentProvider extends ChangeNotifier {
             _allUpcomingAppointments.add(Appointment.fromJson(appointment));
           }
         }
-        //get the first appointment the list
-        _nearestUpcomingAppointment = _allUpcomingAppointments[0];
-        // get the other appointments from index 1...
-        _upcomingAppointment = _allUpcomingAppointments.sublist(1);
+
+        if (_allUpcomingAppointments.length > 0) {
+          _nearestUpcomingAppointment = _allUpcomingAppointments[0];
+          _upcomingAppointment = _allUpcomingAppointments.sublist(1);
+        }
+
         notifyListeners();
         _upcomingAppointmentsLoading = false;
       } else if (response.statusCode == 401) {

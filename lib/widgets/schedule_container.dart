@@ -3,13 +3,16 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/models/appointment_model.dart';
+import 'package:tabibu/data/models/clinic_model.dart';
 import 'package:tabibu/providers/clinic_provider.dart';
 import 'package:tabibu/widgets/buttons/schedule_button.dart';
 import 'package:tabibu/widgets/clinics_widget/schedule_bottom_sheet.dart';
 
 class ScheduleContainer extends StatefulWidget {
   final Appointment appointment;
-  ScheduleContainer({Key? key, required this.appointment}) : super(key: key);
+  final Clinic clinic;
+  ScheduleContainer({Key? key, required this.appointment, required this.clinic})
+      : super(key: key);
 
   @override
   State<ScheduleContainer> createState() => _ScheduleContainerState();
@@ -19,18 +22,6 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
   @override
   void initState() {
     super.initState();
-    _refresh();
-  }
-
-  Future<void> _refresh() async {
-    var clinicProvider = Provider.of<ClinicProvider>(context, listen: false);
-    if (widget.appointment.clinic != null) {
-      await clinicProvider.fetchClinicDetails(widget.appointment.clinic);
-    }
-    if (widget.appointment.service != null) {
-      await clinicProvider.getClinicServiceDetails(
-          int.parse(widget.appointment.service.toString()));
-    }
   }
 
   @override
@@ -68,7 +59,8 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        value.clinicDetails.clinicName.toString(),
+                         widget.clinic.clinicName.toString(),
+                        // value.clinicDetails.clinicName.toString(),
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18.0,
@@ -81,7 +73,8 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                       Consumer<ClinicProvider>(
                         builder: (context, serviceValue, child) {
                           return Text(
-                            serviceValue.serviceDetails.serviceName.toString(),
+                           "",
+                            // serviceValue.serviceDetails.serviceName.toString(),
                             style: const TextStyle(
                               color: Colors.grey,
                               fontSize: 16.0,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:tabibu/configs/styles.dart';
+import 'package:tabibu/data/models/clinic_model.dart';
 import 'package:tabibu/providers/appointment_provider.dart';
 import 'package:tabibu/providers/clinic_provider.dart';
 import 'package:tabibu/widgets/schedule_container.dart';
@@ -24,9 +25,12 @@ class _UpcomingAppointmentTabViewState
   }
 
   Future<void> _refresh() async {
-    var clinicProvider =
+    var appointmentProvider =
         Provider.of<AppointmentProvider>(context, listen: false);
-    await clinicProvider.fetchUpcomingAppointment();
+    await appointmentProvider.fetchUpcomingAppointment();
+
+    var clinicProvider = Provider.of<ClinicProvider>(context, listen: false);
+    await clinicProvider.fetchClinics();
   }
 
   @override
@@ -40,6 +44,22 @@ class _UpcomingAppointmentTabViewState
               builder: (context, value, child) {
                 return Consumer<ClinicProvider>(
                   builder: (context, clinicValue, child) {
+                    Clinic nearestUpcomingAppointmentClinic = Clinic();
+
+                    if (value.nearestUpcomingAppointment.clinic != null) {
+                      nearestUpcomingAppointmentClinic =
+                          clinicValue.clinics.firstWhere(
+                        (clinic) =>
+                            clinic.id ==
+                            int.parse(value.nearestUpcomingAppointment.clinic
+                                .toString()),
+                        orElse: () => Clinic(),
+                      );
+                    }
+
+                    print(
+                        "Clinic ::: ${nearestUpcomingAppointmentClinic.clinicName}");
+
                     return value.nearestUpcomingAppointment.id == null &&
                             value.upcomingAppointment.isEmpty
                         ? Container(
@@ -73,6 +93,8 @@ class _UpcomingAppointmentTabViewState
                                   ? AppSpinner()
                                   : value.nearestUpcomingAppointment.id != null
                                       ? ScheduleContainer(
+                                          clinic:
+                                              nearestUpcomingAppointmentClinic,
                                           appointment:
                                               value.nearestUpcomingAppointment,
                                         )
@@ -113,10 +135,27 @@ class _UpcomingAppointmentTabViewState
                                             itemCount: value
                                                 .upcomingAppointment.length,
                                             itemBuilder: (context, index) {
-                                              return ScheduleContainer(
-                                                  appointment:
-                                                      value.upcomingAppointment[
-                                                          index]);
+                                              if (clinicValue.clinicsLoading ==
+                                                  true) {
+                                                return AppSpinner();
+                                              } else {
+                                                List<Clinic> clinics =
+                                                    clinicValue.clinics;
+
+                                                int clinicId = int.parse(value
+                                                    .upcomingAppointment[index]
+                                                    .clinic
+                                                    .toString());
+                                                Clinic clinic = clinics
+                                                    .firstWhere((clinic) =>
+                                                        clinic.id == clinicId);
+
+                                                return ScheduleContainer(
+                                                    clinic: clinic,
+                                                    appointment: value
+                                                            .upcomingAppointment[
+                                                        index]);
+                                              }
                                             },
                                           );
                                   }
