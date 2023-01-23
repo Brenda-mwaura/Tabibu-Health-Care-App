@@ -252,6 +252,73 @@ class AppointmentProvider extends ChangeNotifier {
       print("error occured while fetching upcoming appointments $error");
     });
   }
+
+  void _updateAppointmentSuccessToast() {
+    Fluttertoast.showToast(
+      msg: "Appointment successfully updated",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 4,
+      backgroundColor: Styles.primaryColor,
+      textColor: Colors.white,
+      fontSize: 18.0,
+    );
+  }
+
+  void _appointmentUpdateToastError(String msg) {
+    Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 4,
+      backgroundColor: Styles.primaryColor,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }
+
+  bool _updateAppointmentLoading = false;
+  bool get updateAppointmentLoading => _updateAppointmentLoading;
+
+  Future updateAppointment(
+      {int? appointmentID,
+      String? appointmentDate,
+      String? appointmentTime,
+      String? appointmentStatus}) {
+    _updateAppointmentLoading = true;
+    String? refreshToken = authProvider.allLoginDetails.refresh;
+
+    return Api.updatePatientAppointment(
+            appointmentDate: appointmentDate,
+            appointmentID: appointmentID,
+            appointmentTime: appointmentTime,
+            appointmentStatus: appointmentStatus)
+        .then((response) async {
+      var payload = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        Appointment appointmentDetails = Appointment.fromJson(payload);
+
+        notifyListeners();
+        _updateAppointmentSuccessToast();
+        _updateAppointmentLoading = false;
+
+        return appointmentDetails;
+      } else if (response.statusCode == 401) {
+        await authProvider.refreshToken(refreshToken);
+        await updateAppointment(
+            appointmentDate: appointmentDate,
+            appointmentID: appointmentID,
+            appointmentTime: appointmentTime,
+            appointmentStatus: appointmentStatus);
+      } else {
+        _updateAppointmentLoading = false;
+        _appointmentUpdateToastError(payload.toString());
+      }
+    }).catchError((error) {
+      print("error occured while updating an appointment $error");
+    });
+  }
 }
 
 AppointmentProvider appointmentProvider = AppointmentProvider();
