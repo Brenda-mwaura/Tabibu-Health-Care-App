@@ -145,7 +145,7 @@ class _ClinicScreenState extends State<ClinicScreen> {
                   ),
                   child: Consumer<ClinicProvider>(
                     builder: (context, value, child) {
-                      if (value.cinicsLoading == true) {
+                      if (value.clinicsLoading == true) {
                         return AppSpinner();
                       } else {
                         return RefreshIndicator(

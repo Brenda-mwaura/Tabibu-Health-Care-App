@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tabibu/data/models/clinic_model.dart';
 import 'package:tabibu/providers/appointment_provider.dart';
+import 'package:tabibu/providers/clinic_provider.dart';
 import 'package:tabibu/widgets/clinics_widget/appoinment_container.dart';
 import 'package:tabibu/widgets/spinner.dart';
 import 'package:flutter_svg/svg.dart';
@@ -22,9 +24,12 @@ class _CompletedAppointmentsTabViewState
   }
 
   Future<void> _refresh() async {
-    var clinicProvider =
+    var appointmentProvider =
         Provider.of<AppointmentProvider>(context, listen: false);
-    await clinicProvider.fetchCompletedAppointment();
+    await appointmentProvider.fetchCompletedAppointment();
+
+    var clinicProvider = Provider.of<ClinicProvider>(context, listen: false);
+    await clinicProvider.fetchClinics();
   }
 
   @override
@@ -59,12 +64,29 @@ class _CompletedAppointmentsTabViewState
                               shrinkWrap: true,
                               itemCount: value.completedAppointment.length,
                               itemBuilder: (context, index) {
-                                return AppointmentContainer(
-                                  status: "Completed",
-                                  statusColor: Colors.green,
-                                  appointment:
-                                      value.completedAppointment[index],
-                                );
+                                return Consumer<ClinicProvider>(
+                                    builder: (context, clinicValue, child) {
+                                  if (clinicValue.clinicsLoading == true) {
+                                    return AppSpinner();
+                                  } else {
+                                    //get appointment clinic
+                                    List<Clinic> clinics = clinicValue.clinics;
+                                    int clinicId = int.parse(value
+                                        .completedAppointment[index].clinic
+                                        .toString());
+                                    Clinic clinic = clinics.firstWhere(
+                                        (clinic) => clinic.id == clinicId);
+
+
+                                    return AppointmentContainer(
+                                      clinic: clinic,
+                                      status: "Completed",
+                                      statusColor: Colors.green,
+                                      appointment:
+                                          value.completedAppointment[index],
+                                    );
+                                  }
+                                });
                               },
                             )
                     ],

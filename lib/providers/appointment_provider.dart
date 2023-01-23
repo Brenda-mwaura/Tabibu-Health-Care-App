@@ -150,6 +150,7 @@ class AppointmentProvider extends ChangeNotifier {
             _completedAppointment.add(Appointment.fromJson(appointment));
           }
         }
+        print("Completed Appointment-----> ${_completedAppointment}");
 
         notifyListeners();
         _patientAppointmentLoading = false;
@@ -185,6 +186,7 @@ class AppointmentProvider extends ChangeNotifier {
             _cancelledAppointments.add(Appointment.fromJson(appointment));
           }
         }
+        print("Cancelled Appointments::::----${_cancelledAppointments}");
 
         notifyListeners();
         _cancelledAppointmentLoading = false;

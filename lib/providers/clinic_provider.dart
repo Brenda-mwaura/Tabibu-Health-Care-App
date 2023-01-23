@@ -13,7 +13,7 @@ import 'package:tabibu/providers/auth_provider.dart';
 
 class ClinicProvider extends ChangeNotifier {
   bool _clinicsLoading = false;
-  bool get cinicsLoading => _clinicsLoading;
+  bool get clinicsLoading => _clinicsLoading;
 
   List<Clinic> _clinics = [];
   List<Clinic> get clinics => _clinics;

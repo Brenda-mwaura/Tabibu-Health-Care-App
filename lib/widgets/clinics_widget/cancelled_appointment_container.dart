@@ -1,34 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/models/appointment_model.dart';
 import 'package:tabibu/data/models/clinic_model.dart';
+import 'package:tabibu/providers/appointment_provider.dart';
 import 'package:tabibu/providers/clinic_provider.dart';
 
-class AppointmentContainer extends StatefulWidget {
+class CancelledAppointmentContainer extends StatefulWidget {
   final Color statusColor;
   final String status;
   final Appointment appointment;
   final Clinic clinic;
 
-  AppointmentContainer({
-    Key? key,
-    required this.statusColor,
-    required this.status,
-    required this.appointment,
-    required this.clinic,
-  }) : super(key: key);
+  CancelledAppointmentContainer(
+      {Key? key,
+      required this.statusColor,
+      required this.status,
+      required this.appointment,
+      required this.clinic})
+      : super(key: key);
 
   @override
-  State<AppointmentContainer> createState() => _AppointmentContainerState();
+  State<CancelledAppointmentContainer> createState() =>
+      _CancelledAppointmentContainerState();
 }
 
-class _AppointmentContainerState extends State<AppointmentContainer> {
+class _CancelledAppointmentContainerState
+    extends State<CancelledAppointmentContainer> {
   @override
   void initState() {
     super.initState();
-    // _refresh();
+    _refresh();
+  }
+
+  Future<void> _refresh() async {
+    var clinicProvider = Provider.of<ClinicProvider>(context, listen: false);
+    await clinicProvider.fetchClinics();
   }
 
   @override

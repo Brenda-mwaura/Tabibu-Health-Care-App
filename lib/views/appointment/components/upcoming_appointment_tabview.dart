@@ -71,20 +71,12 @@ class _UpcomingAppointmentTabViewState
                               ),
                               value.upcomingAppointmentsLoading == true
                                   ? AppSpinner()
-                                  : value.nearestUpcomingAppointment.id == null
-                                      ? Container(
-                                          margin:
-                                              const EdgeInsets.only(top: 20),
-                                          height: 200,
-                                          child: SvgPicture.asset(
-                                            "assets/images/no_future_appointment.svg",
-                                            fit: BoxFit.contain,
-                                          ),
-                                        )
-                                      : ScheduleContainer(
+                                  : value.nearestUpcomingAppointment.id != null
+                                      ? ScheduleContainer(
                                           appointment:
                                               value.nearestUpcomingAppointment,
-                                        ),
+                                        )
+                                      : SizedBox(),
                               const Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
