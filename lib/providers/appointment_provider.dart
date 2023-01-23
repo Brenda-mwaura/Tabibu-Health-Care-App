@@ -210,9 +210,6 @@ class AppointmentProvider extends ChangeNotifier {
   List<Appointment> _allUpcomingAppointments = [];
   List<Appointment> get allUpcomingAppointments => _allUpcomingAppointments;
 
-  // List Appointment _allUpcomingAppointments=[];
-  // List<Appointment> get allUpcomingAppointments =>_allUpcomignAppointments;
-
   Appointment _nearestUpcomingAppointment = Appointment();
   Appointment get nearestUpcomingAppointment => _nearestUpcomingAppointment;
 

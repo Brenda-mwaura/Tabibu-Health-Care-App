@@ -60,7 +60,6 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
             ":" +
             formttedAppointmentTime.minute.toString() +
             ":00";
-        
 
         await appointmentProvider
             .appointmentBooking(
@@ -70,9 +69,13 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                 int.parse(currentSelectedValue.toString()),
                 _paymentPhoneNumberController.text,
                 _patientAppointmentDescriptionController.text)
-            .then((value) async{
+            .then((value) async {
           if (value != null) {
-            await appointmentProvider.lipaAppointmentNaMpesaOnline( _paymentPhoneNumberController.text, int.parse(currentSelectedValue.toString()),widget.clinic.id,);
+            await appointmentProvider.lipaAppointmentNaMpesaOnline(
+              _paymentPhoneNumberController.text,
+              int.parse(currentSelectedValue.toString()),
+              widget.clinic.id,
+            );
             Navigator.of(context).pushNamed(RouteGenerator.appointmentPage);
             currentSelectedValue = "";
             _appointmentFeeController.clear();
@@ -293,6 +296,7 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                     backgroundColor: Colors.transparent,
                     builder: (context) {
                       return ScheduleBottomSheet(
+                          initialHeight: 0.87,
                           title: "Book Appointment",
                           formWidget: Consumer<ClinicProvider>(
                             builder: (context, clinicValue, child) {
@@ -523,11 +527,9 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                                       context);
                                                 },
                                                 validator: (value) {
-                        
                                                   if (value!.isEmpty) {
                                                     return "Please select date";
                                                   }
-                                                 
                                                 },
                                               ),
                                             ],

@@ -4,7 +4,12 @@ import 'package:tabibu/configs/styles.dart';
 class ScheduleBottomSheet extends StatelessWidget {
   final Widget formWidget;
   final String? title;
-  const ScheduleBottomSheet({Key? key, required this.formWidget, this.title})
+  final double? initialHeight;
+  const ScheduleBottomSheet(
+      {Key? key,
+      required this.formWidget,
+      this.title,
+      required this.initialHeight})
       : super(key: key);
 
   @override
@@ -22,7 +27,7 @@ class ScheduleBottomSheet extends StatelessWidget {
 
     return _makeDismissible(
       child: DraggableScrollableSheet(
-        initialChildSize: 0.87,
+        initialChildSize: initialHeight!.toDouble(),
         minChildSize: 0.5,
         maxChildSize: 0.9,
         builder: (context, scrollController) {
