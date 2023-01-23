@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:tabibu/data/models/clinic_model.dart';
+import 'package:tabibu/data/models/services.dart';
 import 'package:tabibu/providers/appointment_provider.dart';
 import 'package:tabibu/providers/clinic_provider.dart';
 import 'package:tabibu/widgets/clinics_widget/appoinment_container.dart';
@@ -31,6 +32,8 @@ class _CancelledAppointmentTabViewState
 
     var clinicProvider = Provider.of<ClinicProvider>(context, listen: false);
     await clinicProvider.fetchClinics();
+
+    await clinicProvider.getClinicServices();
   }
 
   @override
@@ -67,17 +70,31 @@ class _CancelledAppointmentTabViewState
                               itemBuilder: (context, index) {
                                 return Consumer<ClinicProvider>(
                                   builder: (context, clinicValue, child) {
-                                    if (clinicValue.clinicsLoading == true) {
+                                    if (clinicValue.clinicsLoading == true ||
+                                        clinicValue.servicesLoading == true) {
                                       return AppSpinner();
                                     } else {
                                       List<Clinic> clinics =
                                           clinicValue.clinics;
+
                                       int clinicId = int.parse(value
                                           .cancelledAppointments[index].clinic
                                           .toString());
                                       Clinic clinic = clinics.firstWhere(
                                           (clinic) => clinic.id == clinicId);
+
+                                      // clinic service
+                                      List<ClinicServices> services =
+                                          clinicValue.clinicServices;
+                                      int serviceId = int.parse(value
+                                          .cancelledAppointments[index].service
+                                          .toString());
+                                      ClinicServices service =
+                                          services.firstWhere((service) =>
+                                              service.id == serviceId);
+
                                       return AppointmentContainer(
+                                        service: service,
                                         clinic: clinic,
                                         status: "Cancelled",
                                         statusColor: Colors.red,

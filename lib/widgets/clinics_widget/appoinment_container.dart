@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/models/appointment_model.dart';
 import 'package:tabibu/data/models/clinic_model.dart';
+import 'package:tabibu/data/models/services.dart';
 import 'package:tabibu/providers/clinic_provider.dart';
 
 class AppointmentContainer extends StatefulWidget {
@@ -11,6 +12,7 @@ class AppointmentContainer extends StatefulWidget {
   final String status;
   final Appointment appointment;
   final Clinic clinic;
+  final ClinicServices service;
 
   AppointmentContainer({
     Key? key,
@@ -18,6 +20,7 @@ class AppointmentContainer extends StatefulWidget {
     required this.status,
     required this.appointment,
     required this.clinic,
+    required this.service,
   }) : super(key: key);
 
   @override
@@ -67,7 +70,6 @@ class _AppointmentContainerState extends State<AppointmentContainer> {
                     children: [
                       Text(
                         widget.clinic.clinicName.toString(),
-                        // value.clinicDetails.clinicName.toString(),
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18.0,
@@ -80,7 +82,7 @@ class _AppointmentContainerState extends State<AppointmentContainer> {
                       Consumer<ClinicProvider>(
                         builder: (context, serviceValue, child) {
                           return Text(
-                            serviceValue.serviceDetails.serviceName.toString(),
+                            widget.service.serviceName.toString(),
                             style: const TextStyle(
                               color: Colors.grey,
                               fontSize: 16.0,
@@ -93,7 +95,6 @@ class _AppointmentContainerState extends State<AppointmentContainer> {
                   ),
                   const Spacer(),
                   widget.clinic.displayImage == null
-                      // value.clinicDetails.displayImage == null
                       ? Container(
                           width: 60,
                           height: 60,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tabibu/data/models/clinic_model.dart';
+import 'package:tabibu/data/models/services.dart';
 import 'package:tabibu/providers/appointment_provider.dart';
 import 'package:tabibu/providers/clinic_provider.dart';
 import 'package:tabibu/widgets/clinics_widget/appoinment_container.dart';
@@ -30,6 +31,7 @@ class _CompletedAppointmentsTabViewState
 
     var clinicProvider = Provider.of<ClinicProvider>(context, listen: false);
     await clinicProvider.fetchClinics();
+    await clinicProvider.getClinicServices();
   }
 
   @override
@@ -66,7 +68,8 @@ class _CompletedAppointmentsTabViewState
                               itemBuilder: (context, index) {
                                 return Consumer<ClinicProvider>(
                                     builder: (context, clinicValue, child) {
-                                  if (clinicValue.clinicsLoading == true) {
+                                  if (clinicValue.clinicsLoading == true ||
+                                      clinicValue.servicesLoading == true) {
                                     return AppSpinner();
                                   } else {
                                     //get appointment clinic
@@ -77,8 +80,18 @@ class _CompletedAppointmentsTabViewState
                                     Clinic clinic = clinics.firstWhere(
                                         (clinic) => clinic.id == clinicId);
 
+                                    //clinic service
+                                    List<ClinicServices> services =
+                                        clinicValue.clinicServices;
+                                    int serviceId = int.parse(value
+                                        .completedAppointment[index].service
+                                        .toString());
+                                    ClinicServices service =
+                                        services.firstWhere((service) =>
+                                            service.id == serviceId);
 
                                     return AppointmentContainer(
+                                      service: service,
                                       clinic: clinic,
                                       status: "Completed",
                                       statusColor: Colors.green,
