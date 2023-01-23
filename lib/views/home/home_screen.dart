@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:tabibu/configs/routes.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/data_search.dart';
+import 'package:tabibu/providers/appointment_provider.dart';
+import 'package:tabibu/providers/clinic_provider.dart';
 import 'package:tabibu/providers/geolocation_provider.dart.dart';
 import 'package:tabibu/providers/profile_provider.dart';
 import 'package:tabibu/views/clinics/clinic_details.dart';
@@ -34,6 +36,13 @@ class _HomeScreenState extends State<HomeScreen> {
     await locationService.getLocation();
     var profileProvider = Provider.of<ProfileProvider>(context, listen: false);
     await profileProvider.fetchProfile();
+    var appointmentProvider =
+        Provider.of<AppointmentProvider>(context, listen: false);
+    await appointmentProvider.fetchUpcomingAppointment();
+
+    var clinicProvider = Provider.of<ClinicProvider>(context, listen: false);
+    await clinicProvider.fetchClinics();
+    await clinicProvider.getClinicServices();
   }
 
   @override

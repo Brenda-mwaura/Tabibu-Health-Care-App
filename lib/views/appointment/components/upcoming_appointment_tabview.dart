@@ -155,27 +155,41 @@ class _UpcomingAppointmentTabViewState
                                                       true) {
                                                 return const SizedBox();
                                               } else {
+                                                Clinic clinic = Clinic();
                                                 // appointment clinic
-                                                Clinic clinic = clinicValue
-                                                    .clinics
-                                                    .firstWhere((clinic) =>
-                                                        clinic.id ==
-                                                        int.parse(value
-                                                            .upcomingAppointment[
-                                                                index]
-                                                            .clinic
-                                                            .toString()));
+                                                if (value
+                                                        .upcomingAppointment[
+                                                            index]
+                                                        .clinic !=
+                                                    null) {
+                                                  clinic = clinicValue.clinics
+                                                      .firstWhere((clinic) =>
+                                                          clinic.id ==
+                                                          int.parse(value
+                                                              .upcomingAppointment[
+                                                                  index]
+                                                              .clinic
+                                                              .toString()));
+                                                }
 
                                                 // clinic service
-                                                ClinicServices service = clinicValue
-                                                    .clinicServices
-                                                    .firstWhere((service) =>
-                                                        service.id ==
-                                                        int.parse(value
-                                                            .upcomingAppointment[
-                                                                index]
-                                                            .service
-                                                            .toString()));
+                                                ClinicServices service =
+                                                    ClinicServices();
+                                                if (value
+                                                        .upcomingAppointment[
+                                                            index]
+                                                        .service !=
+                                                    null) {
+                                                  ClinicServices service = clinicValue
+                                                      .clinicServices
+                                                      .firstWhere((service) =>
+                                                          service.id ==
+                                                          int.parse(value
+                                                              .upcomingAppointment[
+                                                                  index]
+                                                              .service
+                                                              .toString()));
+                                                }
 
                                                 return ScheduleContainer(
                                                     service: service,
