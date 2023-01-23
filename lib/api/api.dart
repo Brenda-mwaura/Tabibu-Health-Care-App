@@ -397,4 +397,28 @@ class Api {
 
     return response;
   }
+
+  static Future<http.Response> updatePatientAppointment({
+    int? appointmentID,
+    String? appointmentDate,
+    String? appointmentTime,
+    String? appointmentStatus,
+  }) async {
+    String? accessToken = authProvider.allLoginDetails.access;
+
+    var response = await client2.put(
+      Uri.parse("${baseUrl}appointment/booking/$appointmentID"),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $accessToken',
+      },
+      body: jsonEncode({
+        "appointment_time": appointmentTime,
+        "appointment_date": appointmentDate,
+        "status": appointmentStatus
+      }),
+    );
+
+    return response;
+  }
 }
