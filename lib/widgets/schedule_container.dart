@@ -89,18 +89,40 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
 
       String appointmentTime =
           "${formattedAppointmentTime.hour}:${formattedAppointmentTime.minute}:00";
-      await appointmentProvider.updateAppointment(
+      await appointmentProvider
+          .updateAppointment(
         appointmentStatus: widget.appointment.status.toString(),
         appointmentID: int.parse(widget.appointment.id.toString()),
         appointmentDate: formattedAppointmentDate,
         appointmentTime: appointmentTime,
+      )
+          .then(
+        (value) {
+          if (value != null) {
+            _refresh();
+            Navigator.pop(context);
+          }
+        },
       );
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
+  Future _cancellAppointment(int? appointmentID) async {
+    String appointmentDate = widget.appointment.appointmentDate.toString();
+    String appointmentTime = widget.appointment.appointmentTime.toString();
+
+    await appointmentProvider
+        .updateAppointment(
+      appointmentDate: appointmentDate,
+      appointmentTime: appointmentTime,
+      appointmentStatus: "Cancelled",
+      appointmentID: int.parse(widget.appointment.id.toString()),
+    )
+        .then((value) {
+      if (value != null) {
+        _refresh();
+      }
+    });
   }
 
   Future<void> _refresh() async {
@@ -282,20 +304,27 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
           Row(
             children: [
               Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(
+                child: GestureDetector(
+                  onTap: () {
+                    _cancellAppointment(
+                      int.parse(widget.appointment.id.toString()),
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
                       color: Colors.white,
-                      width: 1,
+                      borderRadius: BorderRadius.circular(8.0),
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 1,
+                      ),
                     ),
-                  ),
-                  child: ScheduleButton(
-                    onPressed: () {},
-                    text: "Cancel",
-                    fillColor: const Color.fromARGB(255, 244, 246, 250),
-                    textColor: Colors.black,
+                    child: ScheduleButton(
+                      onPressed: () {},
+                      text: "Cancel",
+                      fillColor: const Color.fromARGB(255, 244, 246, 250),
+                      textColor: Colors.black,
+                    ),
                   ),
                 ),
               ),

@@ -180,7 +180,7 @@ class _UpcomingAppointmentTabViewState
                                                             index]
                                                         .service !=
                                                     null) {
-                                                  ClinicServices service = clinicValue
+                                                  service = clinicValue
                                                       .clinicServices
                                                       .firstWhere((service) =>
                                                           service.id ==
