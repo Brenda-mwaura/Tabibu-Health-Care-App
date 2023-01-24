@@ -407,7 +407,7 @@ class Api {
     String? accessToken = authProvider.allLoginDetails.access;
 
     var response = await client2.put(
-      Uri.parse("${baseUrl}appointment/booking/$appointmentID"),
+      Uri.parse("${baseUrl}appointment/booking/$appointmentID/"),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.authorizationHeader: 'Bearer $accessToken',

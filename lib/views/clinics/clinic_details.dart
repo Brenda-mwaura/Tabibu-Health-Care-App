@@ -56,10 +56,8 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
         TimeOfDay formttedAppointmentTime = TimeOfDay.fromDateTime(
             format.parse(_appointmentTimeTextController.text));
 
-        String appointmentTime = formttedAppointmentTime.hour.toString() +
-            ":" +
-            formttedAppointmentTime.minute.toString() +
-            ":00";
+        String appointmentTime =
+            "${formttedAppointmentTime.hour}:${formttedAppointmentTime.minute}:00";
 
         await appointmentProvider
             .appointmentBooking(

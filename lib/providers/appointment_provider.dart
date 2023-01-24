@@ -337,7 +337,6 @@ class AppointmentProvider extends ChangeNotifier {
 
         notifyListeners();
         _appointmentDetailsLoading = false;
-        
       } else if (response.statusCode == 401) {
         await authProvider.refreshToken(refreshToken);
         await fetchAppointmentDetails(appointmentId);

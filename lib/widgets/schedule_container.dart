@@ -77,9 +77,36 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
     }
   }
 
+  Future _rescheduleAppointmentFnc() async {
+    if (updateAppointmentFormKey.currentState!.validate()) {
+      String formattedAppointmentDate = DateFormat('yyyy-MM-dd').format(
+          DateFormat("dd-MM-yyyy")
+              .parse(_updateAppointmentDateTextController.text));
+
+      final format = DateFormat.jm();
+      TimeOfDay formattedAppointmentTime = TimeOfDay.fromDateTime(
+          format.parse(_updateAppointmentTimeTextController.text));
+
+      String appointmentTime =
+          "${formattedAppointmentTime.hour}:${formattedAppointmentTime.minute}:00";
+      await appointmentProvider.updateAppointment(
+        appointmentStatus: widget.appointment.status.toString(),
+        appointmentID: int.parse(widget.appointment.id.toString()),
+        appointmentDate: formattedAppointmentDate,
+        appointmentTime: appointmentTime,
+      );
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+  }
+
+  Future<void> _refresh() async {
+    var appointmentProvider =
+        Provider.of<AppointmentProvider>(context, listen: false);
+    await appointmentProvider.fetchUpcomingAppointment();
   }
 
   @override
@@ -434,19 +461,26 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                                                   255, 106, 106, 106),
                                             ),
                                             readOnly: true,
-                                            onTap: () async {},
+                                            onTap: () async {
+                                              TimeOfDay initTime = TimeOfDay
+                                                  .fromDateTime(DateTime.parse(
+                                                      "2022-10-15 ${value.appointmentDetails.appointmentTime}"));
+                                              _updateAppointmentTime(
+                                                  context, initTime);
+                                            },
                                             validator: (value) {
-                                              //validate to prevent empty field
                                               if (value!.isEmpty) {
                                                 return "Please select time";
                                               }
                                             },
                                           ),
                                           const SizedBox(
-                                            height: 25,
+                                            height: 30,
                                           ),
                                           AuthButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              _rescheduleAppointmentFnc();
+                                            },
                                             child:
                                                 Consumer<AppointmentProvider>(
                                               builder: (context, value, child) {
@@ -454,7 +488,7 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                                                   "Reschedule",
                                                   style: TextStyle(
                                                     color: Colors.white,
-                                                    fontSize: 18,
+                                                    fontSize: 22,
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                                 );
