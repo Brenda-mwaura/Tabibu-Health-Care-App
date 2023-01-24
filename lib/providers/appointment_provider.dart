@@ -316,6 +316,35 @@ class AppointmentProvider extends ChangeNotifier {
       print("error occured while updating an appointment $error");
     });
   }
+
+  Appointment _appointmentDetails = Appointment();
+  Appointment get appointmentDetails => _appointmentDetails;
+
+  bool _appointmentDetailsLoading = false;
+  bool get appointmentDetailsLoading => _appointmentDetailsLoading;
+
+  Future fetchAppointmentDetails(int? appointmentId) {
+    _appointmentDetailsLoading = true;
+    String? refreshToken = authProvider.allLoginDetails.refresh;
+
+    return Api.appointmentDetails(appointmentId).then((response) async {
+      var payload = await jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        _appointmentDetails = Appointment.fromJson(payload);
+
+        notifyListeners();
+        _appointmentDetailsLoading = false;
+      } else if (response.statusCode == 401) {
+        await authProvider.refreshToken(refreshToken);
+        await fetchAppointmentDetails(appointmentId);
+      } else {
+        _appointmentDetailsLoading = false;
+      }
+    }).catchError((error) {
+      print("error occured while fetching appointment details $error");
+    });
+  }
 }
 
 AppointmentProvider appointmentProvider = AppointmentProvider();
