@@ -10,6 +10,7 @@ import 'package:tabibu/providers/clinic_provider.dart';
 import 'package:tabibu/widgets/buttons/auth_button.dart';
 import 'package:tabibu/widgets/buttons/schedule_button.dart';
 import 'package:tabibu/widgets/clinics_widget/schedule_bottom_sheet.dart';
+import 'package:tabibu/widgets/spinner.dart';
 
 class ScheduleContainer extends StatefulWidget {
   final Appointment appointment;
@@ -33,6 +34,48 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
       TextEditingController();
   TextEditingController _updateAppointmentTimeTextController =
       TextEditingController();
+
+  Future _updateAppointmentDate(BuildContext context, DateTime initDate) async {
+    final DateTime? selected = await showDatePicker(
+      context: context,
+      initialDate: initDate,
+      firstDate: DateTime(
+        2015,
+      ),
+      lastDate: DateTime(2101),
+    );
+
+    if (selected != null) {
+      setState(() {
+        _updateAppointmentDateTextController.text =
+            DateFormat('dd-MM-yyyy').format(selected);
+        setState() {
+          _updateAppointmentDateTextController.text =
+              DateFormat('dd-MM-yyyy').format(selected);
+        }
+      });
+    }
+  }
+
+  Future _updateAppointmentTime(
+      BuildContext context, TimeOfDay initTime) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: initTime,
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null) {
+      setState(() {
+        _updateAppointmentTimeTextController.text = picked.format(context);
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -243,8 +286,13 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                     ),
                   ),
                   child: RawMaterialButton(
-                    onPressed: () {
-                      print("Appointment ID ${widget.appointment.id}");
+                    onPressed: () async {
+                      var appointmentProvider =
+                          Provider.of<AppointmentProvider>(context,
+                              listen: false);
+
+                      await appointmentProvider.fetchAppointmentDetails(
+                          int.parse(widget.appointment.id.toString()));
 
                       showModalBottomSheet(
                           isScrollControlled: true,
@@ -254,140 +302,170 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                             return ScheduleBottomSheet(
                               initialHeight: 0.54,
                               title: "Reschedule",
-                              formWidget: Form(
-                                key: updateAppointmentFormKey,
-                                child: Column(
-                                  children: [
-                                    const Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "Date",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          color: Color.fromARGB(
-                                              255, 106, 106, 106),
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
-                                    TextFormField(
-                                      controller:
-                                          _updateAppointmentDateTextController,
-                                      autofocus: false,
-                                      textInputAction: TextInputAction.next,
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
-                                        fillColor: const Color.fromARGB(
-                                            255, 245, 170, 51),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                              color: Color.fromARGB(
-                                                  255, 20, 106, 218),
-                                              width: 2.0),
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
-                                        prefixIcon:
-                                            const Icon(Icons.calendar_month),
-                                      ),
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color:
-                                            Color.fromARGB(255, 106, 106, 106),
-                                      ),
-                                      readOnly: true,
-                                      onTap: () async {
-                                        // _selectAppointmentDate(context);
-                                      },
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return "Please select date";
-                                        }
-                                      },
-                                    ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    const Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "Time",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          color: Color.fromARGB(
-                                              255, 106, 106, 106),
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
-                                    TextFormField(
-                                      controller:
-                                          _updateAppointmentTimeTextController,
-                                      autofocus: false,
-                                      textInputAction: TextInputAction.next,
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
-                                        fillColor: const Color.fromARGB(
-                                            255, 245, 170, 51),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                              color: Color.fromARGB(
-                                                  255, 20, 106, 218),
-                                              width: 2.0),
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
-                                        prefixIcon:
-                                            const Icon(Icons.access_time),
-                                      ),
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color:
-                                            Color.fromARGB(255, 106, 106, 106),
-                                      ),
-                                      readOnly: true,
-                                      onTap: () async {
-                                        // _selectAppointmentTime(context);
-                                      },
-                                      validator: (value) {
-                                        //validate to prevent empty field
-                                        if (value!.isEmpty) {
-                                          return "Please select time";
-                                        }
-                                      },
-                                    ),
-                                    const SizedBox(
-                                      height: 25,
-                                    ),
-                                    AuthButton(
-                                      onPressed: () {},
-                                      child: Consumer<AppointmentProvider>(
-                                        builder: (context, value, child) {
-                                          return const Text(
-                                            "Reschedule",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500,
+                              formWidget: Consumer<AppointmentProvider>(
+                                builder: (context, value, child) {
+                                  if (value.appointmentDetailsLoading == true) {
+                                    return const Center(
+                                      child: AppSpinner(),
+                                    );
+                                  } else {
+                                    _updateAppointmentDateTextController.text =
+                                        DateFormat('dd-MM-yyyy').format(
+                                            DateTime.parse(value
+                                                .appointmentDetails
+                                                .appointmentDate
+                                                .toString()));
+
+                                    _updateAppointmentTimeTextController
+                                        .text = DateFormat(
+                                            'hh:mm a')
+                                        .format(DateTime.parse(
+                                            "2022-10-15 ${value.appointmentDetails.appointmentTime}"));
+
+                                    return Form(
+                                      key: updateAppointmentFormKey,
+                                      child: Column(
+                                        children: [
+                                          const Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              "Date",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                                color: Color.fromARGB(
+                                                    255, 106, 106, 106),
+                                                fontSize: 16,
+                                              ),
                                             ),
-                                          );
-                                        },
+                                          ),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          TextFormField(
+                                            controller:
+                                                _updateAppointmentDateTextController,
+                                            autofocus: false,
+                                            textInputAction:
+                                                TextInputAction.next,
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              fillColor: const Color.fromARGB(
+                                                  255, 245, 170, 51),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: const BorderSide(
+                                                    color: Color.fromARGB(
+                                                        255, 20, 106, 218),
+                                                    width: 2.0),
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              prefixIcon: const Icon(
+                                                  Icons.calendar_month),
+                                            ),
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Color.fromARGB(
+                                                  255, 106, 106, 106),
+                                            ),
+                                            readOnly: true,
+                                            onTap: () async {
+                                              DateTime initDate =
+                                                  DateTime.parse(value
+                                                      .appointmentDetails
+                                                      .appointmentDate
+                                                      .toString());
+                                              _updateAppointmentDate(
+                                                  context, initDate);
+                                            },
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return "Please select date";
+                                              }
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          const Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              "Time",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                                color: Color.fromARGB(
+                                                    255, 106, 106, 106),
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          TextFormField(
+                                            controller:
+                                                _updateAppointmentTimeTextController,
+                                            autofocus: false,
+                                            textInputAction:
+                                                TextInputAction.next,
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              fillColor: const Color.fromARGB(
+                                                  255, 245, 170, 51),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: const BorderSide(
+                                                    color: Color.fromARGB(
+                                                        255, 20, 106, 218),
+                                                    width: 2.0),
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              prefixIcon:
+                                                  const Icon(Icons.access_time),
+                                            ),
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Color.fromARGB(
+                                                  255, 106, 106, 106),
+                                            ),
+                                            readOnly: true,
+                                            onTap: () async {},
+                                            validator: (value) {
+                                              //validate to prevent empty field
+                                              if (value!.isEmpty) {
+                                                return "Please select time";
+                                              }
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            height: 25,
+                                          ),
+                                          AuthButton(
+                                            onPressed: () {},
+                                            child:
+                                                Consumer<AppointmentProvider>(
+                                              builder: (context, value, child) {
+                                                return const Text(
+                                                  "Reschedule",
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
-                                ),
+                                    );
+                                  }
+                                },
                               ),
                             );
                           });

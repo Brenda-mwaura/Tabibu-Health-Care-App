@@ -333,8 +333,11 @@ class AppointmentProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         _appointmentDetails = Appointment.fromJson(payload);
 
+        print("Appointment Details Fetched....$payload");
+
         notifyListeners();
         _appointmentDetailsLoading = false;
+        
       } else if (response.statusCode == 401) {
         await authProvider.refreshToken(refreshToken);
         await fetchAppointmentDetails(appointmentId);
