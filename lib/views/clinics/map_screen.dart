@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:tabibu/data/models/clinic_model.dart';
+import 'package:tabibu/providers/clinic_provider.dart';
 import 'package:tabibu/providers/geolocation_provider.dart.dart';
 import 'package:tabibu/widgets/app_drawer.dart';
 import 'package:tabibu/widgets/spinner.dart';
@@ -24,16 +26,19 @@ class _MapScreenState extends State<MapScreen> {
   BitmapDescriptor pinLocationIcon = BitmapDescriptor.defaultMarker;
   @override
   void initState() {
-    _refresh();
     _setClinicMarker();
     super.initState();
+    _refresh();
   }
 
   Future<void> _refresh() async {
-    var locationService =
+    var locationProvider =
         Provider.of<GeolocationProvider>(context, listen: false);
-    await locationService.getLocation();
-    _KMapCenter = LatLng(locationService.latitude!, locationService.longitude!);
+    await locationProvider.getLocation();
+    _KMapCenter =
+        LatLng(locationProvider.latitude!, locationProvider.longitude!);
+    var clinicProvider = Provider.of<ClinicProvider>(context, listen: false);
+    await clinicProvider.fetchClinics();
   }
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
@@ -52,42 +57,28 @@ class _MapScreenState extends State<MapScreen> {
     pinLocationIcon = BitmapDescriptor.fromBytes(markerIcon);
   }
 
-  final Map _clinics = {
-    "Annex clinic": {"lat": -1.2921, "long": 36.8219},
-    "Mama Lucy": {"lat": -1.2921, "long": 36.8249},
-    "Google Plex": {"lat": 37.4219999, "long": -122.0872462},
-    "St Joseph Clinic": {"lat": -0.4923, "long": 36.3476},
-    "St Mary's Clinic": {"lat": -0.4953, "long": 36.3283}
-  };
-  CustomInfoWindowController _customInfoWindowController =
+  final CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
-
-  Set<Marker> _createMarker() {
-    return _clinics.entries
-        .map(
-          (e) => Marker(
-              markerId: MarkerId(e.key),
-              position: LatLng(e.value["lat"], e.value["long"]),
-              icon: pinLocationIcon,
-              infoWindow: InfoWindow(
-                title: e.key,
-                snippet: "Tap to view clinic details",
-              ),
-              onTap: () {
-                print("Hello...");
-                CustomInfoWindow(
-                  controller: _customInfoWindowController,
-                  height: 100,
-                  width: 200,
-                  offset: 35,
-                );
-              }),
-        )
-        .toSet();
-  }
 
   @override
   Widget build(BuildContext context) {
+    List<Clinic> clinics = [];
+    clinics = clinicProvider.clinics;
+
+    Set<Marker> createMarker1() {
+      return clinics
+          .map((e) => Marker(
+              markerId: MarkerId(e.id.toString()),
+              position: LatLng(e.latitude!.toDouble(), e.longitude!.toDouble()),
+              icon: pinLocationIcon,
+              infoWindow: InfoWindow(
+                title: e.clinicName,
+                snippet: "Tap to view clinic details",
+              ),
+              onTap: () {}))
+          .toSet();
+    }
+
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(
@@ -104,12 +95,13 @@ class _MapScreenState extends State<MapScreen> {
                   myLocationButtonEnabled: true,
                   mapToolbarEnabled: true,
                   compassEnabled: true,
-                  onMapCreated: (GoogleMapController controller) {
+                  onMapCreated: (GoogleMapController controller) async {
                     _controller.complete(controller);
                     _customInfoWindowController.googleMapController =
                         controller;
                   },
-                  markers: _createMarker(),
+                  markers: createMarker1(),
+                  // _createMarker(),
                   mapType: MapType.normal,
                   onTap: (position) {},
                 );

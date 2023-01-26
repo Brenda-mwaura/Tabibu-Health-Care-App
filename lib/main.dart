@@ -33,13 +33,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // MaterialColor priSwatch = MaterialColor(
-  //   const Color.fromARGB(255, 226, 35, 26).value,
-  //   const <int, Color>{
-  //     50: Color.fromARGB(255, 226, 35, 26),
-  //   },
-  // );
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
