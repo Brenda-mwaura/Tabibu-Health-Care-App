@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
 import 'package:tabibu/api/api.dart';
 import 'package:tabibu/data/models/clinic_album_model.dart';
@@ -10,6 +11,7 @@ import 'package:tabibu/data/models/clinic_review_model.dart';
 import 'package:tabibu/data/models/services.dart';
 import 'package:tabibu/data/models/specialization_model.dart';
 import 'package:tabibu/providers/auth_provider.dart';
+import 'package:http/http.dart' as http;
 
 class ClinicProvider extends ChangeNotifier {
   bool _clinicsLoading = false;
@@ -264,19 +266,83 @@ class ClinicProvider extends ChangeNotifier {
     });
   }
 
+  bool _nearestClinicsLoading = false;
+  bool get nearestClinicsLoading => _nearestClinicsLoading;
+
+  Clinic _suggestedClinic = Clinic();
+  Clinic get suggestedClinic => _suggestedClinic;
+
+  List<Clinic> _nearestClinics = [];
+  List<Clinic> get nearestClinics => _nearestClinics;
+
   Future fetchNearestClinics(double? lat, double? lng) async {
+    _nearestClinicsLoading = true;
+    _nearestClinics = [];
+
     String? refreshToken = authProvider.allLoginDetails.refresh;
 
     return Api.clinics().then((response) async {
       var payload = jsonDecode(response.body);
+
+      // print("Payload  $payload");
+
       if (response.statusCode == 200) {
+        for (var clinic in payload) {
+          print("Clinic ${clinic["clinic_name"]}");
+          double clinicLat = clinic["latitude"];
+          double clinicLng = clinic["longitude"];
+
+          double distance = await Geolocator.distanceBetween(
+              lat!, lng!, clinicLat, clinicLng);
+
+          print("Distance:::: ${distance} KM");
+
+          if (distance <= 10000) {
+            _nearestClinics.add(Clinic.fromJson(clinic));
+          }
+        }
+        print("nearest clinics::: ${_nearestClinics}");
+
+        if (_nearestClinics.length > 0) {
+          _suggestedClinic = _nearestClinics[0];
+          fetchTravelTime(
+              lat, lng, _suggestedClinic.latitude, _suggestedClinic.longitude);
+
+          _nearestClinics.removeAt(0);
+        }
+        // get the time taken to travel
+
+        print("Suggested Clinic::: ${_suggestedClinic.clinicName}");
+
         notifyListeners();
+        _nearestClinicsLoading = false;
       } else if (response.statusCode == 401) {
         await authProvider.refreshToken(refreshToken);
-        await fetchClinics();
-      } else {}
+        await fetchNearestClinics(lat, lng);
+      } else {
+        _nearestClinicsLoading = false;
+      }
     }).catchError((error) {
       print("error occured while fetching the clinics $error");
+    });
+  }
+
+  String _travelTime = "5";
+  String get travelTime => _travelTime;
+  Future fetchTravelTime(double? lat, double? lng, double? suggestedClinicLat,
+      double? suggestedClinicLng) {
+    return Api.getTravelTime(lat, lng, suggestedClinicLat, suggestedClinicLng)
+        .then((response) {
+      var payload = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        final timeInSeconds =
+            payload['routes'][0]['legs'][0]['duration']['value'];
+        _travelTime = timeInSeconds / 60;
+        notifyListeners();
+        return _travelTime;
+      }
+    }).catchError((error) {
+      print("error occured while fetching travel time $error");
     });
   }
 }

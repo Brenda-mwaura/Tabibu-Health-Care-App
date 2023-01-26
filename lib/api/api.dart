@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:http_interceptor/http/intercepted_client.dart';
+import 'package:http_interceptor/utils/utils.dart';
 import 'package:tabibu/api/interceptors/authorization_interceptor.dart';
 import 'package:tabibu/app_config.dart';
 import 'package:tabibu/providers/auth_provider.dart';
@@ -432,6 +433,17 @@ class Api {
         HttpHeaders.authorizationHeader: 'Bearer $accessToken',
       },
     );
+
+    return response;
+  }
+
+  static Future<http.Response> getTravelTime(double? lat, double? lng,
+      double? suggestedClinicLat, double? suggestedClinicLng) async {
+    String? apiKey = "AIzaSyA2aGRHJL6eJ8oADnJ-1s0YC8H1WCoGnp4";
+    final String url =
+        'https://maps.googleapis.com/maps/api/directions/json?origin=${lat},${lng}&destination=${suggestedClinicLat},${suggestedClinicLng}&mode=driving&key=${apiKey}';
+
+    var response = await http.get(Uri.parse(url));
 
     return response;
   }

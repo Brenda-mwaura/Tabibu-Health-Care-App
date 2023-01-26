@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/configs/styles.dart';
+import 'package:tabibu/data/models/clinic_model.dart';
 
 class SuggestedClinic extends StatelessWidget {
-  const SuggestedClinic({Key? key}) : super(key: key);
+  final Clinic clinic;
+  const SuggestedClinic({Key? key, required this.clinic}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +32,13 @@ class SuggestedClinic extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width,
             height: 200.0,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10.0),
                 topRight: Radius.circular(10.0),
               ),
               image: DecorationImage(
-                image: AssetImage("assets/images/afya.jpeg"),
+                image: NetworkImage(clinic.displayImage.toString()),
                 fit: BoxFit.cover,
               ),
             ),
@@ -51,27 +53,27 @@ class SuggestedClinic extends StatelessWidget {
               child: Column(
                 children: [
                   Row(
-                    children: const [
+                    children: [
                       Text(
-                        "Equity Afya Nairobi CBD",
-                        style: TextStyle(
+                        clinic.clinicName.toString(),
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18.0,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
                       // spacer
-                      Spacer(),
+                      const Spacer(),
                       //5 the star rating
-                      Icon(
+                      const Icon(
                         Icons.star,
                         color: Colors.orange,
                         size: 20,
                       ),
-                      SizedBox(width: 3),
+                      const SizedBox(width: 3),
                       Text(
-                        "5.0",
-                        style: TextStyle(
+                        clinic.rating.toString(),
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18.0,
                           fontWeight: FontWeight.w700,
@@ -82,11 +84,11 @@ class SuggestedClinic extends StatelessWidget {
                   const SizedBox(
                     height: 7,
                   ),
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Makao Road, 67 N",
-                      style: TextStyle(
+                      clinic.address.toString(),
+                      style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 16.0,
                         fontWeight: FontWeight.w500,
