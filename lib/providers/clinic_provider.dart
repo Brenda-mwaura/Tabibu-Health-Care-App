@@ -284,35 +284,25 @@ class ClinicProvider extends ChangeNotifier {
     return Api.clinics().then((response) async {
       var payload = jsonDecode(response.body);
 
-      // print("Payload  $payload");
-
       if (response.statusCode == 200) {
         for (var clinic in payload) {
-          print("Clinic ${clinic["clinic_name"]}");
           double clinicLat = clinic["latitude"];
           double clinicLng = clinic["longitude"];
 
           double distance = await Geolocator.distanceBetween(
               lat!, lng!, clinicLat, clinicLng);
 
-          print("Distance:::: ${distance} KM");
-
           if (distance <= 10000) {
             _nearestClinics.add(Clinic.fromJson(clinic));
           }
         }
-        print("nearest clinics::: ${_nearestClinics}");
 
         if (_nearestClinics.length > 0) {
           _suggestedClinic = _nearestClinics[0];
-          fetchTravelTime(
-              lat, lng, _suggestedClinic.latitude, _suggestedClinic.longitude);
-
+          // fetchTravelTime(
+          //     lat, lng, _suggestedClinic.latitude, _suggestedClinic.longitude);
           _nearestClinics.removeAt(0);
         }
-        // get the time taken to travel
-
-        print("Suggested Clinic::: ${_suggestedClinic.clinicName}");
 
         notifyListeners();
         _nearestClinicsLoading = false;
@@ -327,13 +317,15 @@ class ClinicProvider extends ChangeNotifier {
     });
   }
 
-  String _travelTime = "5";
+  String _travelTime = "15";
   String get travelTime => _travelTime;
   Future fetchTravelTime(double? lat, double? lng, double? suggestedClinicLat,
       double? suggestedClinicLng) {
     return Api.getTravelTime(lat, lng, suggestedClinicLat, suggestedClinicLng)
         .then((response) {
       var payload = jsonDecode(response.body);
+
+      // print("Google Pay load... $payload");
       if (response.statusCode == 200) {
         final timeInSeconds =
             payload['routes'][0]['legs'][0]['duration']['value'];

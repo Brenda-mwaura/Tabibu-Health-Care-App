@@ -4,7 +4,10 @@ import 'package:tabibu/data/models/clinic_model.dart';
 
 class SuggestedClinic extends StatelessWidget {
   final Clinic clinic;
-  const SuggestedClinic({Key? key, required this.clinic}) : super(key: key);
+  final String travelTime;
+  const SuggestedClinic(
+      {Key? key, required this.clinic, required this.travelTime})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -98,11 +101,11 @@ class SuggestedClinic extends StatelessWidget {
                   const SizedBox(
                     height: 7,
                   ),
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "5 mins walk",
-                      style: TextStyle(
+                      "${travelTime.toString()} mins Walk",
+                      style: const TextStyle(
                         color: Styles.primaryColor,
                         fontSize: 17.0,
                         fontWeight: FontWeight.w700,

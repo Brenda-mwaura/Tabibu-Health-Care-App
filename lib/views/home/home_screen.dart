@@ -44,11 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
     var clinicProvider = Provider.of<ClinicProvider>(context, listen: false);
     await clinicProvider.fetchClinics();
     await clinicProvider.getClinicServices();
-    // fetch nearest clinics
-    await clinicProvider.fetchNearestClinics(
-      locationService.latitude,
-      locationService.longitude,
-    );
   }
 
   @override
@@ -235,7 +230,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             },
                                                             child: SuggestedClinic(
                                                                 clinic: value
-                                                                    .suggestedClinic),
+                                                                    .suggestedClinic,
+                                                                travelTime: value
+                                                                    .travelTime),
                                                           )
                                                         : const SizedBox(),
                                                     const SizedBox(
@@ -278,17 +275,63 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     const SizedBox(
                                                       height: 10,
                                                     ),
-                                                    ListView.builder(
-                                                      physics:
-                                                          const NeverScrollableScrollPhysics(),
-                                                      shrinkWrap: true,
-                                                      itemCount: 4,
-                                                      itemBuilder:
-                                                          (context, index) {
-                                                        return Text("Clinic");
-                                                        // return HomePageListView();
-                                                      },
-                                                    )
+                                                    value.nearestClinics.isEmpty
+                                                        ? Container(
+                                                            margin:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    top: 20),
+                                                            height: 200,
+                                                            child: SvgPicture
+                                                                .asset(
+                                                              "assets/images/no_clinic.svg",
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                          )
+                                                        : ListView.builder(
+                                                            physics:
+                                                                const NeverScrollableScrollPhysics(),
+                                                            shrinkWrap: true,
+                                                            itemCount: value
+                                                                .nearestClinics
+                                                                .length,
+                                                            itemBuilder:
+                                                                (context,
+                                                                    index) {
+                                                              return GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ClinicDetailsScreen(
+                                                  clinic: value.nearestClinics[index],
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                                              
+                                                            child:  HomePageListView(
+                                                                clinicAddress: value
+                                                                    .nearestClinics[
+                                                                        index]
+                                                                    .address,
+                                                                clinicImage: value
+                                                                    .nearestClinics[
+                                                                        index]
+                                                                    .displayImage,
+                                                                clinicName: value
+                                                                    .nearestClinics[
+                                                                        index]
+                                                                    .clinicName,
+                                                                clinicRating: value
+                                                                    .nearestClinics[
+                                                                        index]
+                                                                    .rating,
+                                                              ),);
+                                                            },
+                                                          )
                                                   ],
                                                 );
                                         }

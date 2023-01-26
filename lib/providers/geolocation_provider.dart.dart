@@ -100,22 +100,3 @@ class GeolocationProvider with ChangeNotifier {
 }
 
 GeolocationProvider geolocationProvider = GeolocationProvider();
-
-
-//     final url = 'https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}&mode=driving&key=YOUR_API_KEY';
-//     final response = await http.get(url);
-//     final decodedResponse = jsonDecode(response.body);
-//     final timeInSeconds = decodedResponse['routes'][0]['legs'][0]['duration']['value'];
-//     final timeInMinutes = timeInSeconds / 60;
-//     return timeInMinutes;
-// }
-// The above function takes two LatLng objects as input, origin and destination, and returns the estimated travel time in minutes.
-// The example above uses the Google Maps Directions API, which requires an API key. You can sign up for a free API key from the Google Cloud Console.
-
-// Make sure to also import the package and add the required dependencies in your pubspec.yaml file.
-
-// You can also use other services like Open Street Map and Mapbox to calculate the directions between two cordinates.
-
-
-
-
