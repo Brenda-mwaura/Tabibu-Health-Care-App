@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/configs/styles.dart';
+import 'package:tabibu/providers/clinic_provider.dart';
 
 class DataSearch extends SearchDelegate<String> {
   @override
@@ -33,10 +34,16 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
+    final suggestionList = query.isEmpty
+        ? clinicProvider.clinics
+        : clinicProvider.clinics
+            .where((element) =>
+                element.clinicName!.toLowerCase().contains(query.toLowerCase()))
+            .toList();
     close(context, query);
     return Center(
       child: ListView.builder(
-        itemCount: 20,
+        itemCount: suggestionList.length,
         itemBuilder: (context, index) {
           return ListTile(
             onTap: () {},
@@ -55,9 +62,9 @@ class DataSearch extends SearchDelegate<String> {
               ),
             ),
             title: RichText(
-              text: const TextSpan(
-                text: "Equity Afya Mombasa",
-                style: TextStyle(
+              text: TextSpan(
+                text: suggestionList[index].clinicName.toString(),
+                style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w700,
                   fontSize: 17,
@@ -65,9 +72,9 @@ class DataSearch extends SearchDelegate<String> {
               ),
             ),
             subtitle: RichText(
-              text: const TextSpan(
-                text: "Makao Road, 67 N",
-                style: TextStyle(
+              text: TextSpan(
+                text: suggestionList[index].address.toString(),
+                style: const TextStyle(
                   color: Colors.grey,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,

@@ -31,6 +31,11 @@ class _MapScreenState extends State<MapScreen> {
     _refresh();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   Future<void> _refresh() async {
     var locationProvider =
         Provider.of<GeolocationProvider>(context, listen: false);
@@ -53,7 +58,7 @@ class _MapScreenState extends State<MapScreen> {
 
   Future<void> _setClinicMarker() async {
     final Uint8List markerIcon =
-        await getBytesFromAsset('assets/images/marker.png', 90);
+        await getBytesFromAsset('assets/images/marker.png', 120);
     pinLocationIcon = BitmapDescriptor.fromBytes(markerIcon);
   }
 

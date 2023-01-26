@@ -33,6 +33,11 @@ class _DirectionsTabViewState extends State<DirectionsTabView> {
     _refresh();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   Future<void> _refresh() async {
     var locationProvider =
         Provider.of<GeolocationProvider>(context, listen: false);
