@@ -255,7 +255,7 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                         AboutClinicTabView(
                           clinic: widget.clinic,
                         ),
-                        DirectionsTabView(),
+                        DirectionsTabView(clinic: widget.clinic),
                         DoctorsTabView(
                           clinic: widget.clinic,
                         ),
@@ -682,7 +682,7 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                           "Book Appointment",
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 18,
+                                            fontSize: 22,
                                             fontWeight: FontWeight.w500,
                                           ),
                                         );

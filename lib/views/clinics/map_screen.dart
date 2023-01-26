@@ -67,15 +67,18 @@ class _MapScreenState extends State<MapScreen> {
 
     Set<Marker> createMarker1() {
       return clinics
-          .map((e) => Marker(
+          .map(
+            (e) => Marker(
               markerId: MarkerId(e.id.toString()),
               position: LatLng(e.latitude!.toDouble(), e.longitude!.toDouble()),
               icon: pinLocationIcon,
               infoWindow: InfoWindow(
                 title: e.clinicName,
-                snippet: "Tap to view clinic details",
+                snippet: e.rating.toString(),
               ),
-              onTap: () {}))
+              onTap: () async {},
+            ),
+          )
           .toSet();
     }
 
