@@ -36,6 +36,21 @@ class Api {
     return response;
   }
 
+  // google sign in
+  static Future<http.Response> googleSignin(String? token) async {
+    var response = await client.post(
+      Uri.parse("${baseUrl}/google/signin/"),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
+      body: jsonEncode({
+        "token": token,
+      }),
+    );
+
+    return response;
+  }
+
   static Future<http.Response> patientSignUp(
     String? phone,
     String? email,

@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:tabibu/api/api.dart';
 import 'package:tabibu/configs/styles.dart';
 
 class GoogleSignInProvider extends ChangeNotifier {
@@ -48,10 +51,11 @@ class GoogleSignInProvider extends ChangeNotifier {
   Future googleLogin() async {
     _loadingLogin = true;
     final googleUser = await _googleSignIn.signIn();
+    print("Google User:: $googleUser");
     if (googleUser != null) {
       _user = googleUser;
       _loadingLogin = false;
-      final googleAuth = await googleUser!.authentication;
+      final googleAuth = await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
@@ -65,6 +69,21 @@ class GoogleSignInProvider extends ChangeNotifier {
       _loadingLogin = false;
       return;
     }
+  }
+
+  Future signInWithGoogle(String? token) async {
+    _loadingLogin = true;
+    return Api.googleSignin(token).then((response) async {
+      var payload = jsonDecode(response.body);
+      if (response.statusCode == 201) {
+        _loadingLogin = false;
+      } else {
+        notifyListeners();
+        _loadingLogin = false;
+      }
+    }).catchError((error) {
+      print("error occured during user login $error");
+    });
   }
 
   Future<void> logout() async {
