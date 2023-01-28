@@ -30,48 +30,56 @@ class AppDrawer extends StatelessWidget {
               color: Styles.primaryColor,
               child: Consumer<ProfileProvider>(
                 builder: (context, value, child) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      value.profileLoading == true
-                          ? const AppSpinner()
-                          : value.profileDetails.profilePicture == null
-                              ? const CircleAvatar(
-                                  radius: 55,
-                                  backgroundImage:
-                                      AssetImage("assets/images/default.png"),
-                                )
-                              : CircleAvatar(
-                                  radius: 55,
-                                  backgroundImage: NetworkImage(
-                                    value.profileDetails.profilePicture
-                                        .toString(),
-                                  ),
+                  if (value.profileLoading == true) {
+                    return const Center(
+                      child: AppSpinner(),
+                    );
+                  } else {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        value.profileDetails.profilePicture == null
+                            ? const CircleAvatar(
+                                radius: 55,
+                                backgroundImage:
+                                    AssetImage("assets/images/default.png"),
+                              )
+                            : CircleAvatar(
+                                radius: 55,
+                                backgroundImage: NetworkImage(
+                                  value.profileDetails.profilePicture
+                                      .toString(),
                                 ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        value.profileDetails.user!.email.toString(),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                              ),
+                        const SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 2,
-                      ),
-                      Text(
-                        value.profileDetails.user!.fullName.toString(),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                        Text(
+                          value.profileDetails.user!.email == null
+                              ? ""
+                              : value.profileDetails.user!.email.toString(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                      ),
-                    ],
-                  );
+                        const SizedBox(
+                          height: 2,
+                        ),
+                        Text(
+                          value.profileDetails.user!.fullName == null
+                              ? ""
+                              : value.profileDetails.user!.fullName.toString(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    );
+                  }
                 },
               ),
             ),

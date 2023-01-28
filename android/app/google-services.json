@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "545492022755-62ds56q4do2rmrfita79orc2jrc48hv4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tabibu",
+            "certificate_hash": "b7a0483902e696a5336f2120015c788b846dce32"
+          }
+        },
+        {
           "client_id": "545492022755-8i7tutf2jm8c8o11bt9r1ibsu94tao5f.apps.googleusercontent.com",
           "client_type": 3
         }

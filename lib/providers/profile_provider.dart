@@ -30,6 +30,7 @@ class ProfileProvider extends ChangeNotifier {
 
   Future fetchProfile() async {
     _profileLoading = true;
+    _profileDetails = PatientProfile();
     String? refreshToken = authProvider.allLoginDetails.refresh;
 
     return await Api.profile().then((response) async {

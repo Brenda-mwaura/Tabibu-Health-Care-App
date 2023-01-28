@@ -284,6 +284,8 @@ class ClinicProvider extends ChangeNotifier {
     return Api.clinics().then((response) async {
       var payload = jsonDecode(response.body);
 
+      print("Hello...");
+
       if (response.statusCode == 200) {
         for (var clinic in payload) {
           double clinicLat = clinic["latitude"];

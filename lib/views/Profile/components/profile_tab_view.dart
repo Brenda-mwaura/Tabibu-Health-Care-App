@@ -45,7 +45,7 @@ class _ProfileTabViewState extends State<ProfileTabView> {
             child: Consumer<ProfileProvider>(
               builder: (context, value, child) {
                 if (value.profileLoading == true) {
-                  return AppSpinner();
+                  return const Center(child: AppSpinner());
                 } else {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.start,

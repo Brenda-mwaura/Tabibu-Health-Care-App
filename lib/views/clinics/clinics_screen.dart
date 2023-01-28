@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/data_search.dart';
 import 'package:tabibu/providers/clinic_provider.dart';
+import 'package:tabibu/views/Profile/profile_screen.dart';
 import 'package:tabibu/views/clinics/clinic_details.dart';
 import 'package:tabibu/views/home/components/home_list_view.dart';
 import 'package:tabibu/widgets/app_drawer.dart';
@@ -125,7 +126,14 @@ class _ClinicScreenState extends State<ClinicScreen> {
                                   color: Styles.primaryColor,
                                 ),
                                 onPressed: () {
-                                  print("your menu action here");
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ProfileScreen(
+                                        initialPageIndex: 2,
+                                      ),
+                                    ),
+                                  );
                                 },
                               ),
                             ],
@@ -146,7 +154,9 @@ class _ClinicScreenState extends State<ClinicScreen> {
                   child: Consumer<ClinicProvider>(
                     builder: (context, value, child) {
                       if (value.clinicsLoading == true) {
-                        return AppSpinner();
+                        return const Center(
+                          child: AppSpinner(),
+                        );
                       } else {
                         return RefreshIndicator(
                           onRefresh: _refresh,

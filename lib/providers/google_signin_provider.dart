@@ -50,6 +50,7 @@ class GoogleSignInProvider extends ChangeNotifier {
 
   Future googleLogin() async {
     _loadingLogin = true;
+    print("Try.....");
     final googleUser = await _googleSignIn.signIn();
     print("Google User:: $googleUser");
     if (googleUser != null) {

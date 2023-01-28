@@ -113,7 +113,7 @@ class _ProfileEditTabViewState extends State<ProfileEditTabView> {
           child: Consumer<ProfileProvider>(
             builder: (context, value, child) {
               if (value.profileUpdateLoading == true) {
-                return AppSpinner();
+                return const Center(child: AppSpinner());
               } else {
                 return Container(
                   margin: const EdgeInsets.only(top: 3),

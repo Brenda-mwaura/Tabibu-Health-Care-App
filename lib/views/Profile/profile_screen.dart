@@ -7,7 +7,8 @@ import 'package:tabibu/views/Profile/components/profile_tab_view.dart';
 import 'package:tabibu/widgets/app_drawer.dart';
 
 class ProfileScreen extends StatefulWidget {
-  ProfileScreen({Key? key}) : super(key: key);
+  final int initialPageIndex;
+  ProfileScreen({Key? key, this.initialPageIndex = 0}) : super(key: key);
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -16,13 +17,17 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen>
     with SingleTickerProviderStateMixin {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  int index = 0;
+  int index = 1;
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(
+      length: 3,
+      vsync: this,
+      initialIndex: widget.initialPageIndex,
+    );
     _tabController.addListener(() {
       setState(() {
         index = _tabController.index;
