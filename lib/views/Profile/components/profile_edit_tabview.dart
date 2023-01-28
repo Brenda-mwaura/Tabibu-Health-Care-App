@@ -37,7 +37,7 @@ class _ProfileEditTabViewState extends State<ProfileEditTabView> {
     final DateTime? selected = await showDatePicker(
       context: context,
       initialDate: initDate,
-      firstDate: DateTime(2015, 8),
+      firstDate: DateTime(1900, 8),
       lastDate: DateTime(2101),
     );
     if (selected != null) {
@@ -74,6 +74,14 @@ class _ProfileEditTabViewState extends State<ProfileEditTabView> {
           .then((value) async {
         if (value != null) {
           await _refresh();
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProfileScreen(
+                initialPageIndex: 0,
+              ),
+            ),
+          );
         }
       });
     }
