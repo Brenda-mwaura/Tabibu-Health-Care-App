@@ -325,7 +325,9 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              ClinicReviewsScreen(),
+                                              ClinicReviewsScreen(
+                                            clinic: widget.clinic,
+                                          ),
                                         ),
                                       );
                                     },

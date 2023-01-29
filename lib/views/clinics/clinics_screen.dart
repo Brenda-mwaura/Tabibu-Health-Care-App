@@ -8,6 +8,7 @@ import 'package:tabibu/views/clinics/clinic_details.dart';
 import 'package:tabibu/views/home/components/home_list_view.dart';
 import 'package:tabibu/widgets/app_drawer.dart';
 import 'package:tabibu/widgets/spinner.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ClinicScreen extends StatefulWidget {
   ClinicScreen({Key? key}) : super(key: key);
@@ -163,41 +164,53 @@ class _ClinicScreenState extends State<ClinicScreen> {
                           child: Scrollable(
                             viewportBuilder: (context, position) {
                               return SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    ListView.builder(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemCount: value.clinics.length,
-                                      itemBuilder: (context, index) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ClinicDetailsScreen(
-                                                  clinic: value.clinics[index],
+                                child: value.clinics.isEmpty
+                                    ? Container(
+                                        margin: const EdgeInsets.only(top: 20),
+                                        height: 250,
+                                        child: SvgPicture.asset(
+                                          "assets/images/no_clinics.svg",
+                                          fit: BoxFit.contain,
+                                        ),
+                                      )
+                                    : Column(
+                                        children: [
+                                          ListView.builder(
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemCount: value.clinics.length,
+                                            itemBuilder: (context, index) {
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ClinicDetailsScreen(
+                                                        clinic: value
+                                                            .clinics[index],
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                                child: HomePageListView(
+                                                  clinicName: value
+                                                      .clinics[index]
+                                                      .clinicName,
+                                                  clinicAddress: value
+                                                      .clinics[index].address,
+                                                  clinicRating: value
+                                                      .clinics[index].rating,
+                                                  clinicImage: value
+                                                      .clinics[index]
+                                                      .displayImage,
                                                 ),
-                                              ),
-                                            );
-                                          },
-                                          child: HomePageListView(
-                                            clinicName:
-                                                value.clinics[index].clinicName,
-                                            clinicAddress:
-                                                value.clinics[index].address,
-                                            clinicRating:
-                                                value.clinics[index].rating,
-                                            clinicImage: value
-                                                .clinics[index].displayImage,
-                                          ),
-                                        );
-                                      },
-                                    )
-                                  ],
-                                ),
+                                              );
+                                            },
+                                          )
+                                        ],
+                                      ),
                               );
                             },
                           ),

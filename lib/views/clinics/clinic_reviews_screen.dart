@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/data_search.dart';
+import 'package:tabibu/data/models/clinic_model.dart';
+import 'package:tabibu/providers/clinic_provider.dart';
 import 'package:tabibu/views/Profile/profile_screen.dart';
 import 'package:tabibu/widgets/app_drawer.dart';
 import 'package:tabibu/widgets/clinics_widget/reviews2_container.dart';
 import 'package:tabibu/widgets/clinics_widget/reviews_container.dart';
+import 'package:tabibu/widgets/spinner.dart';
 
 class ClinicReviewsScreen extends StatefulWidget {
-  ClinicReviewsScreen({Key? key}) : super(key: key);
+  final Clinic clinic;
+  ClinicReviewsScreen({Key? key, required this.clinic}) : super(key: key);
 
   @override
   State<ClinicReviewsScreen> createState() => _ClinicReviewsScreenState();
@@ -16,22 +21,17 @@ class ClinicReviewsScreen extends StatefulWidget {
 class _ClinicReviewsScreenState extends State<ClinicReviewsScreen>
     with SingleTickerProviderStateMixin {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  int index = 0;
-  late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 6, vsync: this);
-    _tabController.addListener(() {
-      setState(() {
-        index = _tabController.index;
-        print(_tabController.index);
-      });
-    });
+    _refresh();
   }
 
-  Future<void> _refresh() async {}
+  Future<void> _refresh() async {
+    var clinicProvider = Provider.of<ClinicProvider>(context, listen: false);
+    await clinicProvider.getClinicReviews(widget.clinic.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,7 @@ class _ClinicReviewsScreenState extends State<ClinicReviewsScreen>
                       ),
                       child: Center(
                         child: Text(
-                          "Equity Afya Mombasa",
+                          widget.clinic.clinicName.toString(),
                           style: Styles.heading2(context),
                         ),
                       ),
@@ -154,31 +154,45 @@ class _ClinicReviewsScreenState extends State<ClinicReviewsScreen>
               ),
               //
               Expanded(
-                child: Container(
-                  margin: const EdgeInsets.only(
-                    left: 10,
-                    right: 10,
+                child: RefreshIndicator(
+                  onRefresh: _refresh,
+                  child: Container(
+                    margin: const EdgeInsets.only(
+                      left: 10,
+                      right: 10,
+                    ),
+                    child: Scrollable(
+                      viewportBuilder: (context, position) {
+                        return SingleChildScrollView(
+                            child: Consumer<ClinicProvider>(
+                          builder: (context, value, child) {
+                            if (value.clinicReviewsLoading == true) {
+                              return const Center(
+                                child: AppSpinner(),
+                              );
+                            } else {
+                              return Column(
+                                children: [
+                                  const SizedBox(height: 10),
+                                  ListView.builder(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: value.allClinicReviews.length,
+                                    itemBuilder: (context, index) {
+                                      return Reviews2Container(
+                                        review: value.allClinicReviews[index],
+                                      );
+                                    },
+                                  )
+                                ],
+                              );
+                            }
+                          },
+                        ));
+                      },
+                    ),
                   ),
-                  child: Scrollable(viewportBuilder: (context, position) {
-                    return SingleChildScrollView(
-                      child: RefreshIndicator(
-                        onRefresh: _refresh,
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 10),
-                            ListView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: 20,
-                              itemBuilder: (context, index) {
-                                return Reviews2Container();
-                              },
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
                 ),
               ),
             ],

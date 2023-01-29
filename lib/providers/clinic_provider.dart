@@ -146,9 +146,13 @@ class ClinicProvider extends ChangeNotifier {
   List<ClinicReview> _clinicReview = [];
   List<ClinicReview> get clinicReview => _clinicReview;
 
+  List<ClinicReview> _allClinicReviews = [];
+  List<ClinicReview> get allClinicReviews => _allClinicReviews;
+
   Future getClinicReviews(int? clinicID) {
     _clinicReviewsLoading = true;
     _clinicReview = [];
+    _allClinicReviews = [];
     String? refreshToken = authProvider.allLoginDetails.refresh;
 
     return Api.clinicReview().then((response) async {
@@ -157,13 +161,13 @@ class ClinicProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         for (var review in payload) {
           if (review['clinic'] == clinicID) {
-            _clinicReview.add(ClinicReview.fromJson(review));
+            _allClinicReviews.add(ClinicReview.fromJson(review));
           }
         }
-        _numOfClinicReviews = _clinicReview.length;
+        _numOfClinicReviews = _allClinicReviews.length;
 
-        if (_clinicReview.length > 6) {
-          _clinicReview = _clinicReview.sublist(0, 6);
+        if (_allClinicReviews.length > 6) {
+          _clinicReview = _allClinicReviews.sublist(0, 6);
         }
 
         notifyListeners();

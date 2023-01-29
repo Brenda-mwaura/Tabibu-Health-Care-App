@@ -213,12 +213,10 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                       color: Colors.grey.withOpacity(0.5),
                                       width: 1.0),
                                   color: Colors.white),
-                              //implement tab bar
                               child: Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: TabBar(
                                   controller: _tabController,
-                                  // indicatorColor: Styles.primaryColor,
                                   indicator: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8.0),
                                     color: Styles.primaryColor,
