@@ -31,7 +31,7 @@ class ClinicProvider extends ChangeNotifier {
         for (var clinic in payload) {
           _clinics.add(Clinic.fromJson(clinic));
         }
-        print("clinic 1 fetched successfully ${_clinics[0].clinicName}");
+
         notifyListeners();
         _clinicsLoading = false;
       } else if (response.statusCode == 401) {
@@ -283,8 +283,6 @@ class ClinicProvider extends ChangeNotifier {
 
     return Api.clinics().then((response) async {
       var payload = jsonDecode(response.body);
-
-      print("Hello...");
 
       if (response.statusCode == 200) {
         for (var clinic in payload) {

@@ -33,18 +33,18 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _refresh() async {
-    var locationService =
-        Provider.of<GeolocationProvider>(context, listen: false);
-    await locationService.getLocation();
     var profileProvider = Provider.of<ProfileProvider>(context, listen: false);
     await profileProvider.fetchProfile();
     var appointmentProvider =
         Provider.of<AppointmentProvider>(context, listen: false);
     await appointmentProvider.fetchUpcomingAppointment();
-
     var clinicProvider = Provider.of<ClinicProvider>(context, listen: false);
     await clinicProvider.fetchClinics();
     await clinicProvider.getClinicServices();
+
+    var locationService =
+        Provider.of<GeolocationProvider>(context, listen: false);
+    await locationService.getLocation();
   }
 
   // Dispose
@@ -148,16 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Icons.notifications,
                                   color: Styles.primaryColor,
                                 ),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ProfileScreen(
-                                        initialPageIndex: 2,
-                                      ),
-                                    ),
-                                  );
-                                },
+                                onPressed: () {},
                               ),
                             ],
                           ),
