@@ -9,6 +9,7 @@ import 'package:tabibu/data/models/clinic_model.dart';
 import 'package:tabibu/providers/appointment_provider.dart';
 import 'package:tabibu/providers/clinic_provider.dart';
 import 'package:tabibu/providers/profile_provider.dart';
+import 'package:tabibu/services/validators.dart';
 import 'package:tabibu/views/appointment/components/cancelled_appointment_tabview.dart';
 import 'package:tabibu/views/appointment/components/completed_appointment_tabview.dart';
 import 'package:tabibu/views/appointment/components/upcoming_appointment_tabview.dart';
@@ -78,15 +79,17 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
             currentSelectedValue = "";
             _appointmentFeeController.clear();
             _patientAppointmentDescriptionController.clear();
-            _appointmentDateTextController.clear();
-            _appointmentTimeTextController.clear();
+            _appointmentDateTextController.text =
+                DateFormat('dd-MM-yyyy').format(DateTime.now());
+            _appointmentTimeTextController.text =
+                DateFormat('jm').format(DateTime.now());
           }
         });
       } else {
         Fluttertoast.showToast(
           msg: "Please select a medical service",
           toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
+          gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 4,
           backgroundColor: Styles.primaryColor,
           textColor: Colors.white,
@@ -531,7 +534,7 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                             ],
                                           ),
                                         ),
-                                        SizedBox(width: 4),
+                                        const SizedBox(width: 4),
                                         Expanded(
                                           child: Column(
                                             children: [
@@ -594,7 +597,6 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                                       context);
                                                 },
                                                 validator: (value) {
-                                                  //validate to prevent empty field
                                                   if (value!.isEmpty) {
                                                     return "Please select time";
                                                   }
@@ -647,6 +649,15 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                     TextFormField(
                                       controller: _paymentPhoneNumberController,
                                       onChanged: (value) {},
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "Please enter phone number";
+                                        }
+                                        if (!RegExp(r"^[+0-9]*$")
+                                            .hasMatch(value)) {
+                                          return "Please enter valid phone number";
+                                        }
+                                      },
                                       decoration: InputDecoration(
                                         border: OutlineInputBorder(
                                           borderRadius:

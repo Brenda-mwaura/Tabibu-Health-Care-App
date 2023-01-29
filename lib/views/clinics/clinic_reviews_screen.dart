@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/data_search.dart';
@@ -171,22 +172,33 @@ class _ClinicReviewsScreenState extends State<ClinicReviewsScreen>
                                 child: AppSpinner(),
                               );
                             } else {
-                              return Column(
-                                children: [
-                                  const SizedBox(height: 10),
-                                  ListView.builder(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: value.allClinicReviews.length,
-                                    itemBuilder: (context, index) {
-                                      return Reviews2Container(
-                                        review: value.allClinicReviews[index],
-                                      );
-                                    },
-                                  )
-                                ],
-                              );
+                              return value.allClinicReviews.isEmpty
+                                  ? Container(
+                                      margin: const EdgeInsets.only(top: 20),
+                                      height: 200,
+                                      child: SvgPicture.asset(
+                                        "assets/images/reviews.svg",
+                                        fit: BoxFit.contain,
+                                      ),
+                                    )
+                                  : Column(
+                                      children: [
+                                        const SizedBox(height: 10),
+                                        ListView.builder(
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemCount:
+                                              value.allClinicReviews.length,
+                                          itemBuilder: (context, index) {
+                                            return Reviews2Container(
+                                              review:
+                                                  value.allClinicReviews[index],
+                                            );
+                                          },
+                                        )
+                                      ],
+                                    );
                             }
                           },
                         ));

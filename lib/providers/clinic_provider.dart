@@ -162,11 +162,12 @@ class ClinicProvider extends ChangeNotifier {
         for (var review in payload) {
           if (review['clinic'] == clinicID) {
             _allClinicReviews.add(ClinicReview.fromJson(review));
+            _clinicReview.add(ClinicReview.fromJson(review));
           }
         }
         _numOfClinicReviews = _allClinicReviews.length;
 
-        if (_allClinicReviews.length > 6) {
+        if (_clinicReview.length > 6) {
           _clinicReview = _allClinicReviews.sublist(0, 6);
         }
 
