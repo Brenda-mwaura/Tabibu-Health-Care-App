@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 import 'package:tabibu/api/api.dart';
 import 'package:tabibu/data/models/clinic_album_model.dart';
 import 'package:tabibu/data/models/clinic_doctor_model.dart';
+import 'package:tabibu/data/models/clinic_medical_service.dart';
 import 'package:tabibu/data/models/clinic_medical_services_model.dart';
 import 'package:tabibu/data/models/clinic_model.dart';
 import 'package:tabibu/data/models/clinic_review_model.dart';
@@ -103,47 +104,75 @@ class ClinicProvider extends ChangeNotifier {
     });
   }
 
-  // Clinic Medical Service
-  ClinicMedicalServices _clinicMedicalServices= ClinicMedicalServices();
-  ClinicMedicalServices get clinicMecialServices=> _clinicMedicalServices;
+  // Clinic Medical Service(Many to Many)
+  ClinicMedicalServices _clinicMedicalServices = ClinicMedicalServices();
+  ClinicMedicalServices get clinicMecialServices => _clinicMedicalServices;
 
-  bool _medicalServicesLoading=false;
-  bool get medicalServicesLoading=> _medicalServicesLoading;
+  bool _medicalServicesLoading = false;
+  bool get medicalServicesLoading => _medicalServicesLoading;
 
-  Future getClinicMedicalServices(int? clinicId ) async{
-    _medicalServicesLoading=true;
+  Future getClinicMedicalServices(int? clinicId) async {
+    _medicalServicesLoading = true;
     _clinicMedicalServices = ClinicMedicalServices();
 
     String? refreshToken = authProvider.allLoginDetails.refresh;
 
-    return Api.clinicMedicalServices().then((response) async{
-      var payload= json.decode(response.body);
+    return Api.clinicMedicalServices().then((response) async {
+      var payload = json.decode(response.body);
 
-      if(response.statusCode==200){
+      if (response.statusCode == 200) {
         //iterate and filter the clinic
-        for(var clinic in payload){
-          if(clinic["clinic"]==clinicId){
-            _clinicMedicalServices= ClinicMedicalServices.fromJson(clinic);
+        for (var clinic in payload) {
+          if (clinic["clinic"] == clinicId) {
+            _clinicMedicalServices = ClinicMedicalServices.fromJson(clinic);
           }
         }
         print("Clinic:::${_clinicMedicalServices.clinic}");
-          notifyListeners();
-          _medicalServicesLoading=false;
+        notifyListeners();
+        _medicalServicesLoading = false;
+      } else if (response.statusCode == 401) {
+        await authProvider.refreshToken(refreshToken);
+        await getClinicMedicalServices(clinicId);
+      } else {
+        _medicalServicesLoading = false;
       }
-      else if(response.statusCode==401){
-          await authProvider.refreshToken(refreshToken);
-          await getClinicMedicalServices(clinicId);
-
-      }
-      else{
-        _medicalServicesLoading=false;
-      }
-    }).catchError((error){
+    }).catchError((error) {
       print("error occured while fetching clinic medical services $error");
     });
   }
 
+// Clinic Med Services
+  List<ClinicMedicalService> _clinicMedService = [];
+  List<ClinicMedicalService> get clinicMedService => _clinicMedService;
 
+  bool _clinicMedServiceLoading = false;
+  bool get clinicMedServiceLoading => _clinicMedServiceLoading;
+
+  Future getMedService() {
+    _clinicMedServiceLoading = true;
+    _clinicMedService = [];
+
+    String? refreshToken = authProvider.allLoginDetails.refresh;
+
+    return Api.clinicMedicalService().then((response) async {
+      var payload = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        _clinicMedService = ClinicMedicalService.fromJson(payload)
+            as List<ClinicMedicalService>;
+
+        notifyListeners();
+        _clinicMedServiceLoading = false;
+        
+      } else if (response.statusCode == 401) {
+        await authProvider.refreshToken(refreshToken);
+        await getMedService();
+      } else {
+        _clinicMedServiceLoading = false;
+      }
+    }).catchError((error) {
+      print("error occured while fetching clinic medical service $error");
+    });
+  }
 
   bool _clinicAlbumLoading = false;
   bool get clinicAlbumLoading => _clinicAlbumLoading;
