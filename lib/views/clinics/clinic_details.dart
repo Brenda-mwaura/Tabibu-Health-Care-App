@@ -166,8 +166,9 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
     _paymentPhoneNumberController.text =
         profileProvider.profileDetails.user!.phone.toString();
 
-    clinicProvider.getClinicMedicalServices(int.parse(widget.clinic.id.toString()));
-    clinicProvider.getMedService();
+    clinicProvider
+        .getClinicMedicalServices(int.parse(widget.clinic.id.toString()));
+    // clinicProvider.getMedService();
   }
 
   @override
@@ -361,12 +362,23 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                                   state.didChange(value);
                                                 });
                                               },
-                                              items: clinicValue.clinicServices
+                                              items: clinicValue
+                                                  .clinicMedServiceDetailed
                                                   .map((value) {
+                                                final service = clinicValue
+                                                    .clinicServices
+                                                    .where((service) =>
+                                                        service.id == value.id).first;
+
+
+                                                  
+
+                                                // var serviceName=clinicValue.clinicServices.where((service)=>service.id==value.id).toList();
                                                 return DropdownMenuItem<String>(
                                                   value: value.id.toString(),
-                                                  child: Text(value.serviceName
-                                                      .toString()),
+                                                  child: Text(service.serviceName.toString()),
+                                                  // Text(value.service
+                                                  //     .toString()),
                                                 );
                                               }).toList(),
                                             ),
@@ -628,11 +640,12 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                               ),
                                             ),
                                           ),
-                                          Spacer(),
+                                          const Spacer(),
                                           Container(
                                             height: 20,
                                             width: 100,
-                                            margin: EdgeInsets.only(right: 10),
+                                            margin: const EdgeInsets.only(
+                                                right: 10),
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(10),

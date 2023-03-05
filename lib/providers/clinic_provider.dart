@@ -106,7 +106,11 @@ class ClinicProvider extends ChangeNotifier {
 
   // Clinic Medical Service(Many to Many)
   ClinicMedicalServices _clinicMedicalServices = ClinicMedicalServices();
-  ClinicMedicalServices get clinicMecialServices => _clinicMedicalServices;
+  ClinicMedicalServices get clinicMedicalServices => _clinicMedicalServices;
+
+  List<ClinicMedicalService> _clinicMedServiceDetailed = [];
+  List<ClinicMedicalService> get clinicMedServiceDetailed =>
+      _clinicMedServiceDetailed;
 
   bool _medicalServicesLoading = false;
   bool get medicalServicesLoading => _medicalServicesLoading;
@@ -114,19 +118,44 @@ class ClinicProvider extends ChangeNotifier {
   Future getClinicMedicalServices(int? clinicId) async {
     _medicalServicesLoading = true;
     _clinicMedicalServices = ClinicMedicalServices();
+    _clinicMedServiceDetailed=[];
 
     String? refreshToken = authProvider.allLoginDetails.refresh;
 
+    // Fetch all the medical services first
+    await getMedService();
+
     return Api.clinicMedicalServices().then((response) async {
       var payload = json.decode(response.body);
+      
 
       if (response.statusCode == 200) {
         //iterate and filter the clinic
         for (var clinic in payload) {
           if (clinic["clinic"] == clinicId) {
             _clinicMedicalServices = ClinicMedicalServices.fromJson(clinic);
+            // Fetch the medical service object using its ID and add it to the clinic medical services list
+            List serviceId = clinic["services"];
+           Api.clinicMedicalService().then((res){
+            var payld= jsonDecode(res.body);
+            print(payld);
+
+              List<ClinicMedicalService> filteredServices = [];
+              for (var id in serviceId) {
+                for(var service in payld){
+                  if(id== service["service"]){
+                    filteredServices.add(ClinicMedicalService.fromJson(service));
+                  }
+                }
+              }
+              _clinicMedServiceDetailed=filteredServices;
+              print("Service name::: ${_clinicMedServiceDetailed[0].service}");
+            });
           }
         }
+
+        
+
         notifyListeners();
         _medicalServicesLoading = false;
       } else if (response.statusCode == 401) {
@@ -135,9 +164,10 @@ class ClinicProvider extends ChangeNotifier {
       } else {
         _medicalServicesLoading = false;
       }
-    }).catchError((error) {
-      print("error occured while fetching clinic medical services $error");
     });
+    // .catchError((error) {
+    //   print("error occured while fetching clinic medical services $error");
+    // });
   }
 
 // Clinic Med Services
@@ -156,12 +186,11 @@ class ClinicProvider extends ChangeNotifier {
     return Api.clinicMedicalService().then((response) async {
       var payload = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        for(var service in payload){
+        for (var service in payload) {
           _clinicMedService.add(ClinicMedicalService.fromJson(service));
         }
         notifyListeners();
         _clinicMedServiceLoading = false;
-
       } else if (response.statusCode == 401) {
         await authProvider.refreshToken(refreshToken);
         await getMedService();

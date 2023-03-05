@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/src/material/dropdown.dart';
+
 List<ClinicMedicalServices> clinicMedicalServicesFromJson(String str) => List<ClinicMedicalServices>.from(json.decode(str).map((x) => ClinicMedicalServices.fromJson(x)));
 
 String clinicMedicalServicesToJson(List<ClinicMedicalServices> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
@@ -30,8 +32,10 @@ class ClinicMedicalServices {
     Map<String, dynamic> toJson() => {
         "id": id,
         "clinic": clinic,
-        "services": List<dynamic>.from(services!.map((x) => x)),
+        "services": List<int>.from(services!.map((x) => x)),
         "created_at": createdAt!.toIso8601String(),
         "updated_at": updatedAt!.toIso8601String(),
     };
+
+  map(DropdownMenuItem<String> Function(dynamic value) param0) {}
 }
