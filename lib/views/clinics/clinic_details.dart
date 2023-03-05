@@ -165,6 +165,8 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
     await profileProvider.fetchProfile();
     _paymentPhoneNumberController.text =
         profileProvider.profileDetails.user!.phone.toString();
+
+    clinicProvider.getClinicMedicalServices(int.parse(widget.clinic.id.toString()));
   }
 
   @override

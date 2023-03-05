@@ -384,7 +384,7 @@ class Api {
     String? accessToken= authProvider.allLoginDetails.access;
 
     var response= await client2.get(
-      Uri.parse("${baseUrl}/api/v1/clinic/services/"),
+      Uri.parse("${baseUrl}clinic/services/"),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.authorizationHeader: 'Bearer $accessToken',
@@ -398,7 +398,7 @@ class Api {
     String? accessToken=authProvider.allLoginDetails.access;
   
   var response= await client2.get(
-     Uri.parse("${baseUrl}/api/v1/clinic/service/"),
+     Uri.parse("${baseUrl}clinic/service/"),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.authorizationHeader: 'Bearer $accessToken',
