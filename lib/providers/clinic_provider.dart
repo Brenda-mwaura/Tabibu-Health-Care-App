@@ -127,7 +127,6 @@ class ClinicProvider extends ChangeNotifier {
             _clinicMedicalServices = ClinicMedicalServices.fromJson(clinic);
           }
         }
-        print("Clinic:::${_clinicMedicalServices.clinic}");
         notifyListeners();
         _medicalServicesLoading = false;
       } else if (response.statusCode == 401) {
@@ -157,12 +156,12 @@ class ClinicProvider extends ChangeNotifier {
     return Api.clinicMedicalService().then((response) async {
       var payload = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        _clinicMedService = ClinicMedicalService.fromJson(payload)
-            as List<ClinicMedicalService>;
-
+        for(var service in payload){
+          _clinicMedService.add(ClinicMedicalService.fromJson(service));
+        }
         notifyListeners();
         _clinicMedServiceLoading = false;
-        
+
       } else if (response.statusCode == 401) {
         await authProvider.refreshToken(refreshToken);
         await getMedService();

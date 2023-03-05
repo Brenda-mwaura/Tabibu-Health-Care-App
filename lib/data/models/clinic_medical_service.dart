@@ -19,7 +19,7 @@ class ClinicMedicalService {
     int? id;
     int? clinic;
     int? service;
-    int? price;
+    double? price;
     bool? available;
     DateTime? createdAt;
     DateTime? updatedAt;

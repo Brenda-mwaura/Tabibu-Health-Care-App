@@ -167,6 +167,7 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
         profileProvider.profileDetails.user!.phone.toString();
 
     clinicProvider.getClinicMedicalServices(int.parse(widget.clinic.id.toString()));
+    clinicProvider.getMedService();
   }
 
   @override
