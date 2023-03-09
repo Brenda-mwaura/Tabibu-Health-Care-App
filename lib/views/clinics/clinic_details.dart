@@ -348,14 +348,15 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                                         context,
                                                         listen: false);
                                                 await clinicProvider
-                                                    .getClinicServiceDetails(
+                                                    .getMedicalServiceDetails(
                                                         int.parse(
                                                             value.toString()));
                                                 setState(() {
                                                   _appointmentFeeController
                                                           .text =
                                                       clinicValue
-                                                          .serviceDetails.price
+                                                          .clinicMedicalServiceDetails
+                                                          .price
                                                           .toString();
                                                   _currentSelectedValue =
                                                       value.toString();
@@ -368,15 +369,15 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                                 final service = clinicValue
                                                     .clinicServices
                                                     .where((service) =>
-                                                        service.id == value.id).first;
-
-
-                                                  
+                                                        service.id == value.id)
+                                                    .first;
 
                                                 // var serviceName=clinicValue.clinicServices.where((service)=>service.id==value.id).toList();
                                                 return DropdownMenuItem<String>(
                                                   value: value.id.toString(),
-                                                  child: Text(service.serviceName.toString()),
+                                                  child: Text(service
+                                                      .serviceName
+                                                      .toString()),
                                                   // Text(value.service
                                                   //     .toString()),
                                                 );

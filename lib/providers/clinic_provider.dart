@@ -16,6 +16,8 @@ import 'package:tabibu/providers/auth_provider.dart';
 import 'package:http/http.dart' as http;
 
 class ClinicProvider extends ChangeNotifier {
+
+  // ----------------All Verified Clinics----------------
   bool _clinicsLoading = false;
   bool get clinicsLoading => _clinicsLoading;
 
@@ -48,6 +50,8 @@ class ClinicProvider extends ChangeNotifier {
     });
   }
 
+  // ---------------All Medical Services----------------
+
   List<ClinicServices> _clinicServices = [];
   List<ClinicServices> get clinicServices => _clinicServices;
 
@@ -79,6 +83,7 @@ class ClinicProvider extends ChangeNotifier {
     });
   }
 
+// ------------------Medical Services Details-----------
   ClinicServices _serviceDetails = ClinicServices();
   ClinicServices get serviceDetails => _serviceDetails;
 
@@ -104,7 +109,7 @@ class ClinicProvider extends ChangeNotifier {
     });
   }
 
-  // Clinics With there Medical Services(Many to Many)
+  //--------- Clinics With there Medical Services(Many to Many)--------
   ClinicMedicalServices _clinicMedicalServices = ClinicMedicalServices();
   ClinicMedicalServices get clinicMedicalServices => _clinicMedicalServices;
 
@@ -166,7 +171,7 @@ class ClinicProvider extends ChangeNotifier {
     });
   }
 
-// Medical Services For a particular clinic
+// -----------------------Medical Services For a particular clinic-------------------------
   List<ClinicMedicalService> _clinicMedService = [];
   List<ClinicMedicalService> get clinicMedService => _clinicMedService;
 
@@ -198,7 +203,7 @@ class ClinicProvider extends ChangeNotifier {
     });
   }
 
-  //  Clinic Medical Service Details
+  //  -----------------------Clinic Medical Service Details--------------------
 
   ClinicMedicalService _clinicMedicalServiceDetails=ClinicMedicalService();
   ClinicMedicalService get clinicMedicalServiceDetails => _clinicMedicalServiceDetails;
@@ -230,6 +235,7 @@ class ClinicProvider extends ChangeNotifier {
     });
   }
 
+// ---------------------------Clinic Photo Albums-------------
   bool _clinicAlbumLoading = false;
   bool get clinicAlbumLoading => _clinicAlbumLoading;
 
@@ -265,6 +271,8 @@ class ClinicProvider extends ChangeNotifier {
     });
   }
 
+
+// -----------------------Clinic Reviews------------------
   bool _clinicReviewsLoading = false;
   bool get clinicReviewsLoading => _clinicReviewsLoading;
 
