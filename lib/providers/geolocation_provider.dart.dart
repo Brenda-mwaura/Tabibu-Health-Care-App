@@ -1,12 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:location/location.dart' as location_package;
 import 'package:tabibu/providers/clinic_provider.dart';
+
+import '../configs/styles.dart';
 
 class GeolocationProvider with ChangeNotifier {
   double _longitude = 0.0;
@@ -21,17 +25,24 @@ class GeolocationProvider with ChangeNotifier {
   bool get onGeolocationLoading => _onGeolocationLoading;
   bool get onGeolocationError => _onGeolocationError;
 
+  void _locationPermissionToast() {
+    Fluttertoast.showToast(
+      msg:
+          "We're sorry, but we're unable to access your location as the app's location permission has been denied. Please allow location permission for our app in your device's settings to use this feature.",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 4,
+      backgroundColor: Styles.primaryColor,
+      textColor: Colors.white,
+      fontSize: 18.0,
+    );
+  }
+
   Future getLocation() async {
     try {
       _onGeolocationLoading = true;
-      bool serviceEnabled;
       LocationPermission permission;
-      serviceEnabled = await Geolocator.isLocationServiceEnabled();
-
-      final LocationSettings locationSettings = LocationSettings(
-        accuracy: LocationAccuracy.high,
-        timeLimit: Duration(seconds: 30),
-      );
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
       if (!serviceEnabled) {
         await Geolocator.openLocationSettings();
@@ -39,9 +50,11 @@ class GeolocationProvider with ChangeNotifier {
       }
 
       permission = await Geolocator.checkPermission();
-      if (permission == PermissionStatus.denied) {
-        permission = await Geolocator.requestPermission();
-        if (permission == PermissionStatus.denied) {
+      if (permission == LocationPermission.denied) {
+        permission=await Geolocator.requestPermission();
+        _locationPermissionToast();
+        if (permission == LocationPermission.denied ||
+            permission == LocationPermission.deniedForever) {
           return Future.error("Location permissions are denied");
         }
       }
@@ -62,21 +75,9 @@ class GeolocationProvider with ChangeNotifier {
         await getAddressFromLatLng(_latitude, _longitude);
         await clinicProvider.fetchNearestClinics(_latitude, _longitude);
       });
-      // .getPositionStream(locationSettings: locationSettings).
-      //     .listen((
-      //   Position position,
-      // ) async {
-      //   print(position == null
-      //       ? 'Unknown'
-      //       : 'Lat: ${position.latitude}, Long: ${position.longitude}');
-      //   _latitude = position.latitude;
-      //   _longitude = position.longitude;
-      //   await getAddressFromLatLng(_latitude, _longitude);
-      //   await clinicProvider.fetchNearestClinics(_latitude, _longitude);
-      // });
-
-      _onGeolocationLoading = false;
+   
       notifyListeners();
+      _onGeolocationLoading = false;
     } catch (e) {
       _onGeolocationError = false;
     }

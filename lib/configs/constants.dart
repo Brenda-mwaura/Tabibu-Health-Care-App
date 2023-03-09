@@ -7,5 +7,5 @@ defaultPadding(BuildContext context) {
       (Responsive.isTablet(context) ? 3 : (Responsive.isTall(context) ? 4 : 3));
 }
 
-double defaultRadius1 = 11;
+double defaultRadius = 11;
 const defaultDuration = Duration(seconds: 1);

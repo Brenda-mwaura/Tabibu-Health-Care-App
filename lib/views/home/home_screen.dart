@@ -162,173 +162,184 @@ class _HomeScreenState extends State<HomeScreen> {
                 builder: (context, geolocatorValue, child) {
                   return Consumer<ClinicProvider>(
                     builder: (context, value, child) {
-                      if (geolocatorValue.onGeolocationLoading == true ||
-                          value.nearestClinicsLoading == true) {
-                        return const Center(
-                          child: AppSpinner(),
-                        );
-                      } else {
+                    
                         return Expanded(
-                          child: Container(
-                            margin: const EdgeInsets.only(
-                              left: 15.0,
-                              right: 15.0,
-                            ),
-                            child: RefreshIndicator(
-                              onRefresh: _refresh,
-                              child: Scrollable(
-                                viewportBuilder: (context, position) {
-                                  return SingleChildScrollView(
-                                    child: value.suggestedClinic.id == null &&
-                                            value.nearestClinics.isEmpty
-                                        ? Container(
-                                            margin:
-                                                const EdgeInsets.only(top: 20),
-                                            height: 250,
-                                            child: SvgPicture.asset(
-                                              "assets/images/no_clinic.svg",
-                                              fit: BoxFit.contain,
-                                            ),
-                                          )
-                                        : Column(
-                                            children: [
-                                              const Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                  "Nearby clinic",
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 18.0,
-                                                    fontWeight: FontWeight.w700,
+                          child: geolocatorValue.onGeolocationLoading == true ||
+                                  value.nearestClinicsLoading == true
+                              ? const Center(
+                                  child: AppSpinner(),
+                                )
+                              : Container(
+                                  margin: const EdgeInsets.only(
+                                    left: 15.0,
+                                    right: 15.0,
+                                  ),
+                                  child: RefreshIndicator(
+                                    onRefresh: _refresh,
+                                    child: Scrollable(
+                                      viewportBuilder: (context, position) {
+                                        return SingleChildScrollView(
+                                          child: value.suggestedClinic.id ==
+                                                      null &&
+                                                  value.nearestClinics.isEmpty
+                                              ? Container(
+                                                  margin: const EdgeInsets.only(
+                                                      top: 20),
+                                                  height: 250,
+                                                  child: SvgPicture.asset(
+                                                    "assets/images/no_clinic.svg",
+                                                    fit: BoxFit.contain,
                                                   ),
-                                                ),
-                                              ),
-                                              const SizedBox(height: 10),
-                                              value.suggestedClinic.id != null
-                                                  ? GestureDetector(
-                                                      onTap: () {
-                                                        Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                ClinicDetailsScreen(
-                                                              clinic: value
-                                                                  .suggestedClinic,
+                                                )
+                                              : Column(
+                                                  children: [
+                                                    const Align(
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: Text(
+                                                        "Nearby clinic",
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 18.0,
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(height: 10),
+                                                    value.suggestedClinic.id !=
+                                                            null
+                                                        ? GestureDetector(
+                                                            onTap: () {
+                                                              Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          ClinicDetailsScreen(
+                                                                    clinic: value
+                                                                        .suggestedClinic,
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                            child: SuggestedClinic(
+                                                                clinic: value
+                                                                    .suggestedClinic,
+                                                                travelTime: value
+                                                                    .travelTime),
+                                                          )
+                                                        : const SizedBox(),
+                                                    const SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        const Text(
+                                                          "Other nearby facilities",
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 18.0,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                          ),
+                                                        ),
+                                                        const Spacer(),
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pushNamed(
+                                                                    RouteGenerator
+                                                                        .clinicPage);
+                                                          },
+                                                          child: const Text(
+                                                            "See all",
+                                                            style: TextStyle(
+                                                              color: Styles
+                                                                  .primaryColor,
+                                                              fontSize: 18.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
                                                             ),
                                                           ),
-                                                        );
-                                                      },
-                                                      child: SuggestedClinic(
-                                                          clinic: value
-                                                              .suggestedClinic,
-                                                          travelTime:
-                                                              value.travelTime),
-                                                    )
-                                                  : const SizedBox(),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  const Text(
-                                                    "Other nearby facilities",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 18.0,
-                                                      fontWeight:
-                                                          FontWeight.w700,
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ),
-                                                  const Spacer(),
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      Navigator.of(context)
-                                                          .pushNamed(
-                                                              RouteGenerator
-                                                                  .clinicPage);
-                                                    },
-                                                    child: const Text(
-                                                      "See all",
-                                                      style: TextStyle(
-                                                        color:
-                                                            Styles.primaryColor,
-                                                        fontSize: 18.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
+                                                    const SizedBox(
+                                                      height: 10,
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              value.nearestClinics.isEmpty
-                                                  ? Container(
-                                                      margin:
-                                                          const EdgeInsets.only(
-                                                              top: 20),
-                                                      height: 200,
-                                                      child: SvgPicture.asset(
-                                                        "assets/images/no_clinic.svg",
-                                                        fit: BoxFit.contain,
-                                                      ),
-                                                    )
-                                                  : ListView.builder(
-                                                      physics:
-                                                          const NeverScrollableScrollPhysics(),
-                                                      shrinkWrap: true,
-                                                      itemCount: value
-                                                          .nearestClinics
-                                                          .length,
-                                                      itemBuilder:
-                                                          (context, index) {
-                                                        return GestureDetector(
-                                                          onTap: () {
-                                                            Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        ClinicDetailsScreen(
-                                                                  clinic: value
-                                                                          .nearestClinics[
-                                                                      index],
+                                                    value.nearestClinics.isEmpty
+                                                        ? Container(
+                                                            margin:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    top: 20),
+                                                            height: 200,
+                                                            child: SvgPicture
+                                                                .asset(
+                                                              "assets/images/no_clinic.svg",
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                          )
+                                                        : ListView.builder(
+                                                            physics:
+                                                                const NeverScrollableScrollPhysics(),
+                                                            shrinkWrap: true,
+                                                            itemCount: value
+                                                                .nearestClinics
+                                                                .length,
+                                                            itemBuilder:
+                                                                (context,
+                                                                    index) {
+                                                              return GestureDetector(
+                                                                onTap: () {
+                                                                  Navigator
+                                                                      .push(
+                                                                    context,
+                                                                    MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) =>
+                                                                              ClinicDetailsScreen(
+                                                                        clinic:
+                                                                            value.nearestClinics[index],
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                                child:
+                                                                    HomePageListView(
+                                                                  clinicAddress: value
+                                                                      .nearestClinics[
+                                                                          index]
+                                                                      .address,
+                                                                  clinicImage: value
+                                                                      .nearestClinics[
+                                                                          index]
+                                                                      .displayImage,
+                                                                  clinicName: value
+                                                                      .nearestClinics[
+                                                                          index]
+                                                                      .clinicName,
+                                                                  clinicRating: value
+                                                                      .nearestClinics[
+                                                                          index]
+                                                                      .rating,
                                                                 ),
-                                                              ),
-                                                            );
-                                                          },
-                                                          child:
-                                                              HomePageListView(
-                                                            clinicAddress: value
-                                                                .nearestClinics[
-                                                                    index]
-                                                                .address,
-                                                            clinicImage: value
-                                                                .nearestClinics[
-                                                                    index]
-                                                                .displayImage,
-                                                            clinicName: value
-                                                                .nearestClinics[
-                                                                    index]
-                                                                .clinicName,
-                                                            clinicRating: value
-                                                                .nearestClinics[
-                                                                    index]
-                                                                .rating,
-                                                          ),
-                                                        );
-                                                      },
-                                                    )
-                                            ],
-                                          ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
+                                                              );
+                                                            },
+                                                          )
+                                                  ],
+                                                ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
                         );
-                      }
+                      
                     },
                   );
                 },
