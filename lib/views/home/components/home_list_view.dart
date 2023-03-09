@@ -27,7 +27,7 @@ class _HomePageListViewState extends State<HomePageListView> {
   Widget build(BuildContext context) {
     return Container(
       height: 120,
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: Colors.white,

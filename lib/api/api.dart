@@ -408,6 +408,21 @@ class Api {
   return response;
   }
 
+
+  static Future<http.Response> clinicMedicalServiceDetails(int? serviceId) async{
+    String? accessToken= authProvider.allLoginDetails.access;
+
+    var response= await client2.get(
+      Uri.parse("${baseUrl}clinic/service/${serviceId}/"),
+      headers:{
+        HttpHeaders.contentTypeHeader: "application/json",
+        HttpHeaders.authorizationHeader:"Bearer $accessToken"
+      },
+    );
+
+    return response;
+  }
+
   static Future<http.Response> lipaAppointmentNaMpesaOnline(
       String? phoneNumber, int? serviceID, int? clinicID) async {
     String? accessToken = authProvider.allLoginDetails.access;

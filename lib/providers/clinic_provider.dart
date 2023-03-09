@@ -381,7 +381,7 @@ class ClinicProvider extends ChangeNotifier {
   List<Clinic> get nearestClinics => _nearestClinics;
 
   Future fetchNearestClinics(double? lat, double? lng) async {
-    _nearestClinicsLoading = true;
+    _nearestClinicsLoading = false;
     _nearestClinics = [];
 
     String? refreshToken = authProvider.allLoginDetails.refresh;
