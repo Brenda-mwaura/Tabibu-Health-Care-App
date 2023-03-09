@@ -104,7 +104,7 @@ class ClinicProvider extends ChangeNotifier {
     });
   }
 
-  // Clinic Medical Service(Many to Many)
+  // Clinics With there Medical Services(Many to Many)
   ClinicMedicalServices _clinicMedicalServices = ClinicMedicalServices();
   ClinicMedicalServices get clinicMedicalServices => _clinicMedicalServices;
 
@@ -138,7 +138,6 @@ class ClinicProvider extends ChangeNotifier {
             List serviceId = clinic["services"];
            Api.clinicMedicalService().then((res){
             var payld= jsonDecode(res.body);
-            print(payld);
 
               List<ClinicMedicalService> filteredServices = [];
               for (var id in serviceId) {
@@ -149,12 +148,9 @@ class ClinicProvider extends ChangeNotifier {
                 }
               }
               _clinicMedServiceDetailed=filteredServices;
-              print("Service name::: ${_clinicMedServiceDetailed[0].service}");
             });
           }
         }
-
-        
 
         notifyListeners();
         _medicalServicesLoading = false;
@@ -164,13 +160,13 @@ class ClinicProvider extends ChangeNotifier {
       } else {
         _medicalServicesLoading = false;
       }
+    })
+    .catchError((error) {
+      print("error occured while fetching clinic medical services $error");
     });
-    // .catchError((error) {
-    //   print("error occured while fetching clinic medical services $error");
-    // });
   }
 
-// Clinic Med Services
+// Medical Services For a particular clinic
   List<ClinicMedicalService> _clinicMedService = [];
   List<ClinicMedicalService> get clinicMedService => _clinicMedService;
 
@@ -199,6 +195,38 @@ class ClinicProvider extends ChangeNotifier {
       }
     }).catchError((error) {
       print("error occured while fetching clinic medical service $error");
+    });
+  }
+
+  //  Clinic Medical Service Details
+
+  ClinicMedicalService _clinicMedicalServiceDetails=ClinicMedicalService();
+  ClinicMedicalService get clinicMedicalServiceDetails => _clinicMedicalServiceDetails;
+
+  bool _clinicMedicalServiceDetailsLoading=false;
+  bool get clinicMedicalServiceDetailsLoading=> _clinicMedicalServiceDetailsLoading;
+
+  Future getMedicalServiceDetails(int? serviceId) {
+    _clinicMedicalServiceDetailsLoading=true;
+    String? refreshToken = authProvider.allLoginDetails.refresh;
+
+    return Api.clinicMedicalServiceDetails(serviceId).then((response) async{
+      var payload =jsonDecode(response.body);
+
+      if(response.statusCode==200){
+        _clinicMedicalServiceDetails=ClinicMedicalService.fromJson(payload);
+        notifyListeners();
+        _clinicMedicalServiceDetailsLoading=false;
+      }
+      else if(response.statusCode==401){
+        await authProvider.refreshToken(refreshToken);
+        await getMedicalServiceDetails(serviceId);
+      }
+      else{
+        _clinicMedicalServiceDetailsLoading=false;
+      }
+    }).catchError((error){
+      print("error occured while fetching medical service details.");
     });
   }
 
