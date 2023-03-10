@@ -58,7 +58,6 @@ class AppointmentProvider extends ChangeNotifier {
       print("Payload $payload");
 
       if (response.statusCode == 201) {
-        // Appointment appointmentDetails = json.decode(payload);
         notifyListeners();
         _appointmentBookingSuccess();
         _appointmentBookingLoading = false;
@@ -114,7 +113,8 @@ class AppointmentProvider extends ChangeNotifier {
         .then((response) async {
       var payload = await jsonDecode(response.body);
 
-      print("Lipa Appointment ${response.statusCode}");
+    //  .toString()
+    //         .replaceAll(RegExp(r'[^\w\s]+'), ''));
       if (response.statusCode == 201) {
         _lipaNaMpesaSuccessToast();
         notifyListeners();

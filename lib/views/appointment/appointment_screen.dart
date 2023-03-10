@@ -64,6 +64,30 @@ class _AppointmentScreenState extends State<AppointmentScreen>
                         ),
                       ),
                     ),
+
+                    
+                    Positioned(
+                      top: 22,
+                      left: 5,
+                      child: Material(
+                        color: Styles.primaryColor,
+                        child: InkWell(
+                          splashColor: Styles.primaryColor,
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.only(left: 5),
+                            child: Icon(
+                              Icons.arrow_back_ios_new_outlined,
+                              color: Colors.white,
+                              size: 21,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                   
                     Positioned(
                       top: 65.0,
                       left: 0.0,
@@ -112,6 +136,8 @@ class _AppointmentScreenState extends State<AppointmentScreen>
                   ],
                 ),
               ),
+
+              // ====================================================
               //implement tab bar view
               Expanded(
                 child: Container(
