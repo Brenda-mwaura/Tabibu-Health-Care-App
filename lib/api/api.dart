@@ -423,6 +423,8 @@ class Api {
     return response;
   }
 
+
+// -------------------Lipa Appointment na Mpesa-----------------
   static Future<http.Response> lipaAppointmentNaMpesaOnline(
       String? phoneNumber, int? serviceID, int? clinicID) async {
     String? accessToken = authProvider.allLoginDetails.access;

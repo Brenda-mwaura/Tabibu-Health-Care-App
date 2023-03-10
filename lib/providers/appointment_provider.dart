@@ -113,6 +113,8 @@ class AppointmentProvider extends ChangeNotifier {
     return Api.lipaAppointmentNaMpesaOnline(phoneNumber, serviceID, clinicID)
         .then((response) async {
       var payload = await jsonDecode(response.body);
+
+      print("Lipa Appointment ${response.statusCode}");
       if (response.statusCode == 201) {
         _lipaNaMpesaSuccessToast();
         notifyListeners();
@@ -123,7 +125,7 @@ class AppointmentProvider extends ChangeNotifier {
         await authProvider.refreshToken(refreshToken);
         await lipaAppointmentNaMpesaOnline(phoneNumber, serviceID, clinicID);
       } else {
-        _lipaNaMpesaErrorToast(payload.toString());
+        _lipaNaMpesaErrorToast(payload[0]);
         _payAppointmentLoading = false;
       }
     }).catchError((error) {
