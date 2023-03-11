@@ -719,8 +719,7 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                       height: 20,
                                     ),
                                     AuthButton(onPressed: () {
-                                      print(
-                                          "This value.... ${_currentSelectedValue.runtimeType}");
+                                      
                                       _appointmentBookingFnc(
                                           _currentSelectedValue);
                                     }, child: Consumer<AppointmentProvider>(
@@ -755,7 +754,7 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                 "Book Appointment",
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 18.0,
+                  fontSize: 22.0,
                   fontWeight: FontWeight.w500,
                 ),
               ),

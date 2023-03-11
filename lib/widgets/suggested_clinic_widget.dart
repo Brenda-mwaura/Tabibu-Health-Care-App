@@ -57,14 +57,10 @@ class SuggestedClinic extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(
-                        clinic.clinicName.toString(),
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                      Text(clinic.clinicName.toString(),
+                          style: Styles.normal(context,
+                              fontWeight: FontWeight.bold,
+                              fontColor: Colors.black)),
                       // spacer
                       const Spacer(),
                       //5 the star rating
@@ -74,14 +70,10 @@ class SuggestedClinic extends StatelessWidget {
                         size: 20,
                       ),
                       const SizedBox(width: 3),
-                      Text(
-                        clinic.rating.toString(),
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                      Text(clinic.rating!.toStringAsFixed(1),
+                          style: Styles.normal(context,
+                              fontWeight: FontWeight.bold,
+                              fontColor: Colors.black)),
                     ],
                   ),
                   const SizedBox(
@@ -91,11 +83,7 @@ class SuggestedClinic extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       clinic.address.toString(),
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: Styles.custom18(context,fontWeight: FontWeight.w500,fontColor: Colors.grey),
                     ),
                   ),
                   const SizedBox(
@@ -105,11 +93,7 @@ class SuggestedClinic extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "${travelTime.toString()} mins Walk",
-                      style: const TextStyle(
-                        color: Styles.primaryColor,
-                        fontSize: 17.0,
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: Styles.custom18(context,fontWeight: FontWeight.w700,fontColor: Styles.primaryColor),
                     ),
                   )
                 ],

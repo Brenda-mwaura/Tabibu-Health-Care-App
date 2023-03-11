@@ -39,7 +39,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
               decoration: PageDecoration(
                 titleTextStyle: Styles.heading1(context),
-                bodyTextStyle: Styles.bodyText1(context),
+                bodyTextStyle: Styles.custom18(context),
               ),
             ),
             //page 2
@@ -52,7 +52,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
               decoration: PageDecoration(
                 titleTextStyle: Styles.heading1(context),
-                bodyTextStyle: Styles.bodyText1(context),
+                bodyTextStyle: Styles.custom18(context),
               ),
             ),
             //page 3
@@ -65,7 +65,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
               decoration: PageDecoration(
                 titleTextStyle: Styles.heading1(context),
-                bodyTextStyle: Styles.bodyText1(context),
+                bodyTextStyle: Styles.custom18(context),
               ),
             ),
           ],
