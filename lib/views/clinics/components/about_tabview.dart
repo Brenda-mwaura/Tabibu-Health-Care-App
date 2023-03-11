@@ -56,7 +56,10 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                         height: 200,
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                          ),
                           image: DecorationImage(
                             image: NetworkImage(
                               widget.clinic.displayImage.toString(),
