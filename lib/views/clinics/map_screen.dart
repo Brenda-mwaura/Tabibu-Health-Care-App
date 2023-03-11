@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/models/clinic_model.dart';
 import 'package:tabibu/providers/clinic_provider.dart';
 import 'package:tabibu/providers/geolocation_provider.dart.dart';
@@ -94,24 +95,30 @@ class _MapScreenState extends State<MapScreen> {
           child: Consumer<GeolocationProvider>(
             builder: (context, value, child) {
               if (value.onGeolocationLoading == true) {
-                return AppSpinner();
+                return const Center(
+                  child: AppSpinner(),
+                );
               } else if (value.onGeolocationLoading == false) {
-                return GoogleMap(
-                  initialCameraPosition: CameraPosition(
-                      target: _KMapCenter, zoom: 15.0, tilt: 0, bearing: 0),
-                  myLocationEnabled: true,
-                  myLocationButtonEnabled: true,
-                  mapToolbarEnabled: true,
-                  compassEnabled: true,
-                  onMapCreated: (GoogleMapController controller) async {
-                    _controller.complete(controller);
-                    _customInfoWindowController.googleMapController =
-                        controller;
-                  },
-                  markers: createMarker1(),
-                  // _createMarker(),
-                  mapType: MapType.normal,
-                  onTap: (position) {},
+                return Stack(
+                  children: [
+                    GoogleMap(
+                      initialCameraPosition: CameraPosition(
+                          target: _KMapCenter, zoom: 15.0, tilt: 0, bearing: 0),
+                      myLocationEnabled: true,
+                      myLocationButtonEnabled: true,
+                      mapToolbarEnabled: true,
+                      compassEnabled: true,
+                      onMapCreated: (GoogleMapController controller) async {
+                        _controller.complete(controller);
+                        _customInfoWindowController.googleMapController =
+                            controller;
+                      },
+                      markers: createMarker1(),
+                      // _createMarker(),
+                      mapType: MapType.normal,
+                      onTap: (position) {},
+                    )
+                  ],
                 );
               } else {
                 return const Center(

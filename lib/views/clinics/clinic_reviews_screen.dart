@@ -67,6 +67,7 @@ class _ClinicReviewsScreenState extends State<ClinicReviewsScreen>
                         ),
                       ),
                     ),
+                    
                     Positioned(
                       top: 65.0,
                       left: 0.0,

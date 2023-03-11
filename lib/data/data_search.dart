@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tabibu/configs/styles.dart';
+import 'package:tabibu/data/models/clinic_model.dart';
 import 'package:tabibu/providers/clinic_provider.dart';
+import 'package:tabibu/views/clinics/clinic_details.dart';
 
 class DataSearch extends SearchDelegate<String> {
   @override
@@ -40,22 +42,33 @@ class DataSearch extends SearchDelegate<String> {
             .where((element) =>
                 element.clinicName!.toLowerCase().contains(query.toLowerCase()))
             .toList();
-    close(context, query);
+    // close(context, query);
     return Center(
       child: ListView.builder(
         itemCount: suggestionList.length,
         itemBuilder: (context, index) {
+          Clinic clinic = suggestionList[index];
           return ListTile(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ClinicDetailsScreen(
+                    clinic: clinic,
+                  ),
+                ),
+              );
+            },
             leading: Padding(
-              padding: EdgeInsets.symmetric(vertical: 2),
+              padding: const EdgeInsets.symmetric(vertical: 2),
               child: Container(
                 height: 80,
                 width: 60,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  image: const DecorationImage(
-                    image: AssetImage("assets/images/afya.jpeg"),
+                  image: DecorationImage(
+                    image: NetworkImage(clinic.displayImage.toString()),
+                    //AssetImage("assets/images/afya.jpeg"),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -63,7 +76,7 @@ class DataSearch extends SearchDelegate<String> {
             ),
             title: RichText(
               text: TextSpan(
-                text: suggestionList[index].clinicName.toString(),
+                text: clinic.clinicName.toString(),
                 style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w700,
@@ -73,7 +86,7 @@ class DataSearch extends SearchDelegate<String> {
             ),
             subtitle: RichText(
               text: TextSpan(
-                text: suggestionList[index].address.toString(),
+                text: clinic.address.toString(),
                 style: const TextStyle(
                   color: Colors.grey,
                   fontSize: 14,
@@ -89,30 +102,49 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    final suggestionList = query.isEmpty
+        ? clinicProvider.clinics
+        : clinicProvider.clinics
+            .where((element) =>
+                element.clinicName!.toLowerCase().contains(query.toLowerCase()))
+            .toList();
     // categories
     return ListView.builder(
-      itemCount: 6,
+      itemCount: suggestionList.length,
       itemBuilder: (context, index) {
+        Clinic clinic = suggestionList[index];
         return ListTile(
-          onTap: () {},
+          onTap: () {
+             Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ClinicDetailsScreen(
+                    clinic: suggestionList[index],
+                  ),
+                ),
+              );
+          },
           leading: Padding(
-            padding: EdgeInsets.symmetric(vertical: 2),
+            padding: const EdgeInsets.symmetric(vertical: 2),
             child: Container(
-              height: 80,
+              height: 100,
               width: 60,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
-                image: const DecorationImage(
-                  image: AssetImage("assets/images/afya.jpeg"),
+                image: DecorationImage(
+                  image: NetworkImage(
+                      suggestionList[index].displayImage.toString()),
+                  //AssetImage("assets/images/afya.jpeg"),
                   fit: BoxFit.cover,
                 ),
               ),
             ),
           ),
           title: RichText(
-            text: const TextSpan(
-              text: "Equity Afya Mombasa",
-              style: TextStyle(
+            text: TextSpan(
+              text: suggestionList[index].clinicName,
+              // !.substring(query.length),
+              style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w700,
                 fontSize: 17,
@@ -120,9 +152,10 @@ class DataSearch extends SearchDelegate<String> {
             ),
           ),
           subtitle: RichText(
-            text: const TextSpan(
-              text: "Makao Road, 67 N",
-              style: TextStyle(
+            text: TextSpan(
+              text: suggestionList[index].address,
+              // !.substring(query.length),
+              style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 14,
                 fontWeight: FontWeight.w500,

@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       child: Center(
                           child: Text(
-                        "Dashboard",
+                        "Home",
                         style: Styles.heading2(context),
                       )),
                     ),
@@ -148,7 +148,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Icons.notifications,
                                   color: Styles.primaryColor,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ProfileScreen(
+                                        initialPageIndex: 2,
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
                             ],
                           ),

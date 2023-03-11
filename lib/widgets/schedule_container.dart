@@ -161,6 +161,29 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
             builder: (context, value, child) {
               return Row(
                 children: [
+                  widget.clinic.displayImage == null
+                      ? Container(
+                          width: 50,
+                          height: 50,
+                          decoration: const BoxDecoration(
+                            color: Colors.grey,
+                            shape: BoxShape.circle,
+                          ),
+                        )
+                      : Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                widget.clinic.displayImage.toString(),
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                    const SizedBox(width: 5,),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,29 +213,8 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                       ),
                     ],
                   ),
-                  const Spacer(),
-                  widget.clinic.displayImage == null
-                      ? Container(
-                          width: 60,
-                          height: 60,
-                          decoration: const BoxDecoration(
-                            color: Colors.grey,
-                            shape: BoxShape.circle,
-                          ),
-                        )
-                      : Container(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                widget.clinic.displayImage.toString(),
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
+                  // const Spacer(),
+                  
                 ],
               );
             },

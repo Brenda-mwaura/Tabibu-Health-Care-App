@@ -75,12 +75,13 @@ class ScheduleBottomSheet extends StatelessWidget {
                   height: 20,
                 ),
                 Expanded(
-                    child: ListView(
-                  shrinkWrap: true,
-                  children: [
-                    formWidget,
-                  ],
-                ))
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      formWidget,
+                    ],
+                  ),
+                )
               ],
             ),
           );
