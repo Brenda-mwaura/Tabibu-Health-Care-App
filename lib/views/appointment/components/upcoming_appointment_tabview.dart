@@ -116,7 +116,7 @@ class _UpcomingAppointmentTabViewState
                                         appointment:
                                             value.nearestUpcomingAppointment,
                                       )
-                                    : SizedBox(),
+                                    : const SizedBox(),
                                 const Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(

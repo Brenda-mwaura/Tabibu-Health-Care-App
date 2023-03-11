@@ -64,6 +64,29 @@ class _AppointmentContainerState extends State<AppointmentContainer> {
             builder: (context, value, child) {
               return Row(
                 children: [
+                  widget.clinic.displayImage == null
+                      ? Container(
+                          width: 50,
+                          height: 50,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.grey,
+                          ),
+                        )
+                      : Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                widget.clinic.displayImage.toString(),
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                  const SizedBox(width: 5),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,29 +116,7 @@ class _AppointmentContainerState extends State<AppointmentContainer> {
                       ),
                     ],
                   ),
-                  const Spacer(),
-                  widget.clinic.displayImage == null
-                      ? Container(
-                          width: 60,
-                          height: 60,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.grey,
-                          ),
-                        )
-                      : Container(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                widget.clinic.displayImage.toString(),
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
+                  // const Spacer(),
                 ],
               );
             },
