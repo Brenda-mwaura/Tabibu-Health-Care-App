@@ -111,7 +111,7 @@ class _ClinicReviewsScreenState extends State<ClinicReviewsScreen>
                                     },
                                     textInputAction: TextInputAction.search,
                                     decoration: const InputDecoration(
-                                      hintText: "Search review",
+                                      hintText: "Search clinic",
                                       focusColor: Colors.white,
                                       fillColor: Colors.white,
                                     ),

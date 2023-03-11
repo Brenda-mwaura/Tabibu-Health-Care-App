@@ -303,7 +303,7 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                                         0.05,
                                   ),
                                   Text(
-                                    widget.clinic.rating.toString(),
+                                    widget.clinic.rating!.toStringAsFixed(1),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w500,
