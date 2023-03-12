@@ -82,6 +82,7 @@ class _AppointmentScreenState extends State<AppointmentScreen>
                               Icons.arrow_back_ios_new_outlined,
                               color: Colors.white,
                               size: 21,
+                              
                             ),
                           ),
                         ),

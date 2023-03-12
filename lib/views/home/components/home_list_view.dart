@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/models/clinic_model.dart';
 import 'package:tabibu/views/clinics/clinic_details.dart';
 
@@ -69,11 +70,8 @@ class _HomePageListViewState extends State<HomePageListView> {
               children: [
                 Text(
                   widget.clinicName.toString(),
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: Styles.normal(context,
+                      fontColor: Colors.black, fontWeight: FontWeight.w700),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -82,11 +80,10 @@ class _HomePageListViewState extends State<HomePageListView> {
                 ),
                 Text(
                   widget.clinicAddress.toString(),
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: Styles.custom18(context,
+                      fontColor: Colors.grey, fontWeight: FontWeight.w500),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(
                   height: 7,
@@ -116,14 +113,7 @@ class _HomePageListViewState extends State<HomePageListView> {
                     const SizedBox(
                       width: 10,
                     ),
-                    // Text(
-                    //   widget.clinicRating!.toString(),
-                    //   style: const TextStyle(
-                    //     color: Colors.black,
-                    //     fontSize: 14.0,
-                    //     fontWeight: FontWeight.w700,
-                    //   ),
-                    // )
+                    
                   ],
                 ),
               ],

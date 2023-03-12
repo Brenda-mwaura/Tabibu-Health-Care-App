@@ -7,6 +7,7 @@ import 'package:tabibu/providers/clinic_provider.dart';
 import 'package:tabibu/views/clinics/clinic_reviews_screen.dart';
 import 'package:tabibu/widgets/clinics_widget/expandable_description.dart';
 import 'package:tabibu/widgets/clinics_widget/reviews_container.dart';
+import 'package:tabibu/widgets/pulsing_heart.dart';
 import 'package:tabibu/widgets/spinner.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -127,13 +128,17 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.favorite_border,
-                              color: Colors.red,
-                            ),
-                          ),
+                          child: PulsingHeartIcon(color: Colors.red),
+                          // BeatingHeartIcon(size: 32, color: Colors.red),
+                          
+                          // IconButton(
+                          //     onPressed: () {},
+                          //     icon: const Icon(Icons.favorite_sharp, color: Colors.red)
+                          //     // icon: const Icon(
+                          //     //   Icons.favorite_border,
+                          //     //   color: Colors.red,
+                          //     // ),
+                          //     ),
                         ),
                       ),
                     ],
@@ -431,3 +436,5 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
     await launchUrl(phoneLaunchUri);
   }
 }
+
+

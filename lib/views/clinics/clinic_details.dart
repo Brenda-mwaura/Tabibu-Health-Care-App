@@ -202,7 +202,9 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                           child: Center(
                             child: Text(
                               "Clinic Details",
-                              style: Styles.heading2(context),
+                              style: Styles.heading1(context,
+                                  fontColor: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
@@ -251,10 +253,8 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                   ),
                                   labelColor: Colors.white,
                                   unselectedLabelColor: Colors.grey,
-                                  labelStyle: const TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                                  labelStyle: Styles.custom18(context,
+                                      fontWeight: FontWeight.w700),
                                   tabs: const [
                                     Tab(
                                       text: "About",
@@ -328,16 +328,14 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                 key: appointmentFormKey,
                                 child: Column(
                                   children: [
-                                    const Align(
+                                    Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
                                         "Medical Service",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          color: Color.fromARGB(
-                                              255, 106, 106, 106),
-                                          fontSize: 16,
-                                        ),
+                                        style: Styles.normal(context,
+                                            fontColor: const Color.fromARGB(
+                                                255, 106, 106, 106),
+                                            fontWeight: FontWeight.w500),
                                       ),
                                     ),
                                     const SizedBox(height: 8),
@@ -345,12 +343,12 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                       builder: (FormFieldState<String> state) {
                                         return InputDecorator(
                                           decoration: InputDecoration(
-                                              labelStyle: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 30.0),
-                                              errorStyle: const TextStyle(
-                                                  color: Colors.redAccent,
-                                                  fontSize: 16.0),
+                                              labelStyle: Styles.custom18(
+                                                  context,
+                                                  fontColor: Colors.black),
+                                              errorStyle: Styles.custom18(
+                                                  context,
+                                                  fontColor: Colors.redAccent),
                                               hintText: 'Please select service',
                                               border: OutlineInputBorder(
                                                   borderRadius:
@@ -411,17 +409,13 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                     const SizedBox(
                                       height: 15,
                                     ),
-                                    const Align(
+                                    Align(
                                       alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "Consultation fee",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          color: Color.fromARGB(
-                                              255, 106, 106, 106),
-                                          fontSize: 16,
-                                        ),
-                                      ),
+                                      child: Text("Consultation fee",
+                                          style: Styles.normal(context,
+                                              fontColor: const Color.fromARGB(
+                                                  255, 106, 106, 106),
+                                              fontWeight: FontWeight.w500)),
                                     ),
                                     const SizedBox(
                                       height: 8,
@@ -451,17 +445,13 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                     const SizedBox(
                                       height: 15,
                                     ),
-                                    const Align(
+                                    Align(
                                       alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "Your message",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          color: Color.fromARGB(
-                                              255, 106, 106, 106),
-                                          fontSize: 16,
-                                        ),
-                                      ),
+                                      child: Text("Your message",
+                                          style: Styles.normal(context,
+                                              fontColor: const Color.fromARGB(
+                                                  255, 106, 106, 106),
+                                              fontWeight: FontWeight.w500)),
                                     ),
                                     const SizedBox(
                                       height: 8,
@@ -488,11 +478,9 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                         hintText:
                                             "Describe how you are feeling",
                                       ),
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color:
-                                            Color.fromARGB(255, 106, 106, 106),
-                                      ),
+                                      style: Styles.custom18(context,
+                                          fontColor: const Color.fromARGB(
+                                              255, 106, 106, 106)),
                                       maxLines: 5,
                                       minLines: 5,
                                     ),
@@ -504,17 +492,16 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                         Expanded(
                                           child: Column(
                                             children: [
-                                              const Align(
+                                              Align(
                                                 alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                  "Date",
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w700,
-                                                    color: Color.fromARGB(
-                                                        255, 106, 106, 106),
-                                                    fontSize: 16,
-                                                  ),
-                                                ),
+                                                child: Text("Date",
+                                                    style: Styles.normal(
+                                                        context,
+                                                        fontColor: const Color
+                                                                .fromARGB(
+                                                            255, 106, 106, 106),
+                                                        fontWeight:
+                                                            FontWeight.w500)),
                                               ),
                                               const SizedBox(
                                                 height: 8,
@@ -552,11 +539,13 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                                   prefixIcon: const Icon(
                                                       Icons.calendar_month),
                                                 ),
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                  color: Color.fromARGB(
-                                                      255, 106, 106, 106),
-                                                ),
+                                                style: Styles.custom18(context,
+                                                    fontColor:
+                                                        const Color.fromARGB(
+                                                            255,
+                                                            106,
+                                                            106,
+                                                            106)),
                                                 readOnly: true,
                                                 onTap: () async {
                                                   _selectAppointmentDate(
@@ -575,17 +564,16 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                         Expanded(
                                           child: Column(
                                             children: [
-                                              const Align(
+                                              Align(
                                                 alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                  "Time",
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w700,
-                                                    color: Color.fromARGB(
-                                                        255, 106, 106, 106),
-                                                    fontSize: 16,
-                                                  ),
-                                                ),
+                                                child: Text("Time",
+                                                    style: Styles.normal(
+                                                        context,
+                                                        fontColor: const Color
+                                                                .fromARGB(
+                                                            255, 106, 106, 106),
+                                                        fontWeight:
+                                                            FontWeight.w500)),
                                               ),
                                               const SizedBox(
                                                 height: 8,
@@ -623,11 +611,13 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                                   prefixIcon: const Icon(
                                                       Icons.access_time),
                                                 ),
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                  color: Color.fromARGB(
-                                                      255, 106, 106, 106),
-                                                ),
+                                                style: Styles.custom18(context,
+                                                    fontColor:
+                                                        const Color.fromARGB(
+                                                            255,
+                                                            106,
+                                                            106,
+                                                            106)),
                                                 readOnly: true,
                                                 onTap: () async {
                                                   _selectAppointmentTime(
@@ -651,16 +641,14 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                       alignment: Alignment.centerLeft,
                                       child: Row(
                                         children: [
-                                          const Expanded(
-                                            child: Text(
-                                              "Phone 2547XXX",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w700,
-                                                color: Color.fromARGB(
-                                                    255, 106, 106, 106),
-                                                fontSize: 16,
-                                              ),
-                                            ),
+                                          Expanded(
+                                            child: Text("Phone 2547XXX",
+                                                style: Styles.normal(context,
+                                                    fontColor:
+                                                        const Color.fromARGB(
+                                                            255, 106, 106, 106),
+                                                    fontWeight:
+                                                        FontWeight.w500)),
                                           ),
                                           const Spacer(),
                                           Container(
@@ -719,17 +707,14 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                       height: 20,
                                     ),
                                     AuthButton(onPressed: () {
-                                      
                                       _appointmentBookingFnc(
                                           _currentSelectedValue);
                                     }, child: Consumer<AppointmentProvider>(
                                       builder: (context, value, child) {
-                                        return Text(
-                                          "Book Appointment",
-                                          style: Styles.custom20(context,fontColor: Colors.white, fontWeight: FontWeight.w500)
-                                          
-            
-                                        );
+                                        return Text("Book Appointment",
+                                            style: Styles.custom20(context,
+                                                fontColor: Colors.white,
+                                                fontWeight: FontWeight.w500));
                                       },
                                     )),
                                     const SizedBox(height: 30),

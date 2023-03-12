@@ -60,7 +60,10 @@ class _ClinicScreenState extends State<ClinicScreen> {
                       child: Center(
                         child: Text(
                           "Clinics",
-                          style: Styles.heading2(context),
+                          style: Styles.heading1(context,
+                              fontColor: Colors.white,
+                              fontWeight: FontWeight.bold),
+                      
                         ),
                       ),
                     ),
@@ -104,7 +107,7 @@ class _ClinicScreenState extends State<ClinicScreen> {
                                   },
                                   textInputAction: TextInputAction.search,
                                   decoration: const InputDecoration(
-                                    hintText: "Search Clinic",
+                                    hintText: "Search clinic",
                                     focusColor: Colors.white,
                                     fillColor: Colors.white,
                                   ),

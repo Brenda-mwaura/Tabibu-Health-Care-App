@@ -117,6 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                               unselectedLabelColor: Colors.grey,
                               labelStyle: Styles.custom18(context,
                                   fontWeight: FontWeight.w700),
+                                  
                               tabs: const [
                                 Tab(
                                   text: "Profile",
