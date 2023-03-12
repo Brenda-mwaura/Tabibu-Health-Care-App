@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/models/clinic_review_model.dart';
 import 'package:intl/intl.dart';
 
@@ -55,24 +56,17 @@ class ReviewsContainer extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      clinicReview.patient!.user!.fullName.toString(),
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                    Text(clinicReview.patient!.user!.fullName.toString(),
+                        style: Styles.custom18(context,
+                            fontColor: Colors.black,
+                            fontWeight: FontWeight.w500)),
                     const SizedBox(
                       height: 5,
                     ),
-                    Text(
-                      createdAt,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.grey,
-                      ),
-                    ),
+                    Text(createdAt,
+                        style: Styles.custom18(context,
+                            fontColor: Colors.grey,
+                            fontWeight: FontWeight.w500)),
                   ],
                 ),
                 const Spacer(),
@@ -81,13 +75,9 @@ class ReviewsContainer extends StatelessWidget {
                   color: Colors.orange,
                   size: MediaQuery.of(context).size.width * 0.05,
                 ),
-                Text(
-                  clinicReview.rating.toString(),
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                Text(clinicReview.rating.toString(),
+                    style:
+                        Styles.custom18(context, fontWeight: FontWeight.w500)),
               ],
             ),
           ),
@@ -96,11 +86,8 @@ class ReviewsContainer extends StatelessWidget {
           ),
           Text(
             clinicReview.comment.toString(),
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: Colors.grey,
-            ),
+            style: Styles.custom18(context,
+                fontColor: Colors.grey, fontWeight: FontWeight.w500),
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),
