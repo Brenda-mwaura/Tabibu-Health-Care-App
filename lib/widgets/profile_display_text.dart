@@ -35,22 +35,15 @@ class ProfileText extends StatelessWidget {
             children: [
               Text(
                 displayTitle,
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: Styles.custom18(context,
+                    fontColor: Colors.grey, fontWeight: FontWeight.w500),
               ),
               const SizedBox(
                 height: 1,
               ),
               Text(
                 text ?? "",
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Color.fromARGB(221, 69, 69, 69),
-                  fontWeight: FontWeight.w500,
-                ),
+                style: Styles.custom18(context,fontWeight: FontWeight.w500, fontColor: const Color.fromARGB(221, 69, 69, 69)),
                 maxLines: maxLines,
                 overflow: overflow,
               ),

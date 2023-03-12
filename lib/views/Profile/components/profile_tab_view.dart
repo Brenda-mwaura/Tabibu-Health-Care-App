@@ -90,7 +90,7 @@ class _ProfileTabViewState extends State<ProfileTabView> {
                                     context: context,
                                     backgroundColor: Colors.transparent,
                                     builder: (context) {
-                                      return ImagePickerBottomSheet();
+                                      return const ImagePickerBottomSheet();
                                     },
                                   );
                                 },
@@ -113,8 +113,7 @@ class _ProfileTabViewState extends State<ProfileTabView> {
                             ProfileText(
                               icon: Icons.person,
                               displayTitle: "Name",
-                              text: value.profileDetails.user!.fullName
-                                  .toString(),
+                              text: value.profileDetails.user?.fullName ?? "",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -124,7 +123,7 @@ class _ProfileTabViewState extends State<ProfileTabView> {
                             ProfileText(
                               icon: Icons.info,
                               displayTitle: "About",
-                              text: value.profileDetails.bio.toString(),
+                              text: value.profileDetails.user?.fullName ?? "***No abouts***",
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -134,7 +133,7 @@ class _ProfileTabViewState extends State<ProfileTabView> {
                             ProfileText(
                               icon: Icons.email,
                               displayTitle: "Email",
-                              text: value.profileDetails.user!.email.toString(),
+                              text: value.profileDetails.user?.email ?? "",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -144,7 +143,7 @@ class _ProfileTabViewState extends State<ProfileTabView> {
                             ProfileText(
                               icon: Icons.phone,
                               displayTitle: "Phone",
-                              text: value.profileDetails.user!.phone.toString(),
+                              text: value.profileDetails.user?.phone ?? "",
                             ),
                             const SizedBox(
                               height: 20,

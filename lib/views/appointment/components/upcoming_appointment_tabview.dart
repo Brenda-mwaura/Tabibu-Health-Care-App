@@ -76,7 +76,7 @@ class _UpcomingAppointmentTabViewState
                     if (value.upcomingAppointmentsLoading == true ||
                         clinicValue.servicesLoading == true ||
                         clinicValue.clinicsLoading == true) {
-                      return const AppSpinner();
+                      return const Center(child: AppSpinner());
                     } else {
                       return value.nearestUpcomingAppointment.id == null &&
                               value.upcomingAppointment.isEmpty
@@ -94,14 +94,12 @@ class _UpcomingAppointmentTabViewState
                                 const SizedBox(
                                   height: 5,
                                 ),
-                                const Align(
+                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     "Nearest visit",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                    style: Styles.custom20(context,fontWeight: FontWeight.bold),
+                                    
                                   ),
                                 ),
                                 const SizedBox(
@@ -117,14 +115,11 @@ class _UpcomingAppointmentTabViewState
                                             value.nearestUpcomingAppointment,
                                       )
                                     : const SizedBox(),
-                                const Align(
+                                Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     "Future visits",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                    style: Styles.custom20(context,fontWeight: FontWeight.bold),
                                   ),
                                 ),
                                 const SizedBox(

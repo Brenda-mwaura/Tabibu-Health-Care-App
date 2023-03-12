@@ -55,9 +55,7 @@ class AppDrawer extends StatelessWidget {
                           height: 10,
                         ),
                         Text(
-                          value.profileDetails.user!.email == null
-                              ? ""
-                              : value.profileDetails.user!.email.toString(),
+                          value.profileDetails.user?.fullName ?? "",
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -68,9 +66,7 @@ class AppDrawer extends StatelessWidget {
                           height: 2,
                         ),
                         Text(
-                          value.profileDetails.user!.fullName == null
-                              ? ""
-                              : value.profileDetails.user!.fullName.toString(),
+                          value.profileDetails.user?.fullName ?? "",
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,

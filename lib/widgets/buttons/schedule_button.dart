@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tabibu/configs/styles.dart';
 
 class ScheduleButton extends StatelessWidget {
   final String text;
@@ -27,11 +28,7 @@ class ScheduleButton extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: TextStyle(
-          color: textColor,
-          fontSize: 16.0,
-          fontWeight: FontWeight.w500,
-        ),
+        style: Styles.custom18(context,fontColor: textColor,fontWeight: FontWeight.w500),
       ),
     );
   }

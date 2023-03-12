@@ -65,7 +65,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                       child: Center(
                         child: Text(
                           'Profile',
-                          style: Styles.heading2(context),
+                          style: Styles.heading1(context,
+                              fontColor: Colors.white,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -113,10 +115,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                               ),
                               labelColor: Colors.white,
                               unselectedLabelColor: Colors.grey,
-                              labelStyle: const TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w700,
-                              ),
+                              labelStyle: Styles.custom18(context,
+                                  fontWeight: FontWeight.w700),
                               tabs: const [
                                 Tab(
                                   text: "Profile",

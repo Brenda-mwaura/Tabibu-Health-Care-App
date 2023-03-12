@@ -183,18 +183,18 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                             ),
                           ),
                         ),
-                    const SizedBox(width: 5,),
+                  const SizedBox(
+                    width: 5,
+                  ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         widget.clinic.clinicName.toString(),
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: Styles.normal(context,
+                            fontColor: Colors.black,
+                            fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(
                         height: 5,
@@ -203,18 +203,15 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                         builder: (context, serviceValue, child) {
                           return Text(
                             widget.service.serviceName.toString(),
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: Styles.custom18(context,
+                                fontColor: Colors.grey,
+                                fontWeight: FontWeight.w500),
                           );
                         },
                       ),
                     ],
                   ),
                   // const Spacer(),
-                  
                 ],
               );
             },
@@ -247,11 +244,9 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                           widget.appointment.appointmentDate.toString(),
                         ))
                         .toString(),
-                    style: const TextStyle(
-                      color: Color.fromARGB(221, 69, 69, 69),
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: Styles.custom18(context,
+                        fontColor: const Color.fromARGB(221, 69, 69, 69),
+                        fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
@@ -268,11 +263,9 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                   Text(
                     DateFormat('hh:mm a').format(DateTime.parse(
                         "2022-10-15 ${widget.appointment.appointmentTime}")),
-                    style: const TextStyle(
-                      color: Color.fromARGB(221, 69, 69, 69),
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: Styles.custom18(context,
+                        fontColor: const Color.fromARGB(221, 69, 69, 69),
+                        fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
@@ -289,11 +282,9 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                   ),
                   Text(
                     widget.appointment.status.toString(),
-                    style: const TextStyle(
-                      color: Color.fromARGB(221, 69, 69, 69),
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: Styles.custom18(context,
+                        fontColor: const Color.fromARGB(221, 69, 69, 69),
+                        fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
@@ -543,13 +534,10 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Text(
+                    child: Text(
                       "Reschedule",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: Styles.custom18(context,
+                          fontColor: Colors.white, fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),

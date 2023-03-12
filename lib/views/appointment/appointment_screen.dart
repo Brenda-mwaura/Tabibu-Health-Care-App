@@ -60,12 +60,12 @@ class _AppointmentScreenState extends State<AppointmentScreen>
                       child: Center(
                         child: Text(
                           "Schedule",
-                          style: Styles.heading2(context),
+                          style: Styles.heading1(context,
+                              fontColor: Colors.white,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
-
-                    
                     Positioned(
                       top: 22,
                       left: 5,
@@ -87,7 +87,6 @@ class _AppointmentScreenState extends State<AppointmentScreen>
                         ),
                       ),
                     ),
-                   
                     Positioned(
                       top: 65.0,
                       left: 0.0,
@@ -113,10 +112,9 @@ class _AppointmentScreenState extends State<AppointmentScreen>
                               ),
                               labelColor: Colors.white,
                               unselectedLabelColor: Colors.grey,
-                              labelStyle: const TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w700,
-                              ),
+                              labelStyle: Styles.custom18(context,
+                                  fontWeight: FontWeight.w700),
+
                               tabs: const [
                                 Tab(
                                   text: "Upcoming",
