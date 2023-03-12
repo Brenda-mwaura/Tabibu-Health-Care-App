@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/providers/profile_provider.dart';
 import 'package:tabibu/services/validators.dart';
 import 'package:tabibu/views/Profile/profile_screen.dart';
@@ -189,16 +190,20 @@ class _ProfileEditTabViewState extends State<ProfileEditTabView> {
                           const SizedBox(
                             height: 20,
                           ),
-                          const Align(
+                          Align(
                             alignment: Alignment.centerLeft,
-                            child: Text(
-                              "DOB",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: Color.fromARGB(255, 106, 106, 106),
-                                fontSize: 15,
-                              ),
-                            ),
+                            child: Text("DOB",
+                                style: Styles.normal(context,
+                                    fontColor: const Color.fromARGB(
+                                        255, 106, 106, 106),
+                                    fontWeight: FontWeight.w500)
+
+                                // TextStyle(
+                                //   fontWeight: FontWeight.w700,
+                                //   color: Color.fromARGB(255, 106, 106, 106),
+                                //   fontSize: 15,
+                                // ),
+                                ),
                           ),
                           const SizedBox(
                             height: 8,
@@ -221,11 +226,9 @@ class _ProfileEditTabViewState extends State<ProfileEditTabView> {
                               ),
                               prefixIcon: const Icon(Icons.calendar_month),
                             ),
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Color.fromARGB(255, 106, 106, 106),
-                            ),
-                            readOnly: true,
+                            style: Styles.custom18(context,
+                                fontColor:
+                                    const Color.fromARGB(255, 106, 106, 106)),
                             onTap: () async {
                               _selectDate(
                                   context, value.profileDetails.dateOfBirth);
@@ -234,16 +237,20 @@ class _ProfileEditTabViewState extends State<ProfileEditTabView> {
                           const SizedBox(
                             height: 20,
                           ),
-                          const Align(
+                          Align(
                             alignment: Alignment.centerLeft,
-                            child: Text(
-                              "About",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: Color.fromARGB(255, 106, 106, 106),
-                                fontSize: 15,
-                              ),
-                            ),
+                            child: Text("About",
+                                style: Styles.normal(context,
+                                    fontColor: const Color.fromARGB(
+                                        255, 106, 106, 106),
+                                    fontWeight: FontWeight.w500)
+
+                                // TextStyle(
+                                //   fontWeight: FontWeight.w700,
+                                //   color: Color.fromARGB(255, 106, 106, 106),
+                                //   fontSize: 15,
+                                // ),
+                                ),
                           ),
                           const SizedBox(height: 8),
                           TextFormField(
@@ -269,10 +276,9 @@ class _ProfileEditTabViewState extends State<ProfileEditTabView> {
                                 color: Colors.grey,
                               ),
                             ),
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Color.fromARGB(255, 106, 106, 106),
-                            ),
+                            style: Styles.custom18(context,
+                                fontColor:
+                                    const Color.fromARGB(255, 106, 106, 106)),
                             maxLines: 5,
                             minLines: 5,
                           ),
@@ -288,17 +294,16 @@ class _ProfileEditTabViewState extends State<ProfileEditTabView> {
                                     color: Colors.white,
                                   );
                                 }
-                                return const Text(
+                                return Text(
                                   "Update",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                                  style: Styles.custom20(context,
+                                      fontColor: Colors.white,
+                                      fontWeight: FontWeight.w500),
                                 );
                               },
                             ),
                           ),
+                          const SizedBox(height: 10,)
                         ],
                       ),
                     ),

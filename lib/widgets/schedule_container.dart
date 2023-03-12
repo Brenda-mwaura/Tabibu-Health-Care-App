@@ -343,6 +343,7 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                       await appointmentProvider.fetchAppointmentDetails(
                           int.parse(widget.appointment.id.toString()));
 
+                      // ignore: use_build_context_synchronously
                       showModalBottomSheet(
                           isScrollControlled: true,
                           context: context,
@@ -375,16 +376,15 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                                       key: updateAppointmentFormKey,
                                       child: Column(
                                         children: [
-                                          const Align(
+                                          Align(
                                             alignment: Alignment.centerLeft,
                                             child: Text(
                                               "Date",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w700,
-                                                color: Color.fromARGB(
-                                                    255, 106, 106, 106),
-                                                fontSize: 16,
-                                              ),
+                                              style: Styles.normal(context,
+                                                  fontColor:
+                                                      const Color.fromARGB(
+                                                          255, 106, 106, 106),
+                                                  fontWeight: FontWeight.w500),
                                             ),
                                           ),
                                           const SizedBox(
@@ -414,9 +414,9 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                                               prefixIcon: const Icon(
                                                   Icons.calendar_month),
                                             ),
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              color: Color.fromARGB(
+                                            style: Styles.custom18(
+                                              context,
+                                              fontColor: const Color.fromARGB(
                                                   255, 106, 106, 106),
                                             ),
                                             readOnly: true,
@@ -433,21 +433,21 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                                               if (value!.isEmpty) {
                                                 return "Please select date";
                                               }
+                                              return null;
                                             },
                                           ),
                                           const SizedBox(
                                             height: 15,
                                           ),
-                                          const Align(
+                                          Align(
                                             alignment: Alignment.centerLeft,
                                             child: Text(
                                               "Time",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w700,
-                                                color: Color.fromARGB(
-                                                    255, 106, 106, 106),
-                                                fontSize: 16,
-                                              ),
+                                              style: Styles.normal(context,
+                                                  fontColor:
+                                                      const Color.fromARGB(
+                                                          255, 106, 106, 106),
+                                                  fontWeight: FontWeight.w500),
                                             ),
                                           ),
                                           const SizedBox(
@@ -477,9 +477,9 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                                               prefixIcon:
                                                   const Icon(Icons.access_time),
                                             ),
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              color: Color.fromARGB(
+                                            style: Styles.custom18(
+                                              context,
+                                              fontColor: const Color.fromARGB(
                                                   255, 106, 106, 106),
                                             ),
                                             readOnly: true,
@@ -494,6 +494,7 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                                               if (value!.isEmpty) {
                                                 return "Please select time";
                                               }
+                                              return null;
                                             },
                                           ),
                                           const SizedBox(
@@ -506,11 +507,11 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                                             child:
                                                 Consumer<AppointmentProvider>(
                                               builder: (context, value, child) {
-                                                return const Text(
+                                                return Text(
                                                   "Reschedule",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 22,
+                                                  style: Styles.custom25(
+                                                    context,
+                                                    fontColor: Colors.white,
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                                 );

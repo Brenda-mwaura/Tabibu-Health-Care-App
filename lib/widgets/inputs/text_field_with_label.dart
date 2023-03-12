@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tabibu/configs/styles.dart';
 
 class TextFieldWithLabel extends StatelessWidget {
   final String title;
@@ -35,55 +36,48 @@ class TextFieldWithLabel extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: const TextStyle(
-            fontWeight: FontWeight.w700,
-            color: Color.fromARGB(255, 106, 106, 106),
-            fontSize: 16,
-          ),
-        ),
+        Text(title,
+            style: Styles.normal(context,
+                fontColor: const Color.fromARGB(255, 106, 106, 106),
+                fontWeight: FontWeight.w500)),
         const SizedBox(height: 8),
         TextFormField(
-          autofocus: false,
-          controller: controller,
-          obscureText: obsecure,
-          keyboardType: keyboardType,
-          validator: validator,
-          textInputAction: inputAction,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-            ),
-            fillColor: const Color.fromARGB(255, 245, 170, 51),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: Colors.grey,
-                // Color.fromARGB(255, 20, 106, 218),
-                width: 2.0,
+            autofocus: false,
+            controller: controller,
+            obscureText: obsecure,
+            keyboardType: keyboardType,
+            validator: validator,
+            textInputAction: inputAction,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
               ),
-              borderRadius: BorderRadius.circular(5),
+              fillColor: const Color.fromARGB(255, 245, 170, 51),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: Colors.grey,
+                  // Color.fromARGB(255, 20, 106, 218),
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(5),
+              ),
+              hintText: hintText,
+              prefixIcon: prefix,
+              suffixIcon: suffix ??
+                  (onVisibilityChange != null
+                      ? IconButton(
+                          onPressed: () {
+                            onVisibilityChange!();
+                          },
+                          icon: Icon(
+                            obsecure ? Icons.visibility_off : Icons.visibility,
+                            color: Colors.grey,
+                          ),
+                        )
+                      : null),
             ),
-            hintText: hintText,
-            prefixIcon: prefix,
-            suffixIcon: suffix ??
-                (onVisibilityChange != null
-                    ? IconButton(
-                        onPressed: () {
-                          onVisibilityChange!();
-                        },
-                        icon: Icon(
-                          obsecure ? Icons.visibility_off : Icons.visibility,
-                          color: Colors.grey,
-                        ),
-                      )
-                    : null),
-          ),
-          style: const TextStyle(
-            fontSize: 16,
-            color: Color.fromARGB(255, 106, 106, 106),
-          ),
-        ),
+            style: Styles.custom18(context,
+                fontColor: const Color.fromARGB(255, 106, 106, 106))),
       ],
     );
   }

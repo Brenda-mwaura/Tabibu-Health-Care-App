@@ -724,13 +724,11 @@ class _ClinicDetailsScreenState extends State<ClinicDetailsScreen>
                                           _currentSelectedValue);
                                     }, child: Consumer<AppointmentProvider>(
                                       builder: (context, value, child) {
-                                        return const Text(
+                                        return Text(
                                           "Book Appointment",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.w500,
-                                          ),
+                                          style: Styles.custom20(context,fontColor: Colors.white, fontWeight: FontWeight.w500)
+                                          
+            
                                         );
                                       },
                                     )),

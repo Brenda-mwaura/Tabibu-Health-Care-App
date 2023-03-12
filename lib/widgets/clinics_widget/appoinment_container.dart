@@ -93,11 +93,9 @@ class _AppointmentContainerState extends State<AppointmentContainer> {
                     children: [
                       Text(
                         widget.clinic.clinicName.toString(),
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: Styles.normal(context,
+                            fontColor: Colors.black,
+                            fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(
                         height: 5,
@@ -106,11 +104,9 @@ class _AppointmentContainerState extends State<AppointmentContainer> {
                         builder: (context, serviceValue, child) {
                           return Text(
                             widget.service.serviceName.toString(),
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: Styles.custom18(context,
+                                fontColor: Colors.grey,
+                                fontWeight: FontWeight.w500),
                           );
                         },
                       ),
@@ -148,11 +144,9 @@ class _AppointmentContainerState extends State<AppointmentContainer> {
                           widget.appointment.appointmentDate.toString(),
                         ))
                         .toString(),
-                    style: const TextStyle(
-                      color: Color.fromARGB(221, 69, 69, 69),
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: Styles.custom18(context,
+                                fontColor: const Color.fromARGB(221, 69, 69, 69),
+                                fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
@@ -169,11 +163,9 @@ class _AppointmentContainerState extends State<AppointmentContainer> {
                   Text(
                     DateFormat('hh:mm a').format(DateTime.parse(
                         "2022-10-15 ${widget.appointment.appointmentTime}")),
-                    style: const TextStyle(
-                      color: Color.fromARGB(221, 69, 69, 69),
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: Styles.custom18(context,
+                                fontColor:Color.fromARGB(221, 69, 69, 69),
+                                fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
@@ -191,11 +183,10 @@ class _AppointmentContainerState extends State<AppointmentContainer> {
                   ),
                   Text(
                     widget.status,
-                    style: const TextStyle(
-                      color: Color.fromARGB(221, 69, 69, 69),
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: Styles.custom18(context,
+                                fontColor: Color.fromARGB(221, 69, 69, 69),
+                                fontWeight: FontWeight.w500),
+                    
                   ),
                 ],
               ),

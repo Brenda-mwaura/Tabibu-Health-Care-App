@@ -63,13 +63,9 @@ class ScheduleBottomSheet extends StatelessWidget {
                   ),
                 ),
                 Center(
-                  child: Text(
-                    title.toString(),
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  child: Text(title.toString(),
+                      style: Styles.custom25(context,
+                          fontWeight: FontWeight.bold)),
                 ),
                 const SizedBox(
                   height: 20,
