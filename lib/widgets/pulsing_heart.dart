@@ -37,9 +37,15 @@ class _PulsingHeartIconState extends State<PulsingHeartIcon>
       builder: (context, child) {
         return Transform.scale(
           scale: 1.0 + _animationController.value * 0.4,
-          child: IconButton(
+          // child: Image.asset(
+          //   'assets/images/marker.png',
+           
+          // ),
+          
+         child: IconButton(
             onPressed: () {},
-            icon: Icon(Icons.favorite_sharp, color: widget.color),
+            icon: Icon(
+              Icons.favorite_sharp, color: widget.color),
             // iconSize: widget.size,
           ),
         );

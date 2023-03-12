@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tabibu/configs/styles.dart';
 
 class ExpandableDescription extends StatefulWidget {
   final String description;
@@ -31,24 +32,15 @@ class _ExpandableDescriptionState extends State<ExpandableDescription> {
   Widget build(BuildContext context) {
     return Container(
       child: secondHalf.length == ""
-          ? Text(
-              widget.description,
-              style: const TextStyle(
-                fontSize: 16,
-                color: Colors.black,
-              ),
-            )
+          ? Text(widget.description,
+              style: Styles.custom18(context,
+                  fontColor: Colors.grey, fontWeight: FontWeight.w500))
           : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  flag ? firstHalf + "..." : firstHalf + secondHalf,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
+                Text(flag ? firstHalf + "..." : firstHalf + secondHalf,
+                    style: Styles.custom18(context,
+                        fontColor: Colors.grey, fontWeight: FontWeight.w400)),
                 const SizedBox(
                   height: 10,
                 ),
@@ -68,12 +60,9 @@ class _ExpandableDescriptionState extends State<ExpandableDescription> {
                                   : flag
                                       ? "Read more"
                                       : "Read less",
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.red,
-                          ),
-                        ),
+                          style: Styles.custom18(context,
+                              fontColor: Colors.red,
+                              fontWeight: FontWeight.w500)),
                 ),
               ],
             ),

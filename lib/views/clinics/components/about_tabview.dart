@@ -129,8 +129,7 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: PulsingHeartIcon(color: Colors.red),
-                          // BeatingHeartIcon(size: 32, color: Colors.red),
-                          
+
                           // IconButton(
                           //     onPressed: () {},
                           //     icon: const Icon(Icons.favorite_sharp, color: Colors.red)
@@ -170,10 +169,8 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                           ),
                           Text(
                             widget.clinic.clinicName.toString(),
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: Styles.custom20(context,
+                                fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(
                             height: 10,
@@ -195,25 +192,19 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                               const SizedBox(
                                 width: 5,
                               ),
-                              Text(
-                                widget.clinic.address.toString(),
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.grey,
-                                ),
-                              ),
+                              Text(widget.clinic.address.toString(),
+                                  style: Styles.custom18(context,
+                                      fontColor: Colors.grey,
+                                      fontWeight: FontWeight.w500)),
                             ],
                           ),
                           const SizedBox(
                             height: 10,
                           ),
-                          const Text(
+                          Text(
                             'Description',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: Styles.normal(context,
+                                fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(
                             height: 8,
@@ -225,12 +216,10 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                           const SizedBox(
                             height: 10,
                           ),
-                          const Text(
+                          Text(
                             'Preview',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: Styles.normal(context,
+                                fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(
                             height: 10,
@@ -296,12 +285,10 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Text(
+                                  Text(
                                     'Reviews',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                    style: Styles.normal(context,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   const SizedBox(width: 8),
                                   Icon(
@@ -312,19 +299,15 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                                   ),
                                   Text(
                                     widget.clinic.rating!.toStringAsFixed(1),
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    style: Styles.normal(context,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   const SizedBox(width: 3),
                                   Text(
                                     '(${value.numOfClinicReviews.toString()})',
-                                    style: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    style: Styles.normal(context,
+                                        fontColor: Colors.grey,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   const Spacer(),
                                   GestureDetector(
@@ -339,13 +322,11 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
                                         ),
                                       );
                                     },
-                                    child: const Text(
+                                    child: Text(
                                       'See all',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                        color: Styles.primaryColor,
-                                      ),
+                                      style: Styles.normal(context,
+                                          fontColor: Styles.primaryColor,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                 ],
@@ -436,5 +417,3 @@ class _AboutClinicTabViewState extends State<AboutClinicTabView> {
     await launchUrl(phoneLaunchUri);
   }
 }
-
-
