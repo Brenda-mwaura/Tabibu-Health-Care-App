@@ -43,14 +43,12 @@ class _DoctorsTabViewState extends State<DoctorsTabView> {
                   const SizedBox(
                     height: 5,
                   ),
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Our Doctors",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style:
+                          Styles.custom20(context, fontWeight: FontWeight.bold),
                     ),
                   ),
                   const SizedBox(
@@ -59,7 +57,7 @@ class _DoctorsTabViewState extends State<DoctorsTabView> {
                   Consumer<ClinicProvider>(
                     builder: (context, value, child) {
                       if (value.clinicDoctorsLoading == true) {
-                        return AppSpinner();
+                        return const AppSpinner();
                       } else {
                         return value.clinicDoctors.isEmpty
                             ? Container(

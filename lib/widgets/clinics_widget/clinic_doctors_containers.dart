@@ -59,14 +59,9 @@ class _DoctorsContainerState extends State<DoctorsContainer> {
           const SizedBox(
             height: 8,
           ),
-          Text(
-            widget.doctor.user!.fullName.toString(),
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 18.0,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text(widget.doctor.user!.fullName.toString(),
+              style: Styles.normal(context,
+                  fontColor: Colors.black, fontWeight: FontWeight.w700)),
           const SizedBox(
             height: 5,
           ),
@@ -74,11 +69,8 @@ class _DoctorsContainerState extends State<DoctorsContainer> {
             builder: (context, value, child) {
               return Text(
                 value.doctorSpecialization.specialization.toString(),
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: Styles.custom18(context,fontWeight: FontWeight.w500,fontColor: Colors.grey)
+                
               );
             },
           ),
