@@ -56,22 +56,18 @@ class AppDrawer extends StatelessWidget {
                         ),
                         Text(
                           value.profileDetails.user?.fullName ?? "",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: Styles.custom18(context,
+                              fontColor: Colors.white,
+                              fontWeight: FontWeight.w500),
                         ),
                         const SizedBox(
                           height: 2,
                         ),
                         Text(
-                          value.profileDetails.user?.fullName ?? "",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          value.profileDetails.user?.email ?? "",
+                          style: Styles.custom18(context,
+                              fontColor: Colors.white,
+                              fontWeight: FontWeight.w500),
                         ),
                       ],
                     );
@@ -84,13 +80,9 @@ class AppDrawer extends StatelessWidget {
                 Icons.home,
                 color: Colors.black,
               ),
-              title: const Text(
-                "Home",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
+              title: Text("Home",
+                  style: Styles.normal(context,
+                      fontColor: Colors.black, fontWeight: FontWeight.w500)),
               onTap: () {
                 Navigator.of(context).pushNamed(RouteGenerator.homeBasePage);
               },
@@ -100,12 +92,10 @@ class AppDrawer extends StatelessWidget {
                 Icons.healing,
                 color: Colors.black,
               ),
-              title: const Text(
+              title: Text(
                 "Clinics",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
+                style: Styles.normal(context,
+                    fontColor: Colors.black, fontWeight: FontWeight.w500),
               ),
               onTap: () {
                 Navigator.of(context).pushNamed(RouteGenerator.clinicPage);
@@ -116,13 +106,9 @@ class AppDrawer extends StatelessWidget {
                 Icons.map,
                 color: Colors.black,
               ),
-              title: const Text(
-                "Maps",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
+              title: Text("Maps",
+                  style: Styles.normal(context,
+                      fontColor: Colors.black, fontWeight: FontWeight.w500)),
               onTap: () {
                 Navigator.of(context).pushNamed(RouteGenerator.mapPage);
               },
@@ -132,11 +118,9 @@ class AppDrawer extends StatelessWidget {
                 Icons.person,
                 color: Colors.black,
               ),
-              title: const Text("Profile",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                  )),
+              title: Text("Profile",
+                  style: Styles.normal(context,
+                      fontColor: Colors.black, fontWeight: FontWeight.w500)),
               onTap: () {
                 Navigator.of(context).pushNamed(RouteGenerator.profilePage);
               },
@@ -146,13 +130,9 @@ class AppDrawer extends StatelessWidget {
                 Icons.calendar_month,
                 color: Colors.black,
               ),
-              title: const Text(
-                "Schedule",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
+              title: Text("Schedule",
+                  style: Styles.normal(context,
+                      fontColor: Colors.black, fontWeight: FontWeight.w500)),
               onTap: () {
                 Navigator.of(context).pushNamed(RouteGenerator.appointmentPage);
               },
@@ -162,29 +142,19 @@ class AppDrawer extends StatelessWidget {
                 Icons.help,
                 color: Colors.black,
               ),
-              title: const Text(
-                "Help",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
-              onTap: () {
-                Navigator.of(context).pop();
-              },
+              title: Text("Help",
+                  style: Styles.normal(context,
+                      fontColor: Colors.black, fontWeight: FontWeight.w500)),
+              onTap: () {},
             ),
             ListTile(
               leading: const Icon(
                 Icons.logout,
                 color: Colors.black,
               ),
-              title: const Text(
-                "Logout",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
+              title: Text("Logout",
+                  style: Styles.normal(context,
+                      fontColor: Colors.black, fontWeight: FontWeight.w500)),
               onTap: () {
                 _logout();
               },

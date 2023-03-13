@@ -39,7 +39,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
               decoration: PageDecoration(
                 titleTextStyle: Styles.heading1(context),
-                bodyTextStyle: Styles.custom18(context),
+                bodyTextStyle: Styles.custom18(context,fontColor: Colors.grey),
               ),
             ),
             //page 2
@@ -52,7 +52,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
               decoration: PageDecoration(
                 titleTextStyle: Styles.heading1(context),
-                bodyTextStyle: Styles.custom18(context),
+                bodyTextStyle: Styles.custom18(context,fontColor: Colors.grey),
               ),
             ),
             //page 3
@@ -65,7 +65,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
               decoration: PageDecoration(
                 titleTextStyle: Styles.heading1(context),
-                bodyTextStyle: Styles.custom18(context),
+                bodyTextStyle: Styles.custom18(context,fontColor: Colors.grey),
               ),
             ),
           ],
@@ -78,12 +78,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           showDoneButton: true,
           done: Text(
             'Done',
-            style: Styles.welcomeText(context),
+            style: Styles.custom20(context,fontColor: Styles.primaryColor,fontWeight: FontWeight.w400)
+
           ),
           showSkipButton: true,
           skip: Text(
             'Skip',
-            style: Styles.welcomeText(context),
+            style: Styles.custom20(context,fontColor: Styles.primaryColor,fontWeight: FontWeight.w400)
+           
           ),
           showNextButton: true,
           next: Icon(

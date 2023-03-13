@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tabibu/configs/routes.dart';
+import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/providers/auth_provider.dart';
 import 'package:tabibu/services/validators.dart';
 import 'package:tabibu/views/auths/auth_base.dart';
@@ -104,13 +105,10 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
                       color: Colors.white,
                     );
                   }
-                  return const Text(
+                  return Text(
                     "Change Password",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: Styles.custom25(context,
+                        fontColor: Colors.white, fontWeight: FontWeight.w500),
                   );
                 },
               ),

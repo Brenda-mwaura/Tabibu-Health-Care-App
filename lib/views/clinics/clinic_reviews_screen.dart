@@ -63,7 +63,9 @@ class _ClinicReviewsScreenState extends State<ClinicReviewsScreen>
                       child: Center(
                         child: Text(
                           widget.clinic.clinicName.toString(),
-                          style: Styles.heading2(context),
+                          style: Styles.heading1(context,
+                                  fontColor: Colors.white,
+                                  fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),

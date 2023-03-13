@@ -161,27 +161,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
               children: [
                 Row(
                   children: [
-                    const Flexible(
+                    Flexible(
                       child: Text(
                         "By sign up, you accept to our ",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: Styles.small(context,
+                            fontColor: Colors.black,
+                            fontWeight: FontWeight.w700),
                       ),
                     ),
                     Flexible(
                       // flex: text2.length,
                       child: InkWell(
                         onTap: () {},
-                        child: const Text(
+                        child: Text(
                           "Terms & Conditions",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Styles.primaryColor,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: Styles.small(context,
+                              fontColor: Styles.primaryColor,
+                              fontWeight: FontWeight.w700),
                         ),
                       ),
                     ),
@@ -189,23 +185,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 Row(
                   children: [
-                    const Text(
+                    Text(
                       "and ",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: Styles.small(context,
+                          fontColor: Colors.black,
+                          fontWeight: FontWeight.w700),
                     ),
                     InkWell(
                       onTap: () {},
-                      child: const Text(
+                      child: Text(
                         "Privacy Policy",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Styles.primaryColor,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: Styles.small(context,
+                            fontColor: Styles.primaryColor,
+                            fontWeight: FontWeight.w700),
                       ),
                     ),
                   ],
@@ -224,13 +216,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         color: Colors.white,
                       );
                     } else {
-                      return const Text(
-                        "Sign Up",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w500,
-                        ),
+                      return Text(
+                        "Sign up",
+                        style: Styles.custom25(context,
+                            fontColor: Colors.white,
+                            fontWeight: FontWeight.w500),
                       );
                     }
                   },
@@ -242,22 +232,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
                     "Already have an account? ",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 13,
-                      color: Color.fromARGB(255, 154, 154, 154),
-                    ),
+                    style: Styles.small(context,
+                        fontColor: const Color.fromARGB(255, 154, 154, 154),
+                        fontWeight: FontWeight.w700),
                   ),
                   Text(
                     "Login",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 14,
-                      color: Styles.primaryColor,
-                    ),
+                    style: Styles.custom18(context,
+                        fontColor: Styles.primaryColor,
+                        fontWeight: FontWeight.w700),
                   ),
                 ],
               ),

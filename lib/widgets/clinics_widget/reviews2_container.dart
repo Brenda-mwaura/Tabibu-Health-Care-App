@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:tabibu/configs/styles.dart';
 import 'package:tabibu/data/models/clinic_review_model.dart';
 
 class Reviews2Container extends StatelessWidget {
@@ -49,28 +50,20 @@ class Reviews2Container extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    review.patient!.user!.fullName.toString(),
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  Text(review.patient!.user!.fullName.toString(),
+                      style:
+                          Styles.normal(context, fontWeight: FontWeight.w700)),
                   const SizedBox(
                     height: 5,
                   ),
                   Text(
-                    DateFormat('dd-MM-yyyy')
-                        .format(DateTime.parse(
-                          review.createdAt.toString(),
-                        ))
-                        .toString(),
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey,
-                    ),
-                  ),
+                      DateFormat('dd-MM-yyyy')
+                          .format(DateTime.parse(
+                            review.createdAt.toString(),
+                          ))
+                          .toString(),
+                      style: Styles.custom18(context,
+                          fontColor: Colors.grey, fontWeight: FontWeight.w500)),
                 ],
               ),
               const Spacer(),
@@ -79,13 +72,8 @@ class Reviews2Container extends StatelessWidget {
                 color: Colors.orange,
                 size: MediaQuery.of(context).size.width * 0.05,
               ),
-              Text(
-                review.rating.toString(),
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              Text(review.rating.toString(),
+                  style: Styles.custom18(context, fontWeight: FontWeight.w700)),
             ],
           ),
           const SizedBox(
@@ -93,8 +81,8 @@ class Reviews2Container extends StatelessWidget {
           ),
           Text(
             review.comment.toString(),
-            style: const TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w500, color: Colors.grey),
+            style: Styles.custom18(context,
+                fontColor: Colors.grey, fontWeight: FontWeight.w500),
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),

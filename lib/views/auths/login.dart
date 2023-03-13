@@ -105,14 +105,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 Navigator.of(context)
                     .pushNamed(RouteGenerator.forgotPasswordPage);
               },
-              child: const Text(
+              child: Text(
                 "Forgot Password?",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Styles.primaryColor,
-                  // Color.fromARGB(255, 20, 106, 218),
-                  fontWeight: FontWeight.w700,
-                ),
+                style: Styles.small(context,
+                    fontColor: Styles.primaryColor,
+                    fontWeight: FontWeight.w700),
               ),
             ),
             const SizedBox(
@@ -127,13 +124,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: Colors.white,
                       );
                     }
-                    return const Text(
+                    return Text(
                       "Sign in",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: Styles.custom25(context,
+                          fontColor: Colors.white, fontWeight: FontWeight.w500),
                     );
                   },
                 )),
@@ -144,32 +138,34 @@ class _LoginScreenState extends State<LoginScreen> {
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
                     "Don't have an account? ",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 13,
-                      color: Color.fromARGB(255, 154, 154, 154),
-                    ),
+                    style: Styles.small(context,
+                        fontColor: const Color.fromARGB(255, 154, 154, 154),
+                        fontWeight: FontWeight.w700),
                   ),
                   Text(
-                    "Sign Up",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 14,
-                      color: Styles.primaryColor,
-                    ),
+                    "Sign up",
+                    style: Styles.custom18(context,
+                        fontColor: Styles.primaryColor,
+                        fontWeight: FontWeight.w700),
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 20),
             Row(
-              children: const [
-                Expanded(child: Divider()),
-                Text(" OR "),
-                Expanded(child: Divider()),
+              children: [
+                const Expanded(child: Divider()),
+                Text(
+                  " OR ",
+                  style: Styles.small(
+                    context,
+                    fontColor: Colors.black,
+                  ),
+                ),
+                const Expanded(child: Divider()),
               ],
             ),
             const SizedBox(height: 20),
@@ -208,14 +204,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         width: 8,
                       ),
-                      const Text(
-                        "Sign in with Google",
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 72, 72, 72),
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      Text("Sign in with Google",
+                          style: Styles.custom25(context,
+                              fontColor: const Color.fromARGB(255, 72, 72, 72),
+                              fontWeight: FontWeight.w700)
+
+                          // TextStyle(
+                          //   color: Color.fromARGB(255, 72, 72, 72),
+                          //   fontSize: 20,
+                          //   fontWeight: FontWeight.bold,
+                          // ),
+                          ),
                       const SizedBox(
                         width: 10,
                       ),

@@ -80,7 +80,7 @@ class _MapScreenState extends State<MapScreen> {
               icon: pinLocationIcon,
               infoWindow: InfoWindow(
                 title: e.clinicName,
-                snippet: e.rating.toString(),
+                snippet: e.rating!.toStringAsFixed(1),
               ),
               onTap: () async {},
             ),

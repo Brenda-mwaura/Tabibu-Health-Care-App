@@ -40,16 +40,16 @@ class _SplashScreenState extends State<SplashScreen> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       bool? seen = prefs.getBool('seen');
 
-      // if (seen == null || seen == false) {
-      //   Navigator.of(context).pushNamed(RouteGenerator.welcomePage);
-      // } else {
+      if (seen == null || seen == false) {
+        Navigator.of(context).pushNamed(RouteGenerator.welcomePage);
+      } else {
 
       if (db.loginAllDetailsBox!.length > 0) {
         Navigator.of(context).pushNamed(RouteGenerator.homeBasePage);
       } else {
         Navigator.of(context).pushNamed(RouteGenerator.loginPage);
       }
-      // }
+      }
     });
   }
 }

@@ -25,10 +25,7 @@ class AuthBase extends StatelessWidget {
       body: SafeArea(
         child: DoubleBack(
           message: "Press back again to exit",
-          textStyle: const TextStyle(
-            fontSize: 13,
-            color: Colors.white,
-          ),
+          textStyle: Styles.small(context, fontColor: Colors.white),
           background: Styles.primaryColor,
           backgroundRadius: 30,
           child: Container(
@@ -80,24 +77,18 @@ class AuthBase extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                Text(
-                  title!,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                  ),
-                ),
+                Text(title!,
+                    style:
+                        Styles.heading1(context, fontWeight: FontWeight.bold)),
                 const SizedBox(
                   height: 7,
                 ),
-                Text(
-                  subtitle!,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 15,
-                    color: Color.fromARGB(255, 154, 154, 154),
-                  ),
-                ),
+                Text(subtitle!,
+                    style: Styles.custom18(
+                      context,
+                      fontWeight: FontWeight.w700,
+                      fontColor: const Color.fromARGB(255, 154, 154, 154),
+                    )),
                 const SizedBox(
                   height: 20,
                 ),
