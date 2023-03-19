@@ -208,12 +208,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: Styles.custom25(context,
                               fontColor: const Color.fromARGB(255, 72, 72, 72),
                               fontWeight: FontWeight.w700)
-
-                          // TextStyle(
-                          //   color: Color.fromARGB(255, 72, 72, 72),
-                          //   fontSize: 20,
-                          //   fontWeight: FontWeight.bold,
-                          // ),
                           ),
                       const SizedBox(
                         width: 10,

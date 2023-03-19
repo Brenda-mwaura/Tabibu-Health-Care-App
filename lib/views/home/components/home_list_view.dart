@@ -92,9 +92,9 @@ class _HomePageListViewState extends State<HomePageListView> {
                   children: [
                     IgnorePointer(
                       child: RatingBar.builder(
-                        initialRating: 3,
+                        initialRating: 0,
                         minRating: 1,
-                        unratedColor: Colors.grey,
+                        unratedColor: Styles.primaryColor,
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
@@ -104,7 +104,7 @@ class _HomePageListViewState extends State<HomePageListView> {
                           index >= widget.clinicRating!.toInt()
                               ? Icons.star_border_outlined
                               : Icons.star,
-                          color: Colors.amber,
+                          color: Styles.primaryColor,
                         ),
                         maxRating: 5,
                         onRatingUpdate: (double value) {},
@@ -113,7 +113,14 @@ class _HomePageListViewState extends State<HomePageListView> {
                     const SizedBox(
                       width: 10,
                     ),
-                    
+                    Text(
+                      widget.clinicRating!.toStringAsFixed(0),
+                      style: Styles.small(
+                        context,
+                        fontColor: Styles.primaryColor,
+                        fontWeight: FontWeight.w400
+                      ),
+                    )
                   ],
                 ),
               ],

@@ -77,19 +77,19 @@ class DataSearch extends SearchDelegate<String> {
             title: RichText(
               text: TextSpan(
                 text: clinic.clinicName.toString(),
-                style: const TextStyle(
-                  color: Colors.black,
+                style: Styles.custom18(
+                  context,
                   fontWeight: FontWeight.w700,
-                  fontSize: 17,
+                  fontColor: Colors.black,
                 ),
               ),
             ),
             subtitle: RichText(
               text: TextSpan(
                 text: clinic.address.toString(),
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 14,
+                style: Styles.small(
+                  context,
+                  fontColor: Colors.grey,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -115,14 +115,14 @@ class DataSearch extends SearchDelegate<String> {
         Clinic clinic = suggestionList[index];
         return ListTile(
           onTap: () {
-             Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ClinicDetailsScreen(
-                    clinic: suggestionList[index],
-                  ),
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ClinicDetailsScreen(
+                  clinic: suggestionList[index],
                 ),
-              );
+              ),
+            );
           },
           leading: Padding(
             padding: const EdgeInsets.symmetric(vertical: 2),
@@ -144,10 +144,10 @@ class DataSearch extends SearchDelegate<String> {
             text: TextSpan(
               text: suggestionList[index].clinicName,
               // !.substring(query.length),
-              style: const TextStyle(
-                color: Colors.black,
+              style: Styles.custom18(
+                context,
                 fontWeight: FontWeight.w700,
-                fontSize: 17,
+                fontColor: Colors.black,
               ),
             ),
           ),
@@ -155,9 +155,9 @@ class DataSearch extends SearchDelegate<String> {
             text: TextSpan(
               text: suggestionList[index].address,
               // !.substring(query.length),
-              style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 14,
+              style: Styles.small(
+                context,
+                fontColor: Colors.grey,
                 fontWeight: FontWeight.w500,
               ),
             ),
