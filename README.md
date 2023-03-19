@@ -18,10 +18,11 @@ In light of these challenges, there is an urgent need to find innovative solutio
 
 ## Problem
 
-
+- Patients in Kenya face multiple challenges when seeking medical care, including long queues and limited access to quality medical services at public hospitals, lack of access to medical records, and limited awareness of small clinics in their localities. These problems lead to delays in treatment, misdiagnosis, and potential loss of life, as well as added costs and inconvenience for patients who must travel long distances to receive medical care. 
+- Furthermore, clinics struggle to attract patients, with many closing each year due to lack of demand. 
 
 ## Solution
-
+- To address these challenges, our project aims to provide patients with a user-friendly platform to locate nearby clinics, access their medical records, and book appointments with ease.
 
 ## SDGs
 
