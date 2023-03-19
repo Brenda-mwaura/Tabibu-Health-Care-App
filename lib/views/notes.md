@@ -19,8 +19,8 @@
 
 - [ ] Documentation
 - [ ] Video
-- [ ] Fixing the star ratings
+- [x] Fixing the star ratings
 - [ ] Fixing Google Sign
 - [ ] Ratings Pop up
 - [ ] Notifications screen
-- [ ] Responsiveness
+- [x] Responsiveness
