@@ -188,8 +188,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     Text(
                       "and ",
                       style: Styles.small(context,
-                          fontColor: Colors.black,
-                          fontWeight: FontWeight.w700),
+                          fontColor: Colors.black, fontWeight: FontWeight.w700),
                     ),
                     InkWell(
                       onTap: () {},
@@ -208,23 +207,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
               height: 20,
             ),
             AuthButton(
-                onPressed: registerSubmitFnc,
-                child: Consumer<AuthProvider>(
-                  builder: (context, value, child) {
-                    if (value.loadingSignUp == true) {
-                      return const AppSpinner(
-                        color: Colors.white,
-                      );
-                    } else {
-                      return Text(
-                        "Sign up",
-                        style: Styles.custom25(context,
-                            fontColor: Colors.white,
-                            fontWeight: FontWeight.w500),
-                      );
-                    }
-                  },
-                )),
+              onPressed: registerSubmitFnc,
+              child: Consumer<AuthProvider>(
+                builder: (context, value, child) {
+                  if (value.loadingSignUp == true) {
+                    return const AppSpinner(
+                      color: Colors.white,
+                    );
+                  } else {
+                    return Text(
+                      "Sign up",
+                      style: Styles.custom25(context,
+                          fontColor: Colors.white, fontWeight: FontWeight.w500),
+                    );
+                  }
+                },
+              ),
+            ),
             const SizedBox(height: 24),
             GestureDetector(
               onTap: () {
