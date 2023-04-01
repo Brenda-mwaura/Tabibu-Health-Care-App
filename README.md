@@ -52,16 +52,24 @@
 
 ### SDG 3: Good Health and Well-being
 
-- Our project is aligned with SDG 3, which aims to ensure healthy lives and promote well-being for all. Specifically, we are working towards Target 3.8 of SDG 3, which seeks to achieve universal health coverage, including financial risk protection, access to quality essential healthcare services, and access to safe, effective, quality, and affordable essential medicines and vaccines for all.
+- Tabibu Health Care is aligned with SDG 3, which aims to ensure healthy lives and promote well-being for all. Specifically, we are working towards Target 3.8 of SDG 3, which seeks to achieve universal health coverage, including financial risk protection, access to quality essential healthcare services, and access to safe, effective, quality, and affordable essential medicines and vaccines for all.
 - By utilizing technology, our project seeks to improve access to quality and affordable healthcare services in East Africa by 2030. Our platform enables users to access medical care conveniently and thus eliminating the need to queue. In addition, users will have the ability to compare the prices of medical services across different facilities, empowering them to make informed decisions about their healthcare options
 - Through our project, we hope to reduce financial barriers to healthcare and enable more people to access the medical care they need. By doing so, we believe we can contribute to improving health outcomes and promoting well-being for individuals and communities across the region.
   
 
 ### SDG 8: Decent Work and Economic Growth
 
-- Our project is aligned with SDG 8, which aims to promote sustained, inclusive, and sustainable economic growth, full and productive employment, and decent work for all. Specifically, we are working towards Target 8.3 of SDG 8, which seeks to promote development-oriented policies that support productive activities, decent job creation, entrepreneurship, creativity, and innovation, and encourage the formalization and growth of micro-, small-, and medium-sized enterprises.
+- Tabibu Health Care is committed to promoting sustainable and inclusive economic growth in our region, in alignment with SDG 8. Our goal is to support Target 8.3 of SDG 8 which focuses on the growth of micro-, small-, and medium-sized healthcare enterprises.
 
-- By leveraging technology, our project aims to stimulate economic growth in our region by 2030. Our app provides users with suggestions for the nearest clinics, helping small clinics to stay open by attracting more patients. This, in turn, will create more job opportunities and promote entrepreneurship and innovation within the healthcare industry.
+- Through the use of the Tabibu Health Care Flutter App, users can easily find the nearest healthcare clinics and facilities, thus helping to promote the formalization and growth of small businesses in the healthcare industry. By doing so, we hope to create more job opportunities and encourage entrepreneurship and innovation in the health sector of our region.
+
+### SDG 10: Reduced Inequalities
+
+- The Tabibu Health Care Project contributes to SDG 10 by leveraging technology to improve access to quality and affordable healthcare services in East Africa. Specifically, the project aims to empower and promote the social, economic, and political inclusion of all, irrespective of age, sex, disability, race, ethnicity, origin, religion, or economic or other status, as outlined in Target 10.2 of SDG 10.
+
+- Through the Tabibu Health Care Project's app, users can easily access suggestions of the nearest clinics around them, regardless of their location or socio-economic status. This feature helps to address economic inequalities in healthcare by enabling small clinics to reach more patients and avoid closing due to a lack of business. By improving access to healthcare services, the Tabibu Health Project aims to reduce inequalities in healthcare access and outcomes, thus promoting social and economic inclusion for all.
+
+- The Tabibu Health Project believes that providing equal access to healthcare services can create a more just and equitable society that benefits everyone. By contributing to SDG 10, the project is working towards a future where access to quality and affordable healthcare services is a universal right, not a privilege.
 
 
 ## Scalability
