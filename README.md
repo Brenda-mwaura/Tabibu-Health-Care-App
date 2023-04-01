@@ -27,10 +27,6 @@
 > - Clone the Flutter App using the command using the command `git clone https://github.com/qinyanjuidavid/Tabibu-Health-Care-App.git`
 > - Run the flutter app from Android Studio
 
-### App testing
-
-## Installation by cloning the project
-
 ## Introduction
 
 - Access to quality medical services is a fundamental right that every individual should have. However, in Kenya, there are several barriers that prevent patients from accessing the medical care they need. 
@@ -40,7 +36,7 @@
 - In addition, many patients are unaware of the small clinics around them and end up going to public hospitals, where the queues are long and waiting times can be deadly. In fact, according to a study by the Kenya National Bureau of Statistics, over 50% of patients who die while seeking medical services in public hospitals do so while waiting in line
 - Moreover, patients in Kenya face additional challenges due to the lack of access to their medical records. The current system used in hospitals is paper-based, and hospitals retain all patient records in a file. This makes it difficult for patients to transfer their medical records to other hospitals or clinics, and it can be a tedious process for hospitals to manage these records, leading to lost or misplaced files. Additionally, there are no public hospitals in rural areas, and many small clinics in these regions are unknown to patients. This forces patients to travel long distances to access medical services, which can be a burden for those with limited resources.
 - Lastly, many small clinics in Kenya close each year due to lack of patients. This is a significant concern for hospitals, clinics, and patients, as it can lead to a decrease in the availability of medical services in certain areas.
-In light of these challenges, there is an urgent need to find innovative solutions that can help patients access medical services more efficiently and effectively. 
+
 ## Problem
 
 - Patients in Kenya face multiple challenges when seeking medical care, including long queues and limited access to quality medical services at public hospitals, lack of access to medical records, and limited awareness of small clinics in their localities. These problems lead to delays in treatment, misdiagnosis, and potential loss of life, as well as added costs and inconvenience for patients who must travel long distances to receive medical care. 
@@ -54,6 +50,18 @@ In light of these challenges, there is an urgent need to find innovative solutio
 
 ## SDGs
 
+### SDG 3: Good Health and Well-being
+
+- Our project is aligned with SDG 3, which aims to ensure healthy lives and promote well-being for all. Specifically, we are working towards Target 3.8 of SDG 3, which seeks to achieve universal health coverage, including financial risk protection, access to quality essential healthcare services, and access to safe, effective, quality, and affordable essential medicines and vaccines for all.
+- By utilizing technology, our project seeks to improve access to quality and affordable healthcare services in East Africa by 2030. Our platform enables users to access medical care conveniently and thus eliminating the need to queue. In addition, users will have the ability to compare the prices of medical services across different facilities, empowering them to make informed decisions about their healthcare options
+- Through our project, we hope to reduce financial barriers to healthcare and enable more people to access the medical care they need. By doing so, we believe we can contribute to improving health outcomes and promoting well-being for individuals and communities across the region.
+  
+
+### SDG 8: Decent Work and Economic Growth
+
+- Our project is aligned with SDG 8, which aims to promote sustained, inclusive, and sustainable economic growth, full and productive employment, and decent work for all. Specifically, we are working towards Target 8.3 of SDG 8, which seeks to promote development-oriented policies that support productive activities, decent job creation, entrepreneurship, creativity, and innovation, and encourage the formalization and growth of micro-, small-, and medium-sized enterprises.
+
+- By leveraging technology, our project aims to stimulate economic growth in our region by 2030. Our app provides users with suggestions for the nearest clinics, helping small clinics to stay open by attracting more patients. This, in turn, will create more job opportunities and promote entrepreneurship and innovation within the healthcare industry.
 
 
 ## Scalability
