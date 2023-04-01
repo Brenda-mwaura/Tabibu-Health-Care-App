@@ -2,6 +2,27 @@
 
 ## Running the project
 
+### Backend
+
+- `git clone https://github.com/qinyanjuidavid/Tabibu-Health-Care-API.git`
+- `cd Tabibu-Health-Care-API`
+- `pip install virtualenv`
+- `python -m venv venv`
+- `.\venv\Scripts\activate`
+- `pip install -r requirements.txt`
+- `python manage.py collectstatic`
+- `python manage.py makemigrations`
+- `python manage.py migrate`
+- `python manage.py createsuperuser`
+- `python manage.py runserver 8000`
+-  http://127.0.0.1:8000/admin/
+
+### Flutter App
+
+- `git clone https://github.com/qinyanjuidavid/Tabibu-Health-Care-App.git`
+- `cd Tabibu-Health-Care-App`
+- `flutter clean`
+- `flutter rub`
 ### App testing
 
 ## Installation by cloning the project
