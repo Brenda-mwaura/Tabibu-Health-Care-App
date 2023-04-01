@@ -1,7 +1,10 @@
 # Tabibu Health Care
 
 ## Running the project
-- The Tabibu Health Project is divided into two, where we have the backend and the Flutter app. The backend is developed using Django Rest Framework and the android app is developed using Flutter. 
+
+- The Tabibu Health Project is a two-part project consisting of a backend developed using Django Rest Framework and an android app developed using Flutter.
+- We used Figma to design the Tabibu Health Project. You can access the design at the following link: [Tabibu Health Care](https://www.figma.com/file/wRCK56xCm8XkXLZuZK9oAx/Tabibu-Health-Care?node-id=0%3A1&t=kPS1F67DoLg29e2p-1)  
+- We will provide instructions for installing both the backend and Flutter app in the following section;
 
 > ### Backend
 >
