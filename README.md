@@ -1,28 +1,29 @@
 # Tabibu Health Care
 
 ## Running the project
+- The Tabibu Health Project is divided into two, where we have the backend and the Flutter app. The backend is developed using Django Rest Framework and the android app is developed using Flutter. 
 
-### Backend
+> ### Backend
+>
+> - Clone the backend using the command `git clone https://github.com/qinyanjuidavid/Tabibu-Health-Care-API.git`
+> - Change to the project directory using the command `cd Tabibu-Health-Care-API`
+> - Install virtualenv using the command `pip install virtualenv`
+> - Create a new virtual environment for the project using the command `python -m venv venv`
+> - Activate the virtual environment using the command `.\venv\Scripts\activate`
+> - Install the project's dependencies using the command `pip install -r requirements.txt`
+> - Collect the project's static files using the command `python manage.py collectstatic`
+> - Create database migrations using the command `python manage.py makemigrations`
+> - Apply the migrations to the database using the command `python manage.py migrate`
+> - Create a superuser account using the command `python manage.py createsuperuser`
+> - Run the project using the command `python manage.py runserver 8000`
+> - Access the Admin Dashboard at [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) using the credentials from the previous step
 
-- `git clone https://github.com/qinyanjuidavid/Tabibu-Health-Care-API.git`
-- `cd Tabibu-Health-Care-API`
-- `pip install virtualenv`
-- `python -m venv venv`
-- `.\venv\Scripts\activate`
-- `pip install -r requirements.txt`
-- `python manage.py collectstatic`
-- `python manage.py makemigrations`
-- `python manage.py migrate`
-- `python manage.py createsuperuser`
-- `python manage.py runserver 8000`
--  http://127.0.0.1:8000/admin/
+>### Flutter App
+>
+> - Install Android Studio
+> - Clone the Flutter App using the command using the command `git clone https://github.com/qinyanjuidavid/Tabibu-Health-Care-App.git`
+> - Run the flutter app from Android Studio
 
-### Flutter App
-
-- `git clone https://github.com/qinyanjuidavid/Tabibu-Health-Care-App.git`
-- `cd Tabibu-Health-Care-App`
-- `flutter clean`
-- `flutter rub`
 ### App testing
 
 ## Installation by cloning the project
