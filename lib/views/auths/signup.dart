@@ -40,7 +40,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               confirmPasswordTextEditingController.text)
           .then((value) {
         if (value != null) {
-          Navigator.of(context).pushNamed(RouteGenerator.activationOtpPage);
+          // Navigator.of(context).pushNamed(RouteGenerator.activationOtpPage);
+          Navigator.of(context).pushNamed(RouteGenerator.loginPage);
+          
           phoneNumberTextEditingController.text = "";
           emailTextEditingController.text = "";
           fullnameTextEditingController.text = "";

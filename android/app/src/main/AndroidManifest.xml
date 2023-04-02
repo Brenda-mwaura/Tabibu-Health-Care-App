@@ -9,7 +9,7 @@
    <application
         android:label="Tabibu"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon">
+        android:roundIcon="@mipmap/round_launcher">
         <activity
             android:name=".MainActivity"
             android:exported="true"
