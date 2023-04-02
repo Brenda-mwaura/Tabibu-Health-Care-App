@@ -85,5 +85,12 @@
 
 ## Technology
 
+- Tabibu Health Care is a comprehensive healthcare application that utilizes a range of cutting-edge technologies. To begin with, the design of the app was created using Figma, a popular interface design tool that allows for the creation of high-fidelity prototypes.
+
+- The app was developed for the Android platform using Flutter, a mobile app development framework that allows for the creation of high-quality native applications for both Android and iOS devices. Flutter was chosen for its ease of use, as well as its ability to deliver fast performance and beautiful UI design.
+
+- The API for Tabibu Health Care was developed using Django Rest Framework, a powerful and flexible toolkit for building Web APIs. This framework allowed for the efficient development of a secure and scalable API that can be used to manage patient data, medical records, and other important information.
+
+- Overall, Tabibu Health Care is a state-of-the-art application that leverages the latest technologies to provide users with a comprehensive healthcare solution. From the design and development to the API and backend, each component has been carefully chosen to ensure that the app delivers the best possible experience for both patients and medical professionals.
 
 ## Google Technology Overview
