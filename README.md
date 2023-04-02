@@ -81,6 +81,14 @@
 
 ## App Testing
 
+- To ensure that our solution meets the needs of real users, we took several steps to gather feedback and iterate on our design.
+- First, during the design phase, we consulted with medical students from other to get feedback on what features medical practitioners would expect from the app. One piece of feedback we received was the need for an admin panel that would allow medical practitioners to upload images, especially for cancer screening purposes.
+
+- Next, we created a dummy UI and gathered feedback from mentors on what features we should integrate. Some of the feedback we received included the ability for patients to get suggestions on the nearest medical facilities and to compare prices of medical services before booking an appointment.
+
+- Finally, we tested the app with real data by showing it to clinical officers at the Taita Taveta university health unit. Although we faced a challenge since our backend was not hosted, we were still able to show them the flow of the app using an emulator. The clinical officers found the app easy to use and expressed interest in starting to use it, as they currently use paper files to record patient information, which can quickly become cumbersome.
+
+- Based on the feedback we received from users, we integrated features that allow patients to find nearby medical facilities and compare prices of medical services. 
 
 ## Technology
 
