@@ -94,3 +94,18 @@
 - Overall, Tabibu Health Care is a state-of-the-art application that leverages the latest technologies to provide users with a comprehensive healthcare solution. From the design and development to the API and backend, each component has been carefully chosen to ensure that the app delivers the best possible experience for both patients and medical professionals.
 
 ## Google Technology Overview
+### Firebase Auth
+- Tabibu Health Care is a project that utilizes Firebase Auth to enable user registration and login. With Firebase Auth, users can register and sign in using their Google account, making the process quick and convenient. This allows users to easily register and access the app's features, streamlining their experience.
+- The following dependancies were used in `pubspec.yaml`;
+```
+ firebase_core: ^2.4.0
+ firebase_auth: ^4.2.1
+ google_sign_in: ^5.4.2
+```
+
+<p float="left">
+<img src="https://user-images.githubusercontent.com/49823575/229349416-fda81b53-8515-4675-9792-dc61bde6572c.png" data-canonical-src="https://user-images.githubusercontent.com/49823575/229349416-fda81b53-8515-4675-9792-dc61bde6572c.png" width="330" height="450">
+<img src="https://user-images.githubusercontent.com/49823575/229349723-9165534f-7a4a-47b5-8b0e-2118d3c58f6e.png" data-canonical-src="https://user-images.githubusercontent.com/49823575/229349723-9165534f-7a4a-47b5-8b0e-2118d3c58f6e.png" width="330" height="450"></p>
+
+
+
