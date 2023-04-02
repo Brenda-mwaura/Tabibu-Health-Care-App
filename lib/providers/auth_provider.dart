@@ -88,7 +88,8 @@ class AuthProvider extends ChangeNotifier {
 
   void _signUpToast() {
     Fluttertoast.showToast(
-      msg: "Sign up successful, Enter the OTP sent to your phone.",
+      msg: "Sign up successful, you can now login.",
+      // "Sign up successful, Enter the OTP sent to your phone.",
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 4,

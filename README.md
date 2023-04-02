@@ -74,6 +74,11 @@
 
 ## Scalability
 
+- The Tabibu Health Care app is an app with endless possibilities. Our plan is to develop a Javascript-based frontend that will enable medical practitioners, including doctors, nurses, receptionists, lab technicians, and pharmacists, to manage their clinic's information efficiently. With this app, we will be able to collect a wide range of information, including images of diseases and treatments used, which we will use to train a machine learning model. This model will help predict diseases that patients may suffer from and recommend better treatments.
+
+- We also intend to enable users to use their National Health Insurances to pay for medical services, but this will require a collaborative effort between insurance companies and the Tabibu Health Care team since most insurance companies in Kenya do not currently allow users to use their insurance in small clinics.
+
+- Our ultimate goal is to scale Tabibu Health Care to become the default platform used by all medical facilities in East Africa. By doing so, we hope to revolutionize the healthcare industry in the region and make quality healthcare accessible to everyone.
 
 ## App Testing
 
