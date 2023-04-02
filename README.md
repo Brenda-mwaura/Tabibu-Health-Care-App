@@ -102,6 +102,13 @@
  firebase_auth: ^4.2.1
  google_sign_in: ^5.4.2
 ```
+### Google Cloud
+- we leveraged Google Cloud to create the Google Maps API, which we integrated into our application. By utilizing this API, we were able to implement Google Maps within our app, allowing users to easily locate clinics on a map. 
+- The following dependancy was used in the `pubspec.yaml`
+`google_maps_flutter: ^2.2.1`
+- This implementation was done in our `AndroidManifest.xml`
+`<meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="OUR-API-KEY"/>`
 
 <p float="left">
 <img src="https://user-images.githubusercontent.com/49823575/229349416-fda81b53-8515-4675-9792-dc61bde6572c.png" data-canonical-src="https://user-images.githubusercontent.com/49823575/229349416-fda81b53-8515-4675-9792-dc61bde6572c.png" width="330" height="450">
