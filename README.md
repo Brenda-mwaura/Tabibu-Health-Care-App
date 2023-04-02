@@ -109,6 +109,11 @@
  firebase_auth: ^4.2.1
  google_sign_in: ^5.4.2
 ```
+
+<p float="left">
+<img src="https://user-images.githubusercontent.com/49823575/229349416-fda81b53-8515-4675-9792-dc61bde6572c.png" data-canonical-src="https://user-images.githubusercontent.com/49823575/229349416-fda81b53-8515-4675-9792-dc61bde6572c.png" width="330" height="450">
+<img src="https://user-images.githubusercontent.com/49823575/229349723-9165534f-7a4a-47b5-8b0e-2118d3c58f6e.png" data-canonical-src="https://user-images.githubusercontent.com/49823575/229349723-9165534f-7a4a-47b5-8b0e-2118d3c58f6e.png" width="330" height="450"></p>
+
 ### Google Cloud
 - we leveraged Google Cloud to create the Google Maps API, which we integrated into our application. By utilizing this API, we were able to implement Google Maps within our app, allowing users to easily locate clinics on a map. 
 - The following dependancy was used in the `pubspec.yaml`
@@ -116,10 +121,6 @@
 - This implementation was done in our `AndroidManifest.xml`
 `<meta-data android:name="com.google.android.geo.API_KEY"
                android:value="OUR-API-KEY"/>`
-
-<p float="left">
-<img src="https://user-images.githubusercontent.com/49823575/229349416-fda81b53-8515-4675-9792-dc61bde6572c.png" data-canonical-src="https://user-images.githubusercontent.com/49823575/229349416-fda81b53-8515-4675-9792-dc61bde6572c.png" width="330" height="450">
-<img src="https://user-images.githubusercontent.com/49823575/229349723-9165534f-7a4a-47b5-8b0e-2118d3c58f6e.png" data-canonical-src="https://user-images.githubusercontent.com/49823575/229349723-9165534f-7a4a-47b5-8b0e-2118d3c58f6e.png" width="330" height="450"></p>
 
 ### Flutter
 - We used Flutter framework and other flutter libraries to develop the overral android app for the Tabibu Health Care.
