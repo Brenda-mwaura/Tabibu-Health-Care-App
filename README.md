@@ -6,26 +6,25 @@
 - We used Figma to design the Tabibu Health Project. You can access the design at the following link: [Tabibu Health Care](https://www.figma.com/file/wRCK56xCm8XkXLZuZK9oAx/Tabibu-Health-Care?node-id=0%3A1&t=kPS1F67DoLg29e2p-1)  
 - We will provide instructions for installing both the backend and Flutter app in the following section;
 
-> ### Backend
->
-> - Clone the backend using the command `git clone https://github.com/qinyanjuidavid/Tabibu-Health-Care-API.git`
-> - Change to the project directory using the command `cd Tabibu-Health-Care-API`
-> - Install virtualenv using the command `pip install virtualenv`
-> - Create a new virtual environment for the project using the command `python -m venv venv`
-> - Activate the virtual environment using the command `.\venv\Scripts\activate`
-> - Install the project's dependencies using the command `pip install -r requirements.txt`
-> - Collect the project's static files using the command `python manage.py collectstatic`
-> - Create database migrations using the command `python manage.py makemigrations`
-> - Apply the migrations to the database using the command `python manage.py migrate`
-> - Create a superuser account using the command `python manage.py createsuperuser`
-> - Run the project using the command `python manage.py runserver 8000`
-> - Access the Admin Dashboard at [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) using the credentials from the previous step
+### Backend
+  - Clone the backend using the command `git clone https://github.com/qinyanjuidavid/Tabibu-Health-Care-API.git`
+  - Change to the project directory using the command `cd Tabibu-Health-Care-API`
+  - Install virtualenv using the command `pip install virtualenv`
+  - Create a new virtual environment for the project using the command `python -m venv venv`
+  - Activate the virtual environment using the command `.\venv\Scripts\activate`
+  - Install the project's dependencies using the command `pip install -r requirements.txt`
+  - Collect the project's static files using the command `python manage.py collectstatic`
+  - Create database migrations using the command `python manage.py makemigrations`
+  - Apply the migrations to the database using the command `python manage.py migrate`
+  - Create a superuser account using the command `python manage.py createsuperuser`
+ - Run the project using the command `python manage.py runserver 8000`
+ - Access the Admin Dashboard at [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) using the credentials from the previous step
 
->### Flutter App
->
-> - Install Android Studio
-> - Clone the Flutter App using the command using the command `git clone https://github.com/qinyanjuidavid/Tabibu-Health-Care-App.git`
-> - Run the flutter app from Android Studio
+### Flutter App
+
+  - Install Android Studio
+  - Clone the Flutter App using the command using the command `git clone https://github.com/qinyanjuidavid/Tabibu-Health-Care-App.git`
+  - Run the flutter app from Android Studio
 
 ## Introduction
 
