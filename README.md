@@ -114,5 +114,13 @@
 <img src="https://user-images.githubusercontent.com/49823575/229349416-fda81b53-8515-4675-9792-dc61bde6572c.png" data-canonical-src="https://user-images.githubusercontent.com/49823575/229349416-fda81b53-8515-4675-9792-dc61bde6572c.png" width="330" height="450">
 <img src="https://user-images.githubusercontent.com/49823575/229349723-9165534f-7a4a-47b5-8b0e-2118d3c58f6e.png" data-canonical-src="https://user-images.githubusercontent.com/49823575/229349723-9165534f-7a4a-47b5-8b0e-2118d3c58f6e.png" width="330" height="450"></p>
 
+### Flutter
+- We used Flutter framework and other flutter libraries to develop the overral android app for the Tabibu Health Care.
+- We used the below versions of Dart and Flutter;
+```
+Flutter 3.7.7
+Dart 2.19.4
+```
+
 
 
